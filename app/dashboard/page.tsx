@@ -2,7 +2,7 @@
 
 import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { KpiCard } from "@/components/dashboard/kpi-card";
-import { WorkflowModule } from "@/components/dashboard/workflow-module";
+import { StockSectionDropdown } from "@/components/dashboard/stock-section-dropdown";
 import { RevenueChart } from "@/components/dashboard/revenue-chart";
 import { SalesDonutChart } from "@/components/dashboard/sales-donut-chart";
 import { ProductionChart } from "@/components/dashboard/production-chart";
@@ -10,9 +10,10 @@ import { RecentTransactions } from "@/components/dashboard/recent-transactions";
 import { ActivityTimeline } from "@/components/dashboard/activity-timeline";
 import { StockAlerts } from "@/components/dashboard/stock-alerts";
 import { OrderStatsCard } from "@/components/dashboard/order-stats-card";
-import { kpiCards, workflowModules } from "@/lib/data";
+import { kpiCards } from "@/lib/data";
 import { motion } from "framer-motion";
-import { ArrowRight, Package2, RefreshCw } from "lucide-react";
+import { ArrowRight, Map, RefreshCw } from "lucide-react";
+import Link from "next/link";
 
 export default function DashboardPage() {
   return (
@@ -34,11 +35,8 @@ export default function DashboardPage() {
         >
           <div>
             <h2 className="text-xl font-bold text-foreground">
-              Good afternoon, Rajesh 👋
+              Good afternoon, User 👋
             </h2>
-            <p className="text-sm text-muted-foreground mt-0.5">
-              Here's what's happening at XYZ Manufacturing today.
-            </p>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -48,6 +46,14 @@ export default function DashboardPage() {
               <RefreshCw size={13} />
               Refresh
             </button>
+{/* <Link
+              href="/sitemap"
+              id="sitemap-link"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium border border-white/10 text-muted-foreground hover:text-foreground hover:border-white/20 hover:bg-white/5 transition-all"
+            >
+              <Map size={13} />
+              Sitemap
+            </Link> */}
             <button
               id="export-report"
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 hover:bg-cyan-400/20 transition-all"
@@ -58,7 +64,7 @@ export default function DashboardPage() {
           </div>
         </motion.div>
 
-        {/* KPI Cards — To Do / Total Orders / Balance / Revenue */}
+        {/* KPI Cards */}
         <section id="kpi-section" aria-label="Key Performance Indicators">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {kpiCards.map((card, index) => (
@@ -71,24 +77,14 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        {/* Workflow Modules — Stock / Purchase / Sales / Copper */}
-        <section id="workflow-section" aria-label="Manufacturing Workflow">
+        {/* Stock Section Wise — Dropdown with Copper & Steel */}
+        <section id="stock-section" aria-label="Stock Section Wise">
           <div className="flex items-center gap-2 mb-4">
-            <Package2 size={16} className="text-muted-foreground" />
             <h3 className="text-sm font-semibold text-foreground">Manufacturing Workflow</h3>
             <div className="flex-1 h-px bg-white/5" />
-            <span className="text-xs text-muted-foreground">Stock → Purchase → Sales / Copper</span>
+            <span className="text-xs text-muted-foreground">Stock → Material Details</span>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {workflowModules.map((module, index) => (
-              <WorkflowModule
-                key={module.id}
-                {...module}
-                index={index}
-              />
-            ))}
-          </div>
+          <StockSectionDropdown index={0} />
         </section>
 
         {/* Charts Row 1 — Revenue chart (wide) + Sales donut */}
@@ -99,7 +95,7 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        {/* Charts Row 2 — Recent Transactions (wide) + Production + Order Stats */}
+        {/* Charts Row 2 — Recent Transactions + Production + Order Stats */}
         <section id="data-section" aria-label="Transactions and Statistics">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <RecentTransactions />
@@ -122,3 +118,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

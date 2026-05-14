@@ -228,3 +228,291 @@
 .status-online {
   animation: status-pulse 2s ease-in-out infinite;
 }
+
+/* ─── Login Page ─────────────────────────────────────────────────── */
+.login-root {
+  min-height: 100vh;
+  min-height: 100dvh; /* dynamic viewport height for mobile browsers */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--background));
+  position: relative;
+  overflow: hidden;
+  /* Safe-area insets for notched phones */
+  padding: max(1rem, env(safe-area-inset-top))
+           max(1rem, env(safe-area-inset-right))
+           max(1rem, env(safe-area-inset-bottom))
+           max(1rem, env(safe-area-inset-left));
+}
+
+/* Background orbs — scaled down on small screens */
+.login-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+}
+.login-orb-1 {
+  width: min(420px, 80vw);
+  height: min(420px, 80vw);
+  background: radial-gradient(circle, rgba(34,211,238,0.12) 0%, transparent 70%);
+  top: -15%;
+  left: -10%;
+}
+.login-orb-2 {
+  width: min(360px, 70vw);
+  height: min(360px, 70vw);
+  background: radial-gradient(circle, rgba(59,130,246,0.10) 0%, transparent 70%);
+  bottom: -12%;
+  right: -8%;
+}
+.login-orb-3 {
+  width: min(240px, 50vw);
+  height: min(240px, 50vw);
+  background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
+  top: 40%;
+  right: 10%;
+}
+
+/* Grid overlay */
+.login-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(34,211,238,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* Card — fluid width, no overflow on very small screens */
+.login-card {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 1.5rem;
+  padding: clamp(1.5rem, 6vw, 2.5rem) clamp(1.25rem, 5vw, 2rem);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 24px 56px rgba(0,0,0,0.45);
+}
+
+/* Brand area */
+.login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: clamp(1.25rem, 5vw, 2rem);
+  text-align: center;
+}
+.login-logo {
+  width: clamp(44px, 12vw, 52px);
+  height: clamp(44px, 12vw, 52px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(34,211,238,0.15), rgba(59,130,246,0.15));
+  border: 1px solid rgba(34,211,238,0.25);
+  border-radius: 14px;
+  margin-bottom: 0.4rem;
+  box-shadow: 0 0 24px rgba(34,211,238,0.1);
+}
+.login-title {
+  font-size: clamp(1.05rem, 4vw, 1.25rem);
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.login-subtitle {
+  font-size: clamp(0.75rem, 3vw, 0.8rem);
+  color: hsl(var(--muted-foreground));
+  margin: 0;
+}
+
+/* Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Field */
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.login-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  letter-spacing: 0.01em;
+}
+
+/* Input wrapper */
+.login-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.login-input-icon {
+  position: absolute;
+  left: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  pointer-events: none;
+  flex-shrink: 0;
+}
+.login-input {
+  width: 100%;
+  /* Min 48px height for comfortable tap targets on mobile */
+  height: clamp(48px, 12vw, 48px);
+  padding: 0 0.875rem 0 2.6rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.75rem;
+  color: hsl(var(--foreground));
+  /* 16px minimum prevents iOS Safari from zooming on focus */
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  /* Prevent tap-highlight flash on Android */
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.login-input::placeholder {
+  color: hsl(var(--muted-foreground));
+  opacity: 0.6;
+}
+.login-input:focus {
+  border-color: rgba(34,211,238,0.5);
+  background: rgba(34,211,238,0.04);
+  box-shadow: 0 0 0 3px rgba(34,211,238,0.08);
+}
+.login-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.login-input-pw {
+  padding-right: 3rem;
+}
+
+/* Eye toggle — larger hit area on mobile */
+.login-eye-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: hsl(var(--muted-foreground));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.15s;
+}
+.login-eye-btn:hover {
+  color: hsl(var(--foreground));
+}
+
+/* Error */
+.login-error {
+  font-size: 0.78rem;
+  color: hsl(var(--destructive));
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 0.5rem;
+  line-height: 1.4;
+}
+
+/* Button — 52px tall for easy tapping */
+.login-btn {
+  margin-top: 0.5rem;
+  height: 52px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #22d3ee, #3b82f6);
+  border: none;
+  border-radius: 0.9rem;
+  color: #fff;
+  font-size: clamp(0.875rem, 3.5vw, 0.9rem);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(34,211,238,0.25);
+  /* Prevent accidental text selection on double tap */
+  user-select: none;
+}
+.login-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(34,211,238,0.35);
+}
+.login-btn:active:not(:disabled) {
+  transform: translateY(0);
+  opacity: 0.85;
+}
+.login-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+.login-spinner {
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Responsive tweaks ─────────────────────────────────── */
+
+/* Very small phones (≤ 360px) */
+@media (max-width: 360px) {
+  .login-card {
+    border-radius: 1rem;
+    padding: 1.25rem 1rem;
+  }
+  .login-orb-3 {
+    display: none;
+  }
+}
+
+/* Landscape mobile — restrict card height, allow scroll */
+@media (max-height: 600px) and (orientation: landscape) {
+  .login-root {
+    align-items: flex-start;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .login-brand {
+    flex-direction: row;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  .login-logo {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  .login-brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+}
+
