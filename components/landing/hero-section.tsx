@@ -138,7 +138,7 @@ export function HeroSection() {
                 </div>
                 <div className="flex-1 text-center">
                   <span className="text-[11px] text-muted-foreground font-mono bg-white/5 border border-white/10 rounded-full px-4 py-0.5">
-                    xyz-manufacturing.app/dashboard
+                    sap-manufacturing.app/dashboard
                   </span>
                 </div>
               </div>

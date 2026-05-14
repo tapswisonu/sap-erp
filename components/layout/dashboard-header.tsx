@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Bell, Search, Settings, ChevronDown } from "lucide-react";
+import { Bell, Search, Settings, ChevronDown, Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 
@@ -23,12 +23,21 @@ export function DashboardHeader({ title, subtitle }: DashboardHeaderProps) {
         "flex-shrink-0 sticky top-0 z-20"
       )}
     >
-      {/* Left: Title */}
-      <div>
-        <h1 className="text-lg font-bold text-foreground">{title}</h1>
-        {subtitle && (
-          <p className="text-xs text-muted-foreground">{subtitle}</p>
-        )}
+      {/* Left: Mobile Toggle & Title */}
+      <div className="flex items-center gap-3">
+        <button
+          className="md:hidden flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-foreground hover:bg-white/10 transition-colors"
+          onClick={() => window.dispatchEvent(new Event("toggle-mobile-sidebar"))}
+          aria-label="Toggle mobile menu"
+        >
+          <Menu size={18} />
+        </button>
+        <div>
+          <h1 className="text-lg font-bold text-foreground">{title}</h1>
+          {subtitle && (
+            <p className="text-xs text-muted-foreground hidden sm:block">{subtitle}</p>
+          )}
+        </div>
       </div>
 
       {/* Right: Actions */}

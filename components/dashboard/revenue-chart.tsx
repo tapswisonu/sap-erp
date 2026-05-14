@@ -50,10 +50,10 @@ export function RevenueChart() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.3 }}
-      className="glass-card border border-white/8 rounded-2xl p-6 col-span-2"
+      className="glass-card border border-white/8 rounded-2xl p-6 lg:col-span-2"
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-400/10">
@@ -66,7 +66,7 @@ export function RevenueChart() {
           </p>
         </div>
 
-        <div className="flex items-center gap-4 text-xs">
+        <div className="flex flex-wrap items-center gap-4 text-xs ml-10 sm:ml-0">
           <div className="flex items-center gap-1.5">
             <div className="h-2.5 w-2.5 rounded-full bg-cyan-400" />
             <span className="text-muted-foreground">Revenue</span>

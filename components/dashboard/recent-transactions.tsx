@@ -41,7 +41,7 @@ export function RecentTransactions() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.4 }}
-      className="glass-card border border-white/8 rounded-2xl p-6 col-span-2"
+      className="glass-card border border-white/8 rounded-2xl p-6 lg:col-span-2"
     >
       <div className="flex items-center justify-between mb-6">
         <div>

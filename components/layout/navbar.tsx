@@ -44,7 +44,7 @@ export function Navbar() {
               <Factory size={18} className="text-white" />
             </div>
             <div>
-              <span className="text-sm font-bold text-foreground">XYZ</span>
+              <span className="text-sm font-bold text-foreground">sap</span>
               <span className="text-sm text-muted-foreground"> Manufacturing</span>
             </div>
           </Link>

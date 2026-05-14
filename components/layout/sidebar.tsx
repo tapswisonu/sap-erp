@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 
 const navItems = [
+  // ... (keeping existing navItems)
   {
     group: "Overview",
     items: [
@@ -57,21 +58,9 @@ const navItems = [
   },
 ];
 
-export function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
-  const pathname = usePathname();
-
+function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: boolean, pathname: string, setCollapsed: (val: boolean) => void }) {
   return (
-    <motion.aside
-      id="sidebar"
-      animate={{ width: collapsed ? 72 : 260 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className={cn(
-        "relative flex flex-col h-screen flex-shrink-0",
-        "glass-card border-r border-white/8",
-        "overflow-hidden"
-      )}
-    >
+    <>
       {/* Logo */}
       <div className="flex h-16 items-center px-4 border-b border-white/8 flex-shrink-0">
         <div className="flex items-center gap-3">
@@ -172,7 +161,7 @@ export function Sidebar() {
       </nav>
 
       {/* Bottom user section */}
-      <div className="border-t border-white/8 p-3">
+      <div className="border-t border-white/8 p-3 flex-shrink-0">
         <div
           className={cn(
             "flex items-center gap-3 rounded-xl p-2",
@@ -206,13 +195,13 @@ export function Sidebar() {
         </div>
       </div>
 
-      {/* Collapse toggle */}
+      {/* Collapse toggle (Desktop only) */}
       <button
         id="sidebar-toggle"
         onClick={() => setCollapsed(!collapsed)}
         className={cn(
-          "absolute -right-3.5 top-20 z-10",
-          "flex h-7 w-7 items-center justify-center rounded-full",
+          "hidden md:flex absolute -right-3.5 top-20 z-10",
+          "h-7 w-7 items-center justify-center rounded-full",
           "bg-slate-800 border border-white/10",
           "text-muted-foreground hover:text-foreground hover:border-cyan-400/30",
           "transition-all duration-200 shadow-lg"
@@ -221,6 +210,65 @@ export function Sidebar() {
       >
         {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
       </button>
-    </motion.aside>
+    </>
+  );
+}
+
+export function Sidebar() {
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleToggle = () => setMobileOpen((prev) => !prev);
+    window.addEventListener("toggle-mobile-sidebar", handleToggle);
+    return () => window.removeEventListener("toggle-mobile-sidebar", handleToggle);
+  }, []);
+
+  // Close mobile sidebar on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <motion.aside
+        id="sidebar-desktop"
+        animate={{ width: collapsed ? 72 : 260 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className={cn(
+          "relative hidden md:flex flex-col h-screen flex-shrink-0",
+          "glass-card border-r border-white/8",
+          "overflow-visible" // Make overflow visible so the toggle button isn't clipped
+        )}
+      >
+        <SidebarContent collapsed={collapsed} pathname={pathname} setCollapsed={setCollapsed} />
+      </motion.aside>
+
+      {/* Mobile Sidebar */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileOpen(false)}
+              className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
+            />
+            <motion.aside
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+              className="fixed top-0 left-0 z-50 flex flex-col h-screen w-[260px] glass-card border-r border-white/8 bg-background md:hidden"
+            >
+              <SidebarContent collapsed={false} pathname={pathname} setCollapsed={setCollapsed} />
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

@@ -138,9 +138,10 @@ export default function InventoryPage() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="glass-card border border-white/8 rounded-2xl overflow-hidden"
+          className="glass-card border border-white/8 rounded-2xl overflow-x-auto"
         >
-          {/* Header */}
+          <div className="min-w-[800px]">
+            {/* Header */}
           <div className="grid grid-cols-12 gap-4 px-6 py-3 border-b border-white/8 text-xs font-medium text-muted-foreground">
             <div className="col-span-4 flex items-center gap-1">
               Category <ArrowUpDown size={10} />
@@ -219,6 +220,7 @@ export default function InventoryPage() {
               </motion.div>
             );
           })}
+          </div>
         </motion.div>
       </main>
     </div>

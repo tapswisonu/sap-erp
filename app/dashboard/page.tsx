@@ -30,7 +30,7 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="flex items-center justify-between"
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
         >
           <div>
             <h2 className="text-xl font-bold text-foreground">
@@ -60,7 +60,7 @@ export default function DashboardPage() {
 
         {/* KPI Cards — To Do / Total Orders / Balance / Revenue */}
         <section id="kpi-section" aria-label="Key Performance Indicators">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {kpiCards.map((card, index) => (
               <KpiCard
                 key={card.id}
@@ -80,7 +80,7 @@ export default function DashboardPage() {
             <span className="text-xs text-muted-foreground">Stock → Purchase → Sales / Copper</span>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {workflowModules.map((module, index) => (
               <WorkflowModule
                 key={module.id}
