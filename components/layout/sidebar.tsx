@@ -7,52 +7,51 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
-  Package,
-  ShoppingBag,
-  BarChart3,
+  Database,
   Zap,
-  TrendingUp,
+  Warehouse,
+  Layers,
+  Truck,
+  ClipboardCheck,
+  CalendarRange,
   FileText,
+  BarChart3,
   Settings,
   Users,
-  Bell,
   ChevronLeft,
   ChevronRight,
   Factory,
-  Activity,
-  Boxes,
 } from "lucide-react";
 
 const navItems = [
-  // ... (keeping existing navItems)
   {
-    group: "Overview",
+    group: "Main",
     items: [
       { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, id: "nav-dashboard" },
-      { href: "/dashboard/analytics", label: "Analytics", icon: Activity, id: "nav-analytics" },
+      { href: "/dashboard/data", label: "Data", icon: Database, id: "nav-data" },
     ],
   },
   {
-    group: "Manufacturing",
+    group: "Materials",
     items: [
-      { href: "/dashboard/inventory", label: "Inventory", icon: Boxes, id: "nav-inventory" },
-      { href: "/dashboard/stock", label: "Stock", icon: Package, id: "nav-stock" },
-      { href: "/dashboard/purchase", label: "Purchase", icon: ShoppingBag, id: "nav-purchase" },
-      { href: "/dashboard/sales", label: "Sales", icon: BarChart3, id: "nav-sales" },
-      { href: "/dashboard/copper", label: "Copper", icon: Zap, id: "nav-copper" },
+      { href: "/dashboard/copper-details", label: "Copper Details", icon: Zap, id: "nav-copper-details" },
+      { href: "/dashboard/vendor-stock", label: "Vendor Stock", icon: Warehouse, id: "nav-vendor-stock" },
+      { href: "/dashboard/steel-details", label: "Steel Details", icon: Layers, id: "nav-steel-details" },
     ],
   },
   {
-    group: "Finance",
+    group: "Operations",
     items: [
-      { href: "/dashboard/revenue", label: "Revenue", icon: TrendingUp, id: "nav-revenue" },
+      { href: "/dashboard/dispatch-details", label: "Dispatch Details", icon: Truck, id: "nav-dispatch-details" },
+      { href: "/dashboard/nomination-details", label: "Nomination Details", icon: ClipboardCheck, id: "nav-nomination-details" },
+      { href: "/dashboard/month-plan", label: "Month Plan", icon: CalendarRange, id: "nav-month-plan" },
+    ],
+  },
+  {
+    group: "Analysis & Settings",
+    items: [
       { href: "/dashboard/reports", label: "Reports", icon: FileText, id: "nav-reports" },
-    ],
-  },
-  {
-    group: "Admin",
-    items: [
-      { href: "/dashboard/users", label: "Users", icon: Users, id: "nav-users" },
+      { href: "/dashboard/analytics", label: "Analytics", icon: BarChart3, id: "nav-analytics" },
       { href: "/dashboard/settings", label: "Settings", icon: Settings, id: "nav-settings" },
     ],
   },
@@ -76,10 +75,16 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
                 transition={{ duration: 0.2 }}
                 className="overflow-hidden"
               >
-                <p className="text-sm font-bold text-foreground whitespace-nowrap">
+                <p
+                  className="text-sm font-bold text-foreground whitespace-nowrap"
+                  style={{ letterSpacing: "-0.03em", lineHeight: 1.2 }}
+                >
                   XYZ Manufacturing
                 </p>
-                <p className="text-xs text-muted-foreground whitespace-nowrap">
+                <p
+                  className="text-[10px] text-muted-foreground whitespace-nowrap font-mono"
+                  style={{ letterSpacing: "0.04em" }}
+                >
                   ERP Platform v2.4
                 </p>
               </motion.div>
