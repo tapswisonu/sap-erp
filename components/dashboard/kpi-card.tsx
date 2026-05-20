@@ -138,11 +138,14 @@ export function KpiCard({
         </div>
 
         <div className="space-y-1">
-          <p className="text-sm text-muted-foreground font-medium">{title}</p>
-          <p className="text-3xl font-bold tracking-tight text-foreground">
+          <p className="text-xs text-muted-foreground font-medium tracking-[-0.01em]">{title}</p>
+          <p
+            className="text-3xl font-bold tracking-tight text-foreground"
+            style={{ fontFeatureSettings: "'tnum', 'cv02', 'cv03'", letterSpacing: "-0.03em", lineHeight: 1.15 }}
+          >
             {value}
           </p>
-          <p className="text-xs text-muted-foreground">{description}</p>
+          <p className="text-xs text-muted-foreground leading-relaxed">{description}</p>
         </div>
       </div>
     </motion.div>

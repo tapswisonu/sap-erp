@@ -33,9 +33,19 @@ export function DashboardHeader({ title, subtitle }: DashboardHeaderProps) {
           <Menu size={18} />
         </button>
         <div>
-          <h1 className="text-lg font-bold text-foreground">{title}</h1>
+          <h1
+            className="text-lg font-bold text-foreground"
+            style={{ letterSpacing: "-0.03em", lineHeight: 1.2 }}
+          >
+            {title}
+          </h1>
           {subtitle && (
-            <p className="text-xs text-muted-foreground hidden sm:block">{subtitle}</p>
+            <p
+              className="text-xs text-muted-foreground hidden sm:block"
+              style={{ letterSpacing: "0em", lineHeight: 1.5 }}
+            >
+              {subtitle}
+            </p>
           )}
         </div>
       </div>

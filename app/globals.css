@@ -57,13 +57,75 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-family: 'Inter', system-ui, sans-serif;
+    /* Use the CSS variable injected by next/font — covers ALL pages */
+    font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-variation-settings: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Consistent base tracking */
+    letter-spacing: -0.01em;
   }
 
   html {
     scroll-behavior: smooth;
+    /* Lock to Inter variable — prevent any UA fallback from leaking in */
+    font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  }
+
+  /* ── Unified heading scale ───────────────────────────────────────── */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  /* ── Paragraph / body copy ───────────────────────────────────────── */
+  p, li, span, label, td, th {
+    font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Monospace: tables, numbers, codes, terminals ───────────────── */
+  code, pre, kbd, samp,
+  .font-mono,
+  [class*="font-mono"] {
+    font-family: var(--font-mono), 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-feature-settings: 'liga' 1, 'calt' 1, 'zero' 1;
+    letter-spacing: 0;
+    font-size: 0.9em;
+  }
+
+  /* ── Buttons & interactive elements ─────────────────────────────── */
+  button, input, select, textarea {
+    font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Table typography ────────────────────────────────────────────── */
+  table {
+    font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'tnum';
+  }
+  thead th {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+  tbody td {
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  /* ── Small utility text ──────────────────────────────────────────── */
+  small, .text-xs, .text-\[10px\], .text-\[11px\] {
+    letter-spacing: 0em;
+    line-height: 1.5;
   }
 }
 
@@ -325,12 +387,16 @@
 .login-title {
   font-size: clamp(1.05rem, 4vw, 1.25rem);
   font-weight: 700;
+  font-family: inherit;
   color: hsl(var(--foreground));
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
   margin: 0;
 }
 .login-subtitle {
   font-size: clamp(0.75rem, 3vw, 0.8rem);
+  font-family: inherit;
+  letter-spacing: -0.01em;
   color: hsl(var(--muted-foreground));
   margin: 0;
 }
@@ -351,8 +417,9 @@
 .login-label {
   font-size: 0.78rem;
   font-weight: 500;
+  font-family: inherit;
   color: hsl(var(--muted-foreground));
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
 }
 
 /* Input wrapper */
