@@ -228,6 +228,10 @@
   to { transform: translateX(200%) skewX(-15deg); }
 }
 
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
 .shine-effect::after {
   content: '';
   position: absolute;

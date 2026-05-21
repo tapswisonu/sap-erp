@@ -224,6 +224,7 @@ export default function DataPage() {
             <table className="w-full text-left border-collapse min-w-[1500px]">
               <thead>
                 <tr className="border-b border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
+                  <th className="px-5 py-3">Sr. No.</th>
                   <th className="px-5 py-3 cursor-pointer select-none hover:text-foreground" onClick={() => handleSort("poNumber")}>
                     <div className="flex items-center gap-1.5">
                       PO Number <ArrowUpDown size={12} />
@@ -262,8 +263,9 @@ export default function DataPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5 text-sm">
-                {displayedData.map((row) => (
+                {displayedData.map((row, idx) => (
                   <tr key={row.poNumber} className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-5 py-4 text-xs text-muted-foreground font-mono">{(currentPage - 1) * itemsPerPage + idx + 1}</td>
                     <td className="px-5 py-4 font-mono text-xs font-semibold text-foreground">{row.poNumber}</td>
                     <td className="px-5 py-4 font-semibold text-foreground">{row.customerName}</td>
                     <td className="px-5 py-4 text-muted-foreground">{row.sectionSize}</td>
@@ -301,7 +303,7 @@ export default function DataPage() {
 
                 {filteredData.length === 0 && (
                   <tr>
-                    <td colSpan={19} className="text-center py-8 text-muted-foreground text-sm">
+                    <td colSpan={20} className="text-center py-8 text-muted-foreground text-sm">
                       No records found matching criteria.
                     </td>
                   </tr>
