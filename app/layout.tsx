@@ -18,20 +18,20 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "XYZ Manufacturing | Smart Manufacturing Management Platform",
+  title: "ForgeAxis | Smart Manufacturing Management Platform",
   description:
-    "XYZ Manufacturing's intelligent ERP platform for real-time inventory, purchase, sales, and copper material tracking. Automate, analyze, and optimize your manufacturing operations.",
+    "ForgeAxis's intelligent ERP platform for real-time inventory, purchase, sales, and copper material tracking. Automate, analyze, and optimize your manufacturing operations.",
   keywords: [
     "manufacturing ERP",
     "inventory management",
     "production tracking",
     "industrial dashboard",
-    "XYZ Manufacturing",
+    "ForgeAxis",
     "smart manufacturing",
   ],
-  authors: [{ name: "XYZ Manufacturing" }],
+  authors: [{ name: "ForgeAxis" }],
   openGraph: {
-    title: "XYZ Manufacturing | Smart Manufacturing Management",
+    title: "ForgeAxis | Smart Manufacturing Management",
     description:
       "Enterprise-grade manufacturing ERP with real-time analytics, inventory control, and revenue optimization.",
     type: "website",

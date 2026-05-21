@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Lock, User, Loader2 } from "lucide-react";
@@ -19,6 +19,17 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // ── If already logged in, skip the login page ──────────────────────
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const loggedIn = sessionStorage.getItem("isLoggedIn");
+      if (loggedIn === "true") {
+        router.replace("/dashboard");
+      }
+    }
+  }, [router]);
+  // ──────────────────────────────────────────────────────────────────
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,9 +53,16 @@ export default function LoginPage() {
       return;
     }
 
+    // ── Persist auth so refresh doesn't loop back to login ──────────
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("isLoggedIn", "true");
+    }
+    // ──────────────────────────────────────────────────────────────────
+
     setLoading(false);
     router.push("/dashboard");
   };
+
 
   return (
     <div className="login-root">
@@ -76,7 +94,7 @@ export default function LoginPage() {
               </defs>
             </svg>
           </div>
-          <h1 className="login-title">XYZ Manufacturing</h1>
+          <h1 className="login-title">ForgeAxis</h1>
           <p className="login-subtitle">Sign in to your account</p>
         </div>
 

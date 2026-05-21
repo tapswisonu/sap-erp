@@ -229,7 +229,7 @@ export default function SitemapPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground hidden sm:block">XYZ Manufacturing ERP</span>
+          <span className="text-xs text-muted-foreground hidden sm:block">ForgeAxis ERP</span>
           <div className="h-2 w-2 rounded-full bg-emerald-400 status-online" />
         </div>
       </header>
@@ -250,7 +250,7 @@ export default function SitemapPage() {
             <div>
               <h2 className="text-2xl font-bold text-foreground">Site Map</h2>
               <p className="text-sm text-muted-foreground">
-                Complete navigation structure of the XYZ Manufacturing ERP platform
+                Complete navigation structure of the ForgeAxis ERP platform
               </p>
             </div>
           </div>

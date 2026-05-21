@@ -1,4 +1,4 @@
-// Mock data for XYZ Manufacturing Dashboard
+// Mock data for ForgeAxis Dashboard
 
 export const kpiCards = [
   {

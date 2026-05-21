@@ -79,7 +79,7 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
                   className="text-sm font-bold text-foreground whitespace-nowrap"
                   style={{ letterSpacing: "-0.03em", lineHeight: 1.2 }}
                 >
-                  XYZ Manufacturing
+                  ForgeAxis
                 </p>
                 <p
                   className="text-[10px] text-muted-foreground whitespace-nowrap font-mono"

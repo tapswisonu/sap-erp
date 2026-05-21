@@ -36,7 +36,7 @@ export function CtaSection() {
             </h2>
 
             <p className="text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
-              Join hundreds of manufacturers already using XYZ Manufacturing ERP
+              Join hundreds of manufacturers already using ForgeAxis ERP
               to streamline operations, reduce costs, and accelerate growth.
             </p>
 
