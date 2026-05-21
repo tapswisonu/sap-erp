@@ -2,9 +2,9 @@ import { Sidebar } from "@/components/layout/sidebar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard | XYZ Manufacturing ERP",
+  title: "Dashboard | ForgeAxis ERP",
   description:
-    "XYZ Manufacturing admin dashboard — manage inventory, purchase orders, sales, and revenue in real-time.",
+    "ForgeAxis admin dashboard — manage inventory, purchase orders, sales, and revenue in real-time.",
 };
 
 export default function DashboardLayout({

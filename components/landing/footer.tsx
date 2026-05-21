@@ -89,7 +89,7 @@ export function Footer() {
                 <Factory size={18} className="text-white" />
               </div>
               <div>
-                <span className="text-sm font-bold text-foreground">XYZ Manufacturing</span>
+                <span className="text-sm font-bold text-foreground">ForgeAxis</span>
               </div>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs leading-relaxed mb-6">
@@ -136,7 +136,7 @@ export function Footer() {
 
         <div className="border-t border-white/8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
-            © 2026 XYZ Manufacturing Pvt. Ltd. All rights reserved.
+            © 2026 ForgeAxis Pvt. Ltd. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs text-muted-foreground">
             <Link href="#" className="hover:text-foreground transition-colors">
