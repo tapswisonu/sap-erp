@@ -1,6 +1,7 @@
 "use client";
 
 import { DashboardHeader } from "@/components/layout/dashboard-header";
+import { KpiCard } from "@/components/dashboard/kpi-card";
 import { motion } from "framer-motion";
 import { inventoryData } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -65,41 +66,37 @@ export default function InventoryPage() {
           {[
             {
               label: "Total Items",
-              value: inventoryData.length,
-              color: "text-cyan-400",
-              bg: "bg-cyan-400/10",
+              value: inventoryData.length.toString(),
+              color: "cyan" as const,
+              icon: Boxes,
             },
             {
               label: "Total Stock",
               value: totalItems.toLocaleString(),
-              color: "text-blue-400",
-              bg: "bg-blue-400/10",
+              color: "blue" as const,
+              icon: Boxes,
             },
             {
               label: "Alerts",
-              value: criticalItems,
-              color: "text-amber-400",
-              bg: "bg-amber-400/10",
+              value: criticalItems.toString(),
+              color: "amber" as const,
+              icon: AlertTriangle,
             },
             {
               label: "Optimal",
-              value: inventoryData.length - criticalItems,
-              color: "text-emerald-400",
-              bg: "bg-emerald-400/10",
+              value: (inventoryData.length - criticalItems).toString(),
+              color: "emerald" as const,
+              icon: CheckCircle,
             },
           ].map((card, i) => (
-            <motion.div
+            <KpiCard
               key={card.label}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              className="glass-card border border-white/8 rounded-2xl p-5"
-            >
-              <p className="text-xs text-muted-foreground mb-1">{card.label}</p>
-              <p className={cn("text-2xl font-bold", card.color)}>
-                {card.value}
-              </p>
-            </motion.div>
+              title={card.label}
+              value={card.value}
+              color={card.color}
+              icon={card.icon}
+              index={i}
+            />
           ))}
         </div>
 
@@ -143,7 +140,8 @@ export default function InventoryPage() {
           <div className="min-w-[800px]">
             {/* Header */}
           <div className="grid grid-cols-12 gap-4 px-6 py-3 border-b border-white/8 text-xs font-medium text-muted-foreground">
-            <div className="col-span-4 flex items-center gap-1">
+            <div className="col-span-1">Sr. No.</div>
+            <div className="col-span-3 flex items-center gap-1">
               Category <ArrowUpDown size={10} />
             </div>
             <div className="col-span-2 text-right">Current Stock</div>
@@ -167,7 +165,10 @@ export default function InventoryPage() {
                 transition={{ delay: 0.35 + index * 0.07 }}
                 className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-white/5 hover:bg-white/2 transition-colors items-center group"
               >
-                <div className="col-span-4">
+                <div className="col-span-1 text-sm font-semibold text-muted-foreground font-mono">
+                  {index + 1}
+                </div>
+                <div className="col-span-3">
                   <p className="text-sm font-medium text-foreground">
                     {item.category}
                   </p>

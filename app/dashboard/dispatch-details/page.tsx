@@ -4,6 +4,7 @@ import { useState } from "react";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { dispatchPageMock } from "@/lib/erp-mock-data";
 import { dispatchKpis, dispatchTrend, dispatchStatusBreakdown } from "@/lib/erp-data";
+import { KpiCard } from "@/components/dashboard/kpi-card";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
@@ -46,26 +47,16 @@ export default function DispatchDetailsPage() {
         <section id="dispatch-kpis">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {dispatchKpis.map((kpi, idx) => (
-              <div
+              <KpiCard
                 key={kpi.label}
-                className="glass-card border border-white/8 rounded-2xl p-5 flex flex-col justify-between"
-              >
-                <div>
-                  <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{kpi.label}</p>
-                  <p className="text-2xl font-bold mt-2 text-foreground font-mono">{kpi.value}</p>
-                </div>
-                <div className="flex items-center justify-between mt-4">
-                  <span className={cn(
-                    "text-xs font-semibold px-2 py-0.5 rounded-full",
-                    kpi.up ? "text-emerald-400 bg-emerald-400/10" : "text-amber-400 bg-amber-400/10"
-                  )}>
-                    {kpi.change}
-                  </span>
-                  <div className="h-7 w-7 rounded-lg bg-emerald-400/10 text-emerald-400 flex items-center justify-center">
-                    <Truck size={14} />
-                  </div>
-                </div>
-              </div>
+                title={kpi.label}
+                value={kpi.value}
+                change={kpi.change}
+                changeType={kpi.up ? "increase" : "decrease"}
+                color={kpi.color as any}
+                icon={Truck}
+                index={idx}
+              />
             ))}
           </div>
         </section>
@@ -169,6 +160,7 @@ export default function DispatchDetailsPage() {
             <table className="w-full text-left border-collapse min-w-[900px]">
               <thead>
                 <tr className="border-b border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
+                  <th className="px-5 py-3">Sr. No.</th>
                   <th className="px-5 py-3">Date</th>
                   <th className="px-5 py-3">Vendor Name</th>
                   <th className="px-5 py-3">To</th>
@@ -184,6 +176,7 @@ export default function DispatchDetailsPage() {
               <tbody className="divide-y divide-white/5 text-sm">
                 {filteredData.map((row, idx) => (
                   <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-5 py-4 text-xs text-muted-foreground font-mono">{idx + 1}</td>
                     <td className="px-5 py-4 text-xs text-muted-foreground">{row.date}</td>
                     <td className="px-5 py-4 font-semibold text-foreground">{row.vendorName}</td>
                     <td className="px-5 py-4 text-foreground font-medium">{row.to}</td>

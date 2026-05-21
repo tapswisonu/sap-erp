@@ -1,6 +1,7 @@
 "use client";
 
 import { DashboardHeader } from "@/components/layout/dashboard-header";
+import { KpiCard } from "@/components/dashboard/kpi-card";
 import { motion } from "framer-motion";
 import { dataOverviewStats, moduleActivityData, recentActivity } from "@/lib/erp-data";
 import { cn } from "@/lib/utils";
@@ -53,32 +54,16 @@ export default function DataOverviewPage() {
         {/* KPI Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {dataOverviewStats.map((stat, i) => (
-            <motion.div
+            <KpiCard
               key={stat.label}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              className="glass-card border border-white/8 rounded-2xl p-5 relative overflow-hidden group"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs text-muted-foreground font-medium">{stat.label}</span>
-                <span className={cn(
-                  "flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-semibold border",
-                  stat.up ? "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" : "text-amber-400 border-amber-400/20 bg-amber-400/5"
-                )}>
-                  {stat.up ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
-                  {stat.change}
-                </span>
-              </div>
-              <p className={cn(
-                "text-3xl font-extrabold tracking-tight",
-                stat.color === "cyan" ? "text-cyan-400" :
-                stat.color === "blue" ? "text-blue-400" :
-                stat.color === "emerald" ? "text-emerald-400" : "text-amber-400"
-              )}>
-                {stat.value}
-              </p>
-            </motion.div>
+              title={stat.label}
+              value={stat.value}
+              change={stat.change}
+              changeType={stat.up ? "increase" : "decrease"}
+              color={stat.color as any}
+              icon={Database}
+              index={i}
+            />
           ))}
         </div>
 
@@ -190,6 +175,7 @@ export default function DataOverviewPage() {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
+                  <th className="px-6 py-3">Sr. No.</th>
                   <th className="px-6 py-3">Event ID</th>
                   <th className="px-6 py-3">Module</th>
                   <th className="px-6 py-3">Operation Details</th>
@@ -199,8 +185,9 @@ export default function DataOverviewPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5 text-sm">
-                {recentActivity.map((act) => (
+                {recentActivity.map((act, idx) => (
                   <tr key={act.id} className="hover:bg-white/[0.02] transition-colors group">
+                    <td className="px-6 py-4 text-xs text-muted-foreground font-mono">{idx + 1}</td>
                     <td className="px-6 py-4 font-mono text-xs text-muted-foreground">{act.id}</td>
                     <td className="px-6 py-4">
                       <span className="px-2.5 py-0.5 rounded-full text-xs font-medium border bg-white/5 border-white/10 text-foreground">

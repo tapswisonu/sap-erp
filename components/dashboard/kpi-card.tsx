@@ -7,10 +7,11 @@ import {
   ShoppingCart,
   Wallet,
   TrendingUp,
-  TrendingDown,
   ArrowUpRight,
   ArrowDownRight,
+  Minus,
 } from "lucide-react";
+import React from "react";
 
 const iconMap = {
   ClipboardList,
@@ -52,22 +53,38 @@ const colorMap = {
     badge: "bg-purple-400/10 text-purple-400",
     indicator: "bg-purple-400",
   },
+  amber: {
+    gradient: "from-amber-500/20 via-amber-400/10 to-transparent",
+    border: "border-amber-400/20 hover:border-amber-400/40",
+    icon: "bg-amber-400/10 text-amber-400",
+    glow: "hover:shadow-amber-500/10",
+    badge: "bg-amber-400/10 text-amber-400",
+    indicator: "bg-amber-400",
+  },
+  red: {
+    gradient: "from-red-500/20 via-red-400/10 to-transparent",
+    border: "border-red-400/20 hover:border-red-400/40",
+    icon: "bg-red-400/10 text-red-400",
+    glow: "hover:shadow-red-500/10",
+    badge: "bg-red-400/10 text-red-400",
+    indicator: "bg-red-400",
+  },
 };
 
 interface KpiCardProps {
-  id: string;
+  id?: string;
   title: string;
   value: string;
-  change: string;
-  changeType: "increase" | "decrease";
-  description: string;
+  change?: string;
+  changeType?: "increase" | "decrease" | "neutral";
+  description?: string;
   color: keyof typeof colorMap;
-  icon: keyof typeof iconMap;
+  icon: React.ComponentType<any> | keyof typeof iconMap;
   index?: number;
 }
 
 export function KpiCard({
-  id,
+  id = "kpi-card",
   title,
   value,
   change,
@@ -77,8 +94,11 @@ export function KpiCard({
   icon,
   index = 0,
 }: KpiCardProps) {
-  const colors = colorMap[color];
-  const IconComponent = iconMap[icon];
+  const colors = colorMap[color] || colorMap.cyan;
+  const IconComponent = typeof icon === "string" ? (iconMap[icon as keyof typeof iconMap] || ClipboardList) : icon;
+
+  const isIncrease = changeType === "increase" || (!changeType && change?.startsWith("+"));
+  const isDecrease = changeType === "decrease" || (!changeType && change?.startsWith("-"));
 
   return (
     <motion.div
@@ -122,32 +142,33 @@ export function KpiCard({
           >
             <IconComponent size={20} />
           </div>
-          <span
-            className={cn(
-              "flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium",
-              colors.badge
-            )}
-          >
-            {changeType === "increase" ? (
-              <ArrowUpRight size={12} />
-            ) : (
-              <ArrowDownRight size={12} />
-            )}
-            {change}
-          </span>
+          {change && (
+            <span
+              className={cn(
+                "flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium",
+                colors.badge
+              )}
+            >
+              {isIncrease && <ArrowUpRight size={12} />}
+              {isDecrease && <ArrowDownRight size={12} />}
+              {!isIncrease && !isDecrease && <Minus size={12} />}
+              {change}
+            </span>
+          )}
         </div>
 
         <div className="space-y-1">
-          <p className="text-xs text-muted-foreground font-medium tracking-[-0.01em]">{title}</p>
+          <p className="text-xs text-muted-foreground font-medium tracking-[-0.01em] uppercase">{title}</p>
           <p
             className="text-3xl font-bold tracking-tight text-foreground"
             style={{ fontFeatureSettings: "'tnum', 'cv02', 'cv03'", letterSpacing: "-0.03em", lineHeight: 1.15 }}
           >
             {value}
           </p>
-          <p className="text-xs text-muted-foreground leading-relaxed">{description}</p>
+          {description && <p className="text-xs text-muted-foreground leading-relaxed">{description}</p>}
         </div>
       </div>
     </motion.div>
   );
 }
+
