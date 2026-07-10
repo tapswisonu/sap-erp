@@ -156,9 +156,15 @@ export default function LoginPage() {
                 <p className="login-subtitle">Sign in to your account</p>
               </div>
 
-              <form onSubmit={handleSubmit} className="login-form" noValidate>
+              <motion.form
+                onSubmit={handleSubmit}
+                className="login-form"
+                noValidate
+                animate={error || userIdError || passwordError ? { x: [-8, 8, -8, 8, -4, 4, 0] } : { x: 0 }}
+                transition={{ duration: 0.4 }}
+              >
                 {/* User ID */}
-                <div className="login-field">
+                <div className="login-field relative">
                   <label htmlFor="userId" className="login-label">User ID</label>
                   <div className="login-input-wrap">
                     <User size={16} className="login-input-icon" />
@@ -256,7 +262,7 @@ export default function LoginPage() {
                     "Sign In"
                   )}
                 </button>
-              </form>
+              </motion.form>
             </motion.div>
           ) : (
             <motion.div

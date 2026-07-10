@@ -7,8 +7,8 @@ import { KpiCard } from "@/components/dashboard/kpi-card";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
-  BarChart,
-  Bar,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -54,17 +54,27 @@ export default function VendorStockPage() {
             <h3 className="text-sm font-semibold text-foreground mb-4">Vendor Delivery Performance Trends (%)</h3>
             <div className="h-[240px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={vendorPerformance} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                  <XAxis dataKey="month" stroke="rgba(255,255,255,0.4)" fontSize={11} />
-                  <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} />
+                <AreaChart data={vendorPerformance} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="colorOnTime" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#22d3ee" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#22d3ee" stopOpacity={0}/>
+                    </linearGradient>
+                    <linearGradient id="colorDelayed" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                  <XAxis dataKey="month" stroke="rgba(255,255,255,0.4)" fontSize={11} axisLine={false} tickLine={false} />
+                  <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} axisLine={false} tickLine={false} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px" }}
+                    contentStyle={{ backgroundColor: "rgba(15, 23, 42, 0.8)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", backdropFilter: "blur(12px)" }}
                     labelStyle={{ color: "#94a3b8", fontSize: "12px" }}
                   />
-                  <Bar dataKey="onTime" fill="#22d3ee" stackId="a" name="On Time" />
-                  <Bar dataKey="delayed" fill="#f59e0b" stackId="a" name="Delayed" />
-                </BarChart>
+                  <Area type="monotone" dataKey="onTime" stroke="#22d3ee" strokeWidth={3} fillOpacity={1} fill="url(#colorOnTime)" name="On Time" />
+                  <Area type="monotone" dataKey="delayed" stroke="#f59e0b" strokeWidth={3} fillOpacity={1} fill="url(#colorDelayed)" name="Delayed" />
+                </AreaChart>
               </ResponsiveContainer>
             </div>
           </div>
