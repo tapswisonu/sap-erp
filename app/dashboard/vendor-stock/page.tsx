@@ -1,9 +1,9 @@
 "use client";
 
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { vendorStockPageMock } from "@/lib/erp-mock-data";
 import { vendorKpis, vendorPerformance, vendorCategoryBreakdown } from "@/lib/erp-data";
 import { KpiCard } from "@/components/dashboard/kpi-card";
+import { VendorStockTable } from "@/components/dashboard/vendor-stock-table";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
@@ -116,43 +116,7 @@ export default function VendorStockPage() {
         </section>
 
         {/* Vendor Stock Table */}
-        <section className="glass-card border border-white/8 rounded-2xl overflow-hidden">
-          <div className="p-5 border-b border-white/5 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-foreground">Vendor Stock Inventory Ledger</h3>
-            <span className="text-xs text-muted-foreground">Active steel and copper logs by manufacturing partner</span>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[1000px]">
-              <thead>
-                <tr className="border-b border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
-                  <th className="px-5 py-3">Sr. No.</th>
-                  <th className="px-5 py-3">Customer Name</th>
-                  <th className="px-5 py-3">Steel Size</th>
-                  <th className="px-5 py-3">Copper Size</th>
-                  <th className="px-5 py-3 text-right">Steel Open Stock</th>
-                  <th className="px-5 py-3 text-right">Copper Open Qty</th>
-                  <th className="px-5 py-3 text-right">Steel Quantity</th>
-                  <th className="px-5 py-3 text-right">Copper Quantity</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/5 text-sm">
-                {vendorStockPageMock.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="px-5 py-4 text-xs text-muted-foreground font-mono">{idx + 1}</td>
-                    <td className="px-5 py-4 font-semibold text-foreground">{row.customerName}</td>
-                    <td className="px-5 py-4 text-muted-foreground">{row.steelSize}</td>
-                    <td className="px-5 py-4 text-muted-foreground">{row.copperSize}</td>
-                    <td className="px-5 py-4 text-right font-mono font-bold text-foreground">{row.steelOpenStock.toLocaleString()} MT</td>
-                    <td className="px-5 py-4 text-right font-mono text-amber-400 font-semibold">{row.copperOpenQty} MT</td>
-                    <td className="px-5 py-4 text-right font-mono text-cyan-400 font-bold">{row.steelQty.toLocaleString()} MT</td>
-                    <td className="px-5 py-4 text-right font-mono text-foreground font-semibold">{row.copperQty} MT</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+        <VendorStockTable />
       </main>
     </div>
   );
