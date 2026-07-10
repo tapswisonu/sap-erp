@@ -105,12 +105,13 @@ export function KpiCard({
       id={`kpi-card-${id}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.08 }}
-      whileHover={{ y: -4, scale: 1.01 }}
+      transition={{ duration: 0.4, delay: index * 0.08, ease: "easeOut" }}
+      whileHover={{ y: -6, scale: 1.02 }}
+      whileTap={{ scale: 0.97 }}
       className={cn(
         "relative overflow-hidden rounded-2xl glass-card p-6",
-        "border transition-all duration-300 cursor-default",
-        "hover:shadow-xl shine-effect",
+        "border transition-all duration-300 cursor-pointer",
+        "hover:shadow-2xl hover:shadow-cyan-500/10 shine-effect",
         colors.border,
         colors.glow
       )}

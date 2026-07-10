@@ -1,9 +1,9 @@
 "use client";
 
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { steelPageMock } from "@/lib/erp-mock-data";
 import { steelKpis, steelStockTrend } from "@/lib/erp-data";
 import { KpiCard } from "@/components/dashboard/kpi-card";
+import { SteelDetailsTable } from "@/components/dashboard/steel-details-table";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
@@ -122,62 +122,7 @@ export default function SteelDetailsPage() {
         </section>
 
         {/* Steel Details Table */}
-        <section className="glass-card border border-white/8 rounded-2xl overflow-hidden">
-          <div className="p-5 border-b border-white/5 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-foreground">Steel Production Tracker</h3>
-            <span className="text-xs text-muted-foreground">Real-time rolling mill and cutting logs</span>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[1100px]">
-              <thead>
-                <tr className="border-b border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
-                  <th className="px-5 py-3">Sr. No.</th>
-                  <th className="px-5 py-3">Customer Name</th>
-                  <th className="px-5 py-3">Billet Size</th>
-                  <th className="px-5 py-3 text-right">Billet Weight (T)</th>
-                  <th className="px-5 py-3 text-right">Billet Qty</th>
-                  <th className="px-5 py-3">Steel Size</th>
-                  <th className="px-5 py-3 text-right">Steel Weight (T)</th>
-                  <th className="px-5 py-3 text-right">Steel Qty</th>
-                  <th className="px-5 py-3">Rolling Date</th>
-                  <th className="px-5 py-3">Cutting Date</th>
-                  <th className="px-5 py-3">Dispatch Date</th>
-                  <th className="px-5 py-3">Actual Dispatch</th>
-                  <th className="px-5 py-3 text-center">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/5 text-sm">
-                {steelPageMock.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="px-5 py-4 text-xs text-muted-foreground font-mono">{idx + 1}</td>
-                    <td className="px-5 py-4 font-semibold text-foreground">{row.customerName}</td>
-                    <td className="px-5 py-4 text-muted-foreground">{row.billetSize}</td>
-                    <td className="px-5 py-4 text-right font-mono">{row.billetWeight} T</td>
-                    <td className="px-5 py-4 text-right font-mono">{row.billetQty}</td>
-                    <td className="px-5 py-4 text-foreground font-semibold">{row.steelSize}</td>
-                    <td className="px-5 py-4 text-right font-mono text-cyan-400 font-semibold">{row.steelWeight} T</td>
-                    <td className="px-5 py-4 text-right font-mono">{row.steelQty}</td>
-                    <td className="px-5 py-4 text-xs text-muted-foreground">{row.rollingDate}</td>
-                    <td className="px-5 py-4 text-xs text-muted-foreground">{row.cuttingDate}</td>
-                    <td className="px-5 py-4 text-xs text-muted-foreground">{row.dispatchDate}</td>
-                    <td className="px-5 py-4 text-xs font-mono">{row.actualDispatchDate}</td>
-                    <td className="px-5 py-4">
-                      <div className="flex justify-center">
-                        <span className={cn(
-                          "px-2.5 py-0.5 rounded-full text-xs font-semibold border",
-                          statusColors[row.status] || "text-slate-400 bg-slate-400/10 border-slate-400/20"
-                        )}>
-                          {row.status}
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+        <SteelDetailsTable />
       </main>
     </div>
   );

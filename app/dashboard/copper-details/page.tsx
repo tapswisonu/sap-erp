@@ -1,9 +1,9 @@
 "use client";
 
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { copperPageMock } from "@/lib/erp-mock-data";
 import { KpiCard } from "@/components/dashboard/kpi-card";
 import { copperKpis, copperStockTrend, copperSuppliers } from "@/lib/erp-data";
+import { CopperDetailsTable } from "@/components/dashboard/copper-details-table";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
@@ -103,74 +103,7 @@ export default function CopperDetailsPage() {
         </section>
 
         {/* Copper Ledger Table */}
-        <section className="glass-card border border-white/8 rounded-2xl overflow-hidden">
-          <div className="p-5 border-b border-white/5 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-foreground">Copper Allocations & Logistics</h3>
-            <span className="text-xs text-muted-foreground">Real-time status updates from Mundra Hub</span>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[1000px]">
-              <thead>
-                <tr className="border-b border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
-                  <th className="px-5 py-3">Sr. No.</th>
-                  <th className="px-5 py-3">Customer Name</th>
-                  <th className="px-5 py-3">Steel Size</th>
-                  <th className="px-5 py-3">Copper Size</th>
-                  <th className="px-5 py-3 text-right">LME Price (MT)</th>
-                  <th className="px-5 py-3 text-right">Copper Qty</th>
-                  <th className="px-5 py-3">Copper Vendor</th>
-                  <th className="px-5 py-3">Transporter</th>
-                  <th className="px-5 py-3 text-center">Booking Status</th>
-                  <th className="px-5 py-3">Delivery Date</th>
-                  <th className="px-5 py-3 text-center">Logistics Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/5 text-sm">
-                {copperPageMock.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="px-5 py-4 text-xs text-muted-foreground font-mono">{idx + 1}</td>
-                    <td className="px-5 py-4 font-semibold text-foreground">{row.customerName}</td>
-                    <td className="px-5 py-4 text-muted-foreground">{row.steelSize}</td>
-                    <td className="px-5 py-4 text-muted-foreground">{row.copperSize}</td>
-                    <td className="px-5 py-4 text-right font-mono text-foreground">${row.lme.toLocaleString()}</td>
-                    <td className="px-5 py-4 text-right font-mono font-bold text-amber-400">{row.copperQty} MT</td>
-                    <td className="px-5 py-4 text-foreground font-medium">{row.copperVendor}</td>
-                    <td className="px-5 py-4 text-muted-foreground">
-                      <div className="flex items-center gap-1.5">
-                        <Truck size={12} className="text-muted-foreground" />
-                        {row.transporter}
-                      </div>
-                    </td>
-                    <td className="px-5 py-4">
-                      <div className="flex justify-center">
-                        <span className={cn(
-                          "px-2 py-0.5 rounded text-xs font-semibold border",
-                          row.bookingStatus === "Confirmed" ? "text-emerald-400 bg-emerald-400/10 border-emerald-400/20" : "text-amber-400 bg-amber-400/10 border-amber-400/20"
-                        )}>
-                          {row.bookingStatus}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-5 py-4 text-xs text-muted-foreground">{row.deliveryDate}</td>
-                    <td className="px-5 py-4">
-                      <div className="flex justify-center">
-                        <span className={cn(
-                          "px-2 py-0.5 rounded-full text-xs font-semibold border",
-                          row.actualDeliveryStatus === "Delivered" ? "text-emerald-400 bg-emerald-400/10 border-emerald-400/20" :
-                          row.actualDeliveryStatus === "In-Transit" ? "text-blue-400 bg-blue-400/10 border-blue-400/20" :
-                          "text-red-400 bg-red-400/10 border-red-400/20"
-                        )}>
-                          {row.actualDeliveryStatus}
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+        <CopperDetailsTable />
       </main>
     </div>
   );

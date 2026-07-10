@@ -1,0 +1,42 @@
+[
+  {
+    "id": "VS-1001",
+    "customerName": "Rohan Steel Corp",
+    "steelSize": "240mm",
+    "copperSize": "4.5mm",
+    "steelOpenStock": 250,
+    "copperOpenQty": 15.2,
+    "steelQty": 1200,
+    "copperQty": 4.8
+  },
+  {
+    "id": "VS-1002",
+    "customerName": "Apex Infra Developers",
+    "steelSize": "180mm",
+    "copperSize": "3.2mm",
+    "steelOpenStock": 180,
+    "copperOpenQty": 8.5,
+    "steelQty": 850,
+    "copperQty": 2.72
+  },
+  {
+    "id": "VS-1003",
+    "customerName": "Global Metal Connect",
+    "steelSize": "310mm",
+    "copperSize": "6.0mm",
+    "steelOpenStock": 400,
+    "copperOpenQty": 22,
+    "steelQty": 1500,
+    "copperQty": 9
+  },
+  {
+    "id": "VS-1004",
+    "customerName": "Zenith Automotives",
+    "steelSize": "120mm",
+    "copperSize": "2.5mm",
+    "steelOpenStock": 90,
+    "copperOpenQty": 4.2,
+    "steelQty": 600,
+    "copperQty": 1.5
+  }
+]

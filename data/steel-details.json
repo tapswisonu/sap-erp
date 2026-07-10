@@ -1,0 +1,47 @@
+[
+  {
+    "id": "STL-1001",
+    "customerName": "Rohan Steel Corp",
+    "billetSize": "150x150",
+    "billetWeight": 2.4,
+    "billetQty": 50,
+    "steelSize": "240mm",
+    "steelWeight": 120,
+    "steelQty": 1200,
+    "rollingDate": "2026-05-20",
+    "cuttingDate": "2026-05-22",
+    "dispatchDate": "2026-06-02",
+    "actualDispatchDate": "2026-06-02",
+    "status": "Dispatched"
+  },
+  {
+    "id": "STL-1002",
+    "customerName": "Apex Infra Developers",
+    "billetSize": "130x130",
+    "billetWeight": 1.8,
+    "billetQty": 45,
+    "steelSize": "180mm",
+    "steelWeight": 81,
+    "steelQty": 850,
+    "rollingDate": "2026-05-28",
+    "cuttingDate": "2026-05-30",
+    "dispatchDate": "2026-06-08",
+    "actualDispatchDate": "—",
+    "status": "Rolled"
+  },
+  {
+    "id": "STL-1003",
+    "customerName": "Global Metal Connect",
+    "billetSize": "150x150",
+    "billetWeight": 3.1,
+    "billetQty": 60,
+    "steelSize": "310mm",
+    "steelWeight": 186,
+    "steelQty": 1500,
+    "rollingDate": "2026-06-05",
+    "cuttingDate": "2026-06-07",
+    "dispatchDate": "2026-06-15",
+    "actualDispatchDate": "—",
+    "status": "Scheduled"
+  }
+]

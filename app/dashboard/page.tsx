@@ -2,7 +2,7 @@
 
 import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { KpiCard } from "@/components/dashboard/kpi-card";
-import { TelemetryDeck } from "@/components/dashboard/telemetry-deck";
+import { OrdersTable } from "@/components/dashboard/orders-table";
 
 import { kpiCards } from "@/lib/data";
 import { motion } from "framer-motion";
@@ -63,14 +63,9 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        {/* Live Cyber Telemetry Logs & Operator Controls */}
-        <section id="telemetry-section" aria-label="Live System Telemetry">
-          <div className="flex items-center gap-2 mb-4">
-            <h3 className="text-sm font-semibold text-foreground">Cyber Diagnostics & Controls</h3>
-            <div className="flex-1 h-px bg-white/5" />
-            <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest bg-cyan-400/5 px-2 py-0.5 border border-cyan-400/15 rounded">Online Feed</span>
-          </div>
-          <TelemetryDeck />
+        {/* Orders CRUD Table */}
+        <section id="orders-section" aria-label="Orders Overview">
+          <OrdersTable />
         </section>
 
 
