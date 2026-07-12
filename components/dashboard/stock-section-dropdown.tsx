@@ -90,7 +90,7 @@ const statusColors = {
   optimal: "text-emerald-400 bg-emerald-400/10",
   low: "text-amber-400 bg-amber-400/10",
   critical: "text-red-400 bg-red-400/10",
-  high: "text-cyan-400 bg-cyan-400/10",
+  high: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10",
   active: "text-blue-400 bg-blue-400/10",
 };
 
@@ -118,7 +118,7 @@ function MaterialCard({
         "border transition-all duration-200 cursor-pointer",
         isSelected
           ? colors.selectedBg
-          : "border-white/10 bg-white/3 hover:bg-white/5 hover:border-white/20"
+          : "border-gray-200 dark:border-white/10 bg-white/3 hover:bg-gray-50 dark:bg-white/5 hover:border-white/20"
       )}
     >
       <div className="flex items-center justify-between mb-3">
@@ -272,7 +272,7 @@ export function StockSectionDropdown({ index = 0 }: { index?: number }) {
           aria-expanded={isOpen}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-400 group-hover:scale-110 transition-transform duration-300">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-600 dark:text-cyan-400 group-hover:scale-110 transition-transform duration-300">
               <Package size={22} />
             </div>
             <div className="text-left">
@@ -319,7 +319,7 @@ export function StockSectionDropdown({ index = 0 }: { index?: number }) {
           <div className="flex-1 space-y-1">
             <div className="flex justify-between text-[10px] text-muted-foreground">
               <span>Overall Capacity</span>
-              <span className="text-cyan-400">50%</span>
+              <span className="text-cyan-600 dark:text-cyan-400">50%</span>
             </div>
             <Progress value={50} className="h-1.5" />
           </div>

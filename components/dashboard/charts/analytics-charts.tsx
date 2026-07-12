@@ -54,7 +54,7 @@ export default function AnalyticsCharts() {
         >
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg bg-cyan-400/10 text-cyan-400 flex items-center justify-center">
+              <div className="h-8 w-8 rounded-lg bg-cyan-400/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
                 <BarChart3 size={15} />
               </div>
               <div>
@@ -80,9 +80,9 @@ export default function AnalyticsCharts() {
                     <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="month" stroke="rgba(255,255,255,0.4)" fontSize={11} />
-                <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
+                <XAxis dataKey="month" stroke="var(--chart-axis)" fontSize={11} />
+                <YAxis stroke="var(--chart-axis)" fontSize={11} />
                 <Tooltip {...tooltipStyle} />
                 <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "10px" }} />
                 <Area type="monotone" dataKey="revenue" stroke="#22d3ee" fill="url(#gRev)" name="Revenue" strokeWidth={2} />
@@ -110,7 +110,7 @@ export default function AnalyticsCharts() {
                     <Cell key={index} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip contentStyle={{ backgroundColor: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px" }} />
+                <Tooltip contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -141,9 +141,9 @@ export default function AnalyticsCharts() {
           <div className="h-[220px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={productionByLine} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                <XAxis dataKey="line" stroke="rgba(255,255,255,0.4)" fontSize={11} />
-                <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
+                <XAxis dataKey="line" stroke="var(--chart-axis)" fontSize={11} />
+                <YAxis stroke="var(--chart-axis)" fontSize={11} />
                 <Tooltip {...tooltipStyle} />
                 <Legend wrapperStyle={{ fontSize: "11px" }} />
                 <Bar dataKey="output" fill="#22d3ee" name="Actual Output" radius={[4, 4, 0, 0]} />

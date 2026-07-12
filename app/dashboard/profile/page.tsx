@@ -33,7 +33,7 @@ export default function ProfilePage() {
           >
             {/* Banner */}
             <div className="h-32 bg-gradient-to-r from-cyan-500 to-blue-600 relative overflow-hidden">
-              <div className="absolute inset-0 bg-white/10 mix-blend-overlay" />
+              <div className="absolute inset-0 bg-gray-100 dark:bg-white/10 mix-blend-overlay" />
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20" />
             </div>
 
@@ -46,7 +46,7 @@ export default function ProfilePage() {
                 </div>
               </div>
               <h2 className="mt-4 text-xl font-bold text-foreground">Rajesh Kumar</h2>
-              <p className="text-sm font-medium text-cyan-600 dark:text-cyan-400 mt-1 uppercase tracking-wider">System Administrator</p>
+              <p className="text-sm font-medium text-cyan-600 dark:text-cyan-600 dark:text-cyan-400 mt-1 uppercase tracking-wider">System Administrator</p>
 
               <div className="mt-6 space-y-4">
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
@@ -116,7 +116,7 @@ export default function ProfilePage() {
 
             <div className="space-y-6">
               {/* Change Password */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl border border-gray-100 dark:border-gray-200 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
                 <div>
                   <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
                     <Key size={14} className="text-muted-foreground" />
@@ -124,13 +124,13 @@ export default function ProfilePage() {
                   </h4>
                   <p className="text-xs text-muted-foreground mt-1">Last changed 45 days ago. We recommend updating it regularly.</p>
                 </div>
-                <button className="px-4 py-2 text-sm font-medium border border-gray-200 dark:border-white/10 rounded-xl hover:bg-gray-100 dark:hover:bg-white/5 transition-colors whitespace-nowrap text-foreground">
+                <button className="px-4 py-2 text-sm font-medium border border-gray-200 dark:border-white/10 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-50 dark:bg-white/5 transition-colors whitespace-nowrap text-foreground">
                   Update Password
                 </button>
               </div>
 
               {/* 2FA */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl border border-gray-100 dark:border-gray-200 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
                 <div>
                   <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
                     <Smartphone size={14} className="text-muted-foreground" />
@@ -142,7 +142,7 @@ export default function ProfilePage() {
                   <span className="flex items-center gap-1.5 text-xs font-medium text-emerald-500">
                     <CheckCircle size={14} /> Enabled
                   </span>
-                  <button className="px-4 py-2 text-sm font-medium border border-gray-200 dark:border-white/10 rounded-xl hover:bg-gray-100 dark:hover:bg-white/5 transition-colors text-foreground">
+                  <button className="px-4 py-2 text-sm font-medium border border-gray-200 dark:border-white/10 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-50 dark:bg-white/5 transition-colors text-foreground">
                     Configure
                   </button>
                 </div>
@@ -166,7 +166,7 @@ export default function ProfilePage() {
 
             <div className="space-y-6">
               {/* Theme */}
-              <div className="flex items-center justify-between p-4 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
+              <div className="flex items-center justify-between p-4 rounded-2xl border border-gray-100 dark:border-gray-200 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
                 <div>
                   <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
                     <Moon size={14} className="text-muted-foreground" />
@@ -180,7 +180,7 @@ export default function ProfilePage() {
               </div>
 
               {/* Notifications */}
-              <div className="flex items-center justify-between p-4 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
+              <div className="flex items-center justify-between p-4 rounded-2xl border border-gray-100 dark:border-gray-200 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
                 <div>
                   <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
                     <Bell size={14} className="text-muted-foreground" />
@@ -195,7 +195,7 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-gray-100 dark:border-white/5 flex justify-end">
+            <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-200 dark:border-white/5 flex justify-end">
               <button className="px-6 py-2.5 bg-foreground text-background font-medium rounded-xl hover:opacity-90 transition-opacity text-sm shadow-sm">
                 Save Preferences
               </button>

@@ -52,7 +52,7 @@ export function RecentTransactions() {
         </div>
         <button
           id="view-all-transactions"
-          className="flex items-center gap-1 text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+          className="flex items-center gap-1 text-xs text-cyan-600 dark:text-cyan-400 hover:text-cyan-300 transition-colors"
         >
           View All
           <ArrowUpRight size={12} />

@@ -45,7 +45,7 @@ const oeMetrics = [
 
 const colorMap: Record<string, string> = {
   emerald: "text-emerald-400 bg-emerald-400/10",
-  cyan: "text-cyan-400 bg-cyan-400/10",
+  cyan: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10",
   amber: "text-amber-400 bg-amber-400/10",
   blue: "text-blue-400 bg-blue-400/10",
   purple: "text-purple-400 bg-purple-400/10",
@@ -94,7 +94,7 @@ export default function AnalyticsPage() {
             transition={{ delay: 0.42 }}
             className="glass-card border border-white/8 rounded-2xl overflow-hidden"
           >
-            <div className="px-5 py-4 border-b border-white/5 flex items-center gap-2 bg-white/[0.01]">
+            <div className="px-5 py-4 border-b border-gray-200 dark:border-white/5 flex items-center gap-2 bg-white/[0.01]">
               <div className="h-7 w-7 rounded-lg bg-emerald-400/10 text-emerald-400 flex items-center justify-center">
                 <Activity size={13} />
               </div>

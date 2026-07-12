@@ -32,7 +32,7 @@ export function TableSkeleton({ rows = 6, cols = 6, className }: TableSkeletonPr
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.1 }}
       className={cn(
-        "glass-card border border-white/5 rounded-2xl overflow-hidden w-full relative",
+        "glass-card border border-gray-200 dark:border-white/5 rounded-2xl overflow-hidden w-full relative",
         className
       )}
       style={{
@@ -40,17 +40,17 @@ export function TableSkeleton({ rows = 6, cols = 6, className }: TableSkeletonPr
       }}
     >
       {/* Table Action Controls Header */}
-      <div className="px-5 py-4 border-b border-white/5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white/[0.01]">
+      <div className="px-5 py-4 border-b border-gray-200 dark:border-white/5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white/[0.01]">
         <div className="flex items-center gap-3">
           {/* Table Icon */}
           <div className="relative">
-            <Skeleton className="h-8 w-8 rounded-lg bg-white/5 border border-white/10" />
+            <Skeleton className="h-8 w-8 rounded-lg bg-white/5 border border-gray-200 dark:border-white/10" />
             <span className="absolute inset-0 rounded-lg bg-blue-400/5 animate-pulse" />
           </div>
           {/* Title */}
           <div className="space-y-1">
-            <Skeleton className="h-4 w-36 bg-white/10" />
-            <Skeleton className="h-2.5 w-24 bg-white/5" />
+            <Skeleton className="h-4 w-36 bg-gray-100 dark:bg-white/10" />
+            <Skeleton className="h-2.5 w-24 bg-gray-50 dark:bg-white/5" />
           </div>
         </div>
         
@@ -58,12 +58,12 @@ export function TableSkeleton({ rows = 6, cols = 6, className }: TableSkeletonPr
         <div className="flex items-center gap-2">
           {/* Mock search input */}
           <div className="relative">
-            <Skeleton className="h-8 w-40 rounded-lg bg-white/5 border border-white/10" />
-            <div className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 rounded-full border border-white/10" />
+            <Skeleton className="h-8 w-40 rounded-lg bg-white/5 border border-gray-200 dark:border-white/10" />
+            <div className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 rounded-full border border-gray-200 dark:border-white/10" />
           </div>
           {/* Mock filters */}
-          <Skeleton className="h-8 w-16 rounded-lg bg-white/5 border border-white/10" />
-          <Skeleton className="h-8 w-16 rounded-lg bg-white/5 border border-white/10" />
+          <Skeleton className="h-8 w-16 rounded-lg bg-white/5 border border-gray-200 dark:border-white/10" />
+          <Skeleton className="h-8 w-16 rounded-lg bg-white/5 border border-gray-200 dark:border-white/10" />
         </div>
       </div>
 
@@ -71,12 +71,12 @@ export function TableSkeleton({ rows = 6, cols = 6, className }: TableSkeletonPr
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse min-w-[800px]">
           <thead>
-            <tr className="border-b border-white/5 bg-white/[0.015] text-[10px] uppercase tracking-wider text-muted-foreground">
+            <tr className="border-b border-gray-200 dark:border-white/5 bg-white/[0.015] text-[10px] uppercase tracking-wider text-muted-foreground">
               {Array.from({ length: cols }).map((_, i) => {
                 const headerWidths = ["w-12 text-center", "w-40", "w-32", "w-24", "w-24", "w-28 text-center"];
                 return (
                   <th key={i} className={cn("px-5 py-3.5", headerWidths[i % headerWidths.length])}>
-                    <Skeleton className="h-2.5 w-16 bg-white/10 inline-block" />
+                    <Skeleton className="h-2.5 w-16 bg-gray-100 dark:bg-white/10 inline-block" />
                   </th>
                 );
               })}
@@ -121,10 +121,10 @@ export function TableSkeleton({ rows = 6, cols = 6, className }: TableSkeletonPr
                       ) : cIdx === 0 ? (
                         // Render centered Sr No
                         <div className="text-center font-mono text-xs">
-                          <Skeleton className="h-3 w-4 bg-white/10 mx-auto" />
+                          <Skeleton className="h-3 w-4 bg-gray-100 dark:bg-white/10 mx-auto" />
                         </div>
                       ) : (
-                        <Skeleton className={cn("h-3 bg-white/5", widthClass)} />
+                        <Skeleton className={cn("h-3 bg-gray-50 dark:bg-white/5", widthClass)} />
                       )}
                     </td>
                   );
@@ -136,13 +136,13 @@ export function TableSkeleton({ rows = 6, cols = 6, className }: TableSkeletonPr
       </div>
 
       {/* Pagination control footer skeleton */}
-      <div className="px-5 py-3 border-t border-white/5 flex items-center justify-between bg-white/[0.01]">
-        <Skeleton className="h-3 w-44 bg-white/5" />
+      <div className="px-5 py-3 border-t border-gray-200 dark:border-white/5 flex items-center justify-between bg-white/[0.01]">
+        <Skeleton className="h-3 w-44 bg-gray-50 dark:bg-white/5" />
         <div className="flex items-center gap-1.5">
-          <Skeleton className="h-7 w-7 rounded bg-white/5 border border-white/10" />
-          <Skeleton className="h-7 w-7 rounded bg-white/10 border border-white/10 text-center flex items-center justify-center" />
-          <Skeleton className="h-7 w-7 rounded bg-white/5 border border-white/10" />
-          <Skeleton className="h-7 w-7 rounded bg-white/5 border border-white/10" />
+          <Skeleton className="h-7 w-7 rounded bg-white/5 border border-gray-200 dark:border-white/10" />
+          <Skeleton className="h-7 w-7 rounded bg-white/10 border border-gray-200 dark:border-white/10 text-center flex items-center justify-center" />
+          <Skeleton className="h-7 w-7 rounded bg-white/5 border border-gray-200 dark:border-white/10" />
+          <Skeleton className="h-7 w-7 rounded bg-white/5 border border-gray-200 dark:border-white/10" />
         </div>
       </div>
     </motion.div>

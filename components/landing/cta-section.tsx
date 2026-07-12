@@ -25,7 +25,7 @@ export function CtaSection() {
               </div>
             </div>
 
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/5 text-cyan-400 text-xs font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/5 text-cyan-600 dark:text-cyan-400 text-xs font-medium mb-6">
               <Sparkles size={12} />
               Start Your Digital Transformation
             </div>
@@ -52,7 +52,7 @@ export function CtaSection() {
               <Link
                 href="#features"
                 id="cta-features-btn"
-                className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl font-medium border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all duration-300 text-foreground"
+                className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl font-medium border border-gray-200 dark:border-white/10 hover:border-white/20 hover:bg-gray-50 dark:bg-white/5 transition-all duration-300 text-foreground"
               >
                 Explore Features
               </Link>

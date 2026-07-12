@@ -24,9 +24,9 @@ const colorMap = {
   cyan: {
     gradient: "from-cyan-500/20 via-cyan-400/10 to-transparent",
     border: "border-cyan-400/20 hover:border-cyan-400/40",
-    icon: "bg-cyan-400/10 text-cyan-400",
+    icon: "bg-cyan-400/10 text-cyan-600 dark:text-cyan-400",
     glow: "hover:shadow-cyan-500/10",
-    badge: "bg-cyan-400/10 text-cyan-400",
+    badge: "bg-cyan-400/10 text-cyan-600 dark:text-cyan-400",
     indicator: "bg-cyan-400",
   },
   blue: {

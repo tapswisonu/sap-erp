@@ -63,7 +63,7 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/5 text-cyan-400 text-xs font-medium mb-8"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/5 text-cyan-600 dark:text-cyan-400 text-xs font-medium mb-8"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 status-online" />
             Industry 4.0 Manufacturing Platform
@@ -113,7 +113,7 @@ export function HeroSection() {
             <Link
               href="#features"
               id="hero-cta-secondary"
-              className="flex items-center gap-2 px-8 py-3.5 rounded-2xl text-base font-medium border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all duration-300 text-foreground"
+              className="flex items-center gap-2 px-8 py-3.5 rounded-2xl text-base font-medium border border-gray-200 dark:border-white/10 hover:border-white/20 hover:bg-gray-50 dark:bg-white/5 transition-all duration-300 text-foreground"
             >
               <Play size={16} />
               Get Started
@@ -128,7 +128,7 @@ export function HeroSection() {
             className="relative max-w-5xl mx-auto"
           >
             {/* Main dashboard preview */}
-            <div className="relative glass-card border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-black/40">
+            <div className="relative glass-card border border-gray-200 dark:border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-black/40">
               {/* Fake browser bar */}
               <div className="flex items-center gap-2 px-4 py-3 border-b border-white/8 bg-white/2">
                 <div className="flex gap-1.5">
@@ -137,7 +137,7 @@ export function HeroSection() {
                   <div className="h-2.5 w-2.5 rounded-full bg-emerald-400/60" />
                 </div>
                 <div className="flex-1 text-center">
-                  <span className="text-[11px] text-muted-foreground font-mono bg-white/5 border border-white/10 rounded-full px-4 py-0.5">
+                  <span className="text-[11px] text-muted-foreground font-mono bg-white/5 border border-gray-200 dark:border-white/10 rounded-full px-4 py-0.5">
                     sap-manufacturing.app/dashboard
                   </span>
                 </div>
@@ -191,7 +191,7 @@ export function HeroSection() {
                             <span>{item.label}</span>
                             <span>{item.pct}%</span>
                           </div>
-                          <div className="h-1 rounded-full bg-white/10">
+                          <div className="h-1 rounded-full bg-gray-100 dark:bg-white/10">
                             <div
                               className={`h-full rounded-full ${item.color}`}
                               style={{ width: `${item.pct}%` }}
@@ -231,11 +231,11 @@ export function HeroSection() {
               style={{ animationDelay: "2s" }}
             >
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-400/10">
-                <Activity size={16} className="text-cyan-400" />
+                <Activity size={16} className="text-cyan-600 dark:text-cyan-400" />
               </div>
               <div>
                 <p className="text-[10px] text-muted-foreground">System Status</p>
-                <p className="text-sm font-bold text-cyan-400">All Systems Go</p>
+                <p className="text-sm font-bold text-cyan-600 dark:text-cyan-400">All Systems Go</p>
               </div>
             </motion.div>
           </motion.div>

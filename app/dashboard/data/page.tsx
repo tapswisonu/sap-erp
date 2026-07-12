@@ -160,14 +160,14 @@ export default function DataPage() {
                 setSearchTerm(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 transition-all"
+              className="w-full bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 transition-all"
             />
           </div>
 
           {/* Filters and Export */}
           <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
             {/* Type Dropdown */}
-            <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 gap-2">
+            <div className="flex items-center bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl px-3 py-1.5 gap-2">
               <Filter size={14} className="text-muted-foreground" />
               <select
                 value={selectedType}
@@ -186,7 +186,7 @@ export default function DataPage() {
             </div>
 
             {/* Incoterms Dropdown */}
-            <div className="flex items-center bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 gap-2">
+            <div className="flex items-center bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl px-3 py-1.5 gap-2">
               <Anchor size={14} className="text-muted-foreground" />
               <select
                 value={selectedInco}
@@ -206,7 +206,7 @@ export default function DataPage() {
 
             <button
               onClick={handleExport}
-              className="flex items-center gap-2 bg-cyan-400/10 hover:bg-cyan-400/20 border border-cyan-400/20 text-cyan-400 rounded-xl px-4 py-2 text-xs font-semibold transition-all ml-auto md:ml-0"
+              className="flex items-center gap-2 bg-cyan-400/10 hover:bg-cyan-400/20 border border-cyan-400/20 text-cyan-600 dark:text-cyan-400 rounded-xl px-4 py-2 text-xs font-semibold transition-all ml-auto md:ml-0"
             >
               <Download size={14} />
               Export CSV
@@ -223,7 +223,7 @@ export default function DataPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[1500px]">
               <thead>
-                <tr className="border-b border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
+                <tr className="border-b border-gray-200 dark:border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
                   <th className="px-5 py-3">Sr. No.</th>
                   <th className="px-5 py-3 cursor-pointer select-none hover:text-foreground" onClick={() => handleSort("poNumber")}>
                     <div className="flex items-center gap-1.5">
@@ -271,11 +271,11 @@ export default function DataPage() {
                     <td className="px-5 py-4 text-muted-foreground">{row.sectionSize}</td>
                     <td className="px-5 py-4 text-muted-foreground">{row.copperSize}</td>
                     <td className="px-5 py-4">
-                      <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-xs text-foreground">
+                      <span className="px-2 py-0.5 rounded bg-white/5 border border-gray-200 dark:border-white/10 text-xs text-foreground">
                         {row.type}
                       </span>
                     </td>
-                    <td className="px-5 py-4 text-right font-mono font-bold text-cyan-400">{row.quantity.toLocaleString()} units</td>
+                    <td className="px-5 py-4 text-right font-mono font-bold text-cyan-600 dark:text-cyan-400">{row.quantity.toLocaleString()} units</td>
                     <td className="px-5 py-4 text-foreground font-semibold">{row.incoterms}</td>
                     <td className="px-5 py-4 text-right font-mono">${row.rate}</td>
                     <td className="px-5 py-4 text-right font-mono font-bold text-foreground">${row.poAmount.toLocaleString()}</td>
@@ -323,7 +323,7 @@ export default function DataPage() {
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="flex items-center justify-center h-8 w-8 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 disabled:opacity-40 disabled:hover:bg-white/5 transition-all"
+              className="flex items-center justify-center h-8 w-8 rounded-lg bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-gray-100 dark:bg-white/10 disabled:opacity-40 disabled:hover:bg-gray-50 dark:bg-white/5 transition-all"
             >
               <ChevronLeft size={16} />
             </button>
@@ -333,7 +333,7 @@ export default function DataPage() {
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="flex items-center justify-center h-8 w-8 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 disabled:opacity-40 disabled:hover:bg-white/5 transition-all"
+              className="flex items-center justify-center h-8 w-8 rounded-lg bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-gray-100 dark:bg-white/10 disabled:opacity-40 disabled:hover:bg-gray-50 dark:bg-white/5 transition-all"
             >
               <ChevronRight size={16} />
             </button>

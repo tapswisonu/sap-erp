@@ -56,7 +56,7 @@ export function Navbar() {
                 key={link.label}
                 href={link.href}
                 id={`nav-${link.label.toLowerCase()}`}
-                className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-white/5 transition-all duration-200"
+                className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-gray-50 dark:bg-white/5 transition-all duration-200"
               >
                 {link.label}
               </Link>
@@ -82,7 +82,7 @@ export function Navbar() {
             {/* Mobile menu button */}
             <button
               id="mobile-menu-btn"
-              className="md:hidden flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-foreground"
+              className="md:hidden flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 border border-gray-200 dark:border-white/10 text-foreground"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle mobile menu"
             >
@@ -106,7 +106,7 @@ export function Navbar() {
               key={link.label}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground rounded-xl hover:bg-white/5 transition-all"
+              className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground rounded-xl hover:bg-gray-50 dark:bg-white/5 transition-all"
             >
               {link.label}
             </Link>

@@ -30,7 +30,7 @@ const statusConfig = {
   },
   high: {
     label: "High",
-    className: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
+    className: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
     icon: TrendingUp,
   },
   critical: {
@@ -109,20 +109,20 @@ export default function InventoryPage() {
             </h2>
           </div>
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-gray-200 dark:border-white/10 text-sm text-muted-foreground">
               <Search size={13} />
               <span className="text-xs hidden sm:block">Search items...</span>
             </div>
             <button
               id="filter-inventory"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-white/10 text-xs text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-gray-200 dark:border-white/10 text-xs text-muted-foreground hover:text-foreground hover:bg-gray-50 dark:bg-white/5 transition-all"
             >
               <Filter size={13} />
               Filter
             </button>
             <button
               id="add-inventory"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 hover:bg-cyan-400/20 transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium bg-cyan-400/10 border border-cyan-400/20 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-400/20 transition-all"
             >
               <Plus size={13} />
               Add Item
@@ -163,7 +163,7 @@ export default function InventoryPage() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.35 + index * 0.07 }}
-                className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-white/5 hover:bg-white/2 transition-colors items-center group"
+                className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-200 dark:border-white/5 hover:bg-white/2 transition-colors items-center group"
               >
                 <div className="col-span-1 text-sm font-semibold text-muted-foreground font-mono">
                   {index + 1}
@@ -191,7 +191,7 @@ export default function InventoryPage() {
                 </div>
                 <div className="col-span-2">
                   <div className="flex items-center gap-2">
-                    <div className="flex-1 h-1.5 rounded-full bg-white/10 overflow-hidden">
+                    <div className="flex-1 h-1.5 rounded-full bg-gray-100 dark:bg-white/10 overflow-hidden">
                       <motion.div
                         className={cn("h-full rounded-full", barColor)}
                         initial={{ width: 0 }}

@@ -25,7 +25,7 @@ const CustomTooltip = ({
 }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="glass-card border border-white/10 rounded-xl p-3 shadow-xl">
+      <div className="glass-card border border-gray-200 dark:border-white/10 rounded-xl p-3 shadow-xl">
         <p className="text-xs text-muted-foreground mb-2 font-medium">{label}</p>
         {payload.map((entry) => (
           <div key={entry.name} className="flex items-center gap-2 text-sm">
@@ -74,19 +74,19 @@ export function ProductionChart() {
         >
           <CartesianGrid
             strokeDasharray="3 3"
-            stroke="rgba(255,255,255,0.04)"
+            stroke="var(--chart-grid)"
             vertical={false}
           />
           <XAxis
             dataKey="name"
-            stroke="rgba(255,255,255,0.2)"
-            tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 11 }}
+            stroke="var(--chart-axis)"
+            tick={{ fill: "var(--chart-text)", fontSize: 11 }}
             axisLine={false}
             tickLine={false}
           />
           <YAxis
-            stroke="rgba(255,255,255,0.2)"
-            tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 11 }}
+            stroke="var(--chart-axis)"
+            tick={{ fill: "var(--chart-text)", fontSize: 11 }}
             axisLine={false}
             tickLine={false}
           />

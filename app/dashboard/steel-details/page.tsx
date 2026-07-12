@@ -19,7 +19,7 @@ import { Layers, Activity, Truck, Settings } from "lucide-react";
 
 const statusColors = {
   Dispatched: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20",
-  Rolled: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
+  Rolled: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
   Cutting: "text-amber-400 bg-amber-400/10 border-amber-400/20",
   Scheduled: "text-blue-400 bg-blue-400/10 border-blue-400/20",
 };
@@ -65,12 +65,12 @@ export default function SteelDetailsPage() {
                       <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                  <XAxis dataKey="month" stroke="rgba(255,255,255,0.4)" fontSize={11} />
-                  <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
+                  <XAxis dataKey="month" stroke="var(--chart-axis)" fontSize={11} />
+                  <YAxis stroke="var(--chart-axis)" fontSize={11} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px" }}
-                    labelStyle={{ color: "#94a3b8", fontSize: "12px" }}
+                    contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }}
+                    labelStyle={{ color: "var(--tooltip-label)", fontSize: "12px", marginBottom: "4px" }}
                   />
                   <Area type="monotone" dataKey="stock" stroke="#3b82f6" fillOpacity={1} fill="url(#colorSteel)" name="Steel Stock (kg)" />
                 </AreaChart>
@@ -94,7 +94,7 @@ export default function SteelDetailsPage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="h-7 w-7 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center flex-shrink-0">
+                  <div className="h-7 w-7 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center flex-shrink-0">
                     <Activity size={14} />
                   </div>
                   <div>
@@ -115,7 +115,7 @@ export default function SteelDetailsPage() {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-white/5 text-[10px] text-muted-foreground">
+            <div className="pt-4 border-t border-gray-200 dark:border-white/5 text-[10px] text-muted-foreground">
               Production line uptime: 99.85% MTD
             </div>
           </div>

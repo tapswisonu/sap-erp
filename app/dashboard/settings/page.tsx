@@ -21,7 +21,7 @@ export default function SettingsPage() {
             className="glass-card border border-white/8 rounded-2xl p-6 space-y-4"
           >
             <div className="flex items-center gap-3">
-              <div className="h-8 w-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+              <div className="h-8 w-8 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
                 <Database size={16} />
               </div>
               <h3 className="font-semibold text-foreground">ERP Node Configuration</h3>
@@ -30,7 +30,7 @@ export default function SettingsPage() {
             <div className="space-y-3">
               <div>
                 <label className="text-xs text-muted-foreground block mb-1">Active Database Node</label>
-                <select className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-foreground focus:outline-none focus:border-cyan-500/50">
+                <select className="w-full bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-foreground focus:outline-none focus:border-cyan-500/50">
                   <option className="bg-slate-900">Primary Cluster - Mundra Hub (Active)</option>
                   <option className="bg-slate-900">Backup Cluster - Nhava Sheva (Standby)</option>
                   <option className="bg-slate-900">Local Cache Node</option>
@@ -39,7 +39,7 @@ export default function SettingsPage() {
 
               <div>
                 <label className="text-xs text-muted-foreground block mb-1">Data Sync Frequency</label>
-                <select className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-foreground focus:outline-none focus:border-cyan-500/50">
+                <select className="w-full bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-foreground focus:outline-none focus:border-cyan-500/50">
                   <option className="bg-slate-900">Real-time HMR Sync</option>
                   <option className="bg-slate-900">Every 5 Minutes</option>
                   <option className="bg-slate-900">Hourly Batch</option>
@@ -70,7 +70,7 @@ export default function SettingsPage() {
                   min="1"
                   max="100"
                   defaultValue="75"
-                  className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                  className="w-full h-1 bg-gray-100 dark:bg-white/10 rounded-lg appearance-none cursor-pointer accent-purple-500"
                 />
                 <div className="flex justify-between text-[9px] text-muted-foreground mt-1">
                   <span>Conservative</span>
@@ -84,7 +84,7 @@ export default function SettingsPage() {
                 <input
                   type="text"
                   defaultValue="$8,450"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-foreground focus:outline-none focus:border-purple-500/50"
+                  className="w-full bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-foreground focus:outline-none focus:border-purple-500/50"
                 />
               </div>
             </div>
@@ -148,7 +148,7 @@ export default function SettingsPage() {
                     <p className="text-xs font-semibold text-foreground">Dark Glassmorphism UI</p>
                     <p className="text-[10px] text-muted-foreground">High contrast industrial glow</p>
                   </div>
-                  <span className="text-[10px] font-mono text-cyan-400 font-semibold">ENABLED</span>
+                  <span className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 font-semibold">ENABLED</span>
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -156,12 +156,12 @@ export default function SettingsPage() {
                     <p className="text-xs font-semibold text-foreground">Automated System Alerts</p>
                     <p className="text-[10px] text-muted-foreground">Highlight low stocks automatically</p>
                   </div>
-                  <span className="text-[10px] font-mono text-cyan-400 font-semibold">ENABLED</span>
+                  <span className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 font-semibold">ENABLED</span>
                 </div>
               </div>
             </div>
 
-            <button className="flex items-center justify-center gap-1.5 w-full bg-cyan-400/10 hover:bg-cyan-400/20 border border-cyan-400/20 text-cyan-400 rounded-xl py-2 text-xs font-semibold transition-all mt-4">
+            <button className="flex items-center justify-center gap-1.5 w-full bg-cyan-400/10 hover:bg-cyan-400/20 border border-cyan-400/20 text-cyan-600 dark:text-cyan-400 rounded-xl py-2 text-xs font-semibold transition-all mt-4">
               <Save size={13} />
               Save Configurations
             </button>

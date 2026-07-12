@@ -62,9 +62,9 @@ export default function RevenueCharts() {
                     <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="month" stroke="rgba(255,255,255,0.4)" fontSize={11} />
-                <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
+                <XAxis dataKey="month" stroke="var(--chart-axis)" fontSize={11} />
+                <YAxis stroke="var(--chart-axis)" fontSize={11} />
                 <Tooltip {...tt} />
                 <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "10px" }} />
                 <Area type="monotone" dataKey="revenue" stroke="#22d3ee" fill="url(#gR)" strokeWidth={2} name="Revenue" />
@@ -89,7 +89,7 @@ export default function RevenueCharts() {
                 <Pie data={revenueByCategory} cx="50%" cy="50%" innerRadius={45} outerRadius={65} paddingAngle={3} dataKey="value">
                   {revenueByCategory.map((e, i) => <Cell key={i} fill={e.color} />)}
                 </Pie>
-                <Tooltip contentStyle={{ backgroundColor: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px" }} />
+                <Tooltip contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -120,9 +120,9 @@ export default function RevenueCharts() {
           <div className="h-[210px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={quarterlyRevenue} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                <XAxis dataKey="q" stroke="rgba(255,255,255,0.4)" fontSize={10} />
-                <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
+                <XAxis dataKey="q" stroke="var(--chart-axis)" fontSize={10} />
+                <YAxis stroke="var(--chart-axis)" fontSize={11} />
                 <Tooltip {...tt} />
                 <Legend wrapperStyle={{ fontSize: "11px" }} />
                 <Bar dataKey="revenue" fill="#22d3ee" name="Revenue" radius={[4, 4, 0, 0]} />

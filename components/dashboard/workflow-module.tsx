@@ -24,8 +24,8 @@ const colorMap = {
   cyan: {
     gradient: "from-cyan-500/15 to-transparent",
     border: "border-cyan-400/20 hover:border-cyan-400/50",
-    icon: "bg-cyan-400/10 text-cyan-400",
-    badge: "text-cyan-400",
+    icon: "bg-cyan-400/10 text-cyan-600 dark:text-cyan-400",
+    badge: "text-cyan-600 dark:text-cyan-400",
     progress: "bg-cyan-400",
     dot: "bg-cyan-400",
   },
@@ -58,7 +58,7 @@ const colorMap = {
 const statusColors = {
   optimal: "text-emerald-400 bg-emerald-400/10",
   active: "text-blue-400 bg-blue-400/10",
-  high: "text-cyan-400 bg-cyan-400/10",
+  high: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10",
   low: "text-amber-400 bg-amber-400/10",
   critical: "text-red-400 bg-red-400/10",
 };

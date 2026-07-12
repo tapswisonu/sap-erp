@@ -62,7 +62,7 @@ export function Select({ value, onChange, options, className }: SelectProps) {
                   setIsOpen(false);
                 }}
                 className={cn(
-                  "w-full text-left px-3 py-2 text-sm flex items-center justify-between hover:bg-gray-100 dark:hover:bg-white/10 transition-colors",
+                  "w-full text-left px-3 py-2 text-sm flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-100 dark:bg-white/10 transition-colors",
                   value === option.value ? "text-blue-600 dark:text-blue-400 font-medium bg-blue-50/50 dark:bg-blue-900/10" : "text-foreground"
                 )}
               >

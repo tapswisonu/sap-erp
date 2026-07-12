@@ -24,6 +24,13 @@
     --ring: 199 89% 48%;
     --radius: 1rem;
     --sidebar-width: 260px;
+    --chart-grid: rgba(255, 255, 255, 0.05);
+    --chart-axis: rgba(255, 255, 255, 0.4);
+    --chart-text: rgba(255, 255, 255, 0.4);
+    --tooltip-bg: #0f172a;
+    --tooltip-border: rgba(255, 255, 255, 0.1);
+    --tooltip-text: #f8fafc;
+    --tooltip-label: #94a3b8;
   }
 
   .light {
@@ -46,6 +53,13 @@
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
     --ring: 199 89% 40%;
+    --chart-grid: rgba(0, 0, 0, 0.06);
+    --chart-axis: rgba(0, 0, 0, 0.3);
+    --chart-text: rgba(0, 0, 0, 0.5);
+    --tooltip-bg: #ffffff;
+    --tooltip-border: rgba(0, 0, 0, 0.1);
+    --tooltip-text: #0f172a;
+    --tooltip-label: #64748b;
   }
 }
 

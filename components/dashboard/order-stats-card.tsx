@@ -22,7 +22,7 @@ export function OrderStatsCard() {
     >
       <div className="flex items-center gap-2 mb-5">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-400/10">
-          <Package size={16} className="text-cyan-400" />
+          <Package size={16} className="text-cyan-600 dark:text-cyan-400" />
         </div>
         <div>
           <h3 className="font-semibold text-foreground">Order Statistics</h3>
@@ -54,7 +54,7 @@ export function OrderStatsCard() {
                   <span className="text-xs text-muted-foreground">({pct}%)</span>
                 </div>
               </div>
-              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+              <div className="h-1.5 rounded-full bg-gray-100 dark:bg-white/10 overflow-hidden">
                 <motion.div
                   className={`h-full rounded-full ${stat.bar}`}
                   initial={{ width: 0 }}

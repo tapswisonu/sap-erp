@@ -41,7 +41,7 @@ const revenueTargets = [
 
 const colorMap: Record<string, string> = {
   emerald: "text-emerald-400 bg-emerald-400/10 border-emerald-400/30",
-  cyan: "text-cyan-400 bg-cyan-400/10 border-cyan-400/30",
+  cyan: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10 border-cyan-400/30",
   blue: "text-blue-400 bg-blue-400/10 border-blue-400/30",
   purple: "text-purple-400 bg-purple-400/10 border-purple-400/30",
 };
@@ -96,7 +96,7 @@ export default function RevenuePage() {
             transition={{ delay: 0.42 }}
             className="glass-card border border-white/8 rounded-2xl p-5"
           >
-            <div className="px-5 py-4 border-b border-white/5 flex items-center gap-2 mb-5 -mx-5 -mt-5 bg-white/[0.01]">
+            <div className="px-5 py-4 border-b border-gray-200 dark:border-white/5 flex items-center gap-2 mb-5 -mx-5 -mt-5 bg-white/[0.01]">
               <div className="h-7 w-7 rounded-lg bg-purple-400/10 text-purple-400 flex items-center justify-center">
                 <Target size={13} />
               </div>
@@ -122,7 +122,7 @@ export default function RevenuePage() {
                         <span className="text-[10px] text-muted-foreground ml-1">/ ₹{t.target}L</span>
                       </div>
                     </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-gray-50 dark:bg-white/5 rounded-full overflow-hidden">
                       <motion.div
                         className={cn("h-full rounded-full", barColors[t.color])}
                         initial={{ width: 0 }}

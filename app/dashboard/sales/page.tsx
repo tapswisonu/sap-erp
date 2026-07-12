@@ -41,14 +41,14 @@ const topCustomers = [
 ];
 
 const colorMap: Record<string, string> = {
-  cyan: "text-cyan-400 bg-cyan-400/10",
+  cyan: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10",
   emerald: "text-emerald-400 bg-emerald-400/10",
   blue: "text-blue-400 bg-blue-400/10",
   purple: "text-purple-400 bg-purple-400/10",
 };
 
 const segmentColors: Record<string, string> = {
-  Industrial: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
+  Industrial: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
   Commercial: "text-blue-400 bg-blue-400/10 border-blue-400/20",
   Electronics: "text-purple-400 bg-purple-400/10 border-purple-400/20",
 };
@@ -90,9 +90,9 @@ export default function SalesPage() {
 
         {/* Top Customers Table */}
         <section className="glass-card border border-white/8 rounded-2xl overflow-hidden">
-          <div className="px-5 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.01]">
+          <div className="px-5 py-4 border-b border-gray-200 dark:border-white/5 flex items-center justify-between bg-white/[0.01]">
             <div className="flex items-center gap-2">
-              <div className="h-7 w-7 rounded-lg bg-cyan-400/10 text-cyan-400 flex items-center justify-center">
+              <div className="h-7 w-7 rounded-lg bg-cyan-400/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
                 <Users size={13} />
               </div>
               <h3 className="text-sm font-semibold text-foreground">Top Customers by Revenue</h3>
@@ -102,7 +102,7 @@ export default function SalesPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[800px]">
               <thead>
-                <tr className="border-b border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
+                <tr className="border-b border-gray-200 dark:border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
                   <th className="px-5 py-3 w-16 text-center">Sr. No.</th>
                   <th className="px-5 py-3">Customer</th>
                   <th className="px-5 py-3">Location</th>
@@ -126,10 +126,10 @@ export default function SalesPage() {
                     </td>
                     <td className="px-5 py-4 font-semibold text-foreground">{c.name}</td>
                     <td className="px-5 py-4 text-muted-foreground flex items-center gap-1.5">
-                      <MapPin size={11} className="text-cyan-400" />{c.location}
+                      <MapPin size={11} className="text-cyan-600 dark:text-cyan-400" />{c.location}
                     </td>
                     <td className="px-5 py-4">
-                      <span className={cn("px-2 py-0.5 rounded text-xs font-semibold border", segmentColors[c.segment] ?? "text-muted-foreground bg-white/5 border-white/10")}>
+                      <span className={cn("px-2 py-0.5 rounded text-xs font-semibold border", segmentColors[c.segment] ?? "text-muted-foreground bg-white/5 border-gray-200 dark:border-white/10")}>
                         {c.segment}
                       </span>
                     </td>

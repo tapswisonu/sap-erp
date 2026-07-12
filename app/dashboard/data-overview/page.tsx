@@ -29,7 +29,7 @@ import {
 } from "recharts";
 
 const colorClasses = {
-  cyan: "text-cyan-400 border-cyan-400/20 bg-cyan-400/10",
+  cyan: "text-cyan-600 dark:text-cyan-400 border-cyan-400/20 bg-cyan-400/10",
   blue: "text-blue-400 border-blue-400/20 bg-blue-400/10",
   emerald: "text-emerald-400 border-emerald-400/20 bg-emerald-400/10",
   amber: "text-amber-400 border-amber-400/20 bg-amber-400/10",
@@ -78,7 +78,7 @@ export default function DataOverviewPage() {
           >
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-400">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-600 dark:text-cyan-400">
                   <Activity size={16} />
                 </div>
                 <h3 className="font-semibold text-foreground">Module Database Records</h3>
@@ -89,16 +89,11 @@ export default function DataOverviewPage() {
             <div className="h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={moduleActivityData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
-                  <XAxis dataKey="module" stroke="rgba(255,255,255,0.3)" tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 11 }} />
-                  <YAxis stroke="rgba(255,255,255,0.3)" tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 11 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
+                  <XAxis dataKey="module" stroke="var(--chart-axis)" tick={{ fill: "var(--chart-text)", fontSize: 11 }} />
+                  <YAxis stroke="var(--chart-axis)" tick={{ fill: "var(--chart-text)", fontSize: 11 }} />
                   <Tooltip
-                    contentStyle={{
-                      background: "rgba(15, 23, 42, 0.9)",
-                      border: "1px solid rgba(255,255,255,0.1)",
-                      borderRadius: "12px",
-                      color: "#fff",
-                    }}
+                    contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }}
                   />
                   <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: '12px' }} />
                   <Bar dataKey="active" fill="#22d3ee" name="Active Records" radius={[4, 4, 0, 0]} />
@@ -128,16 +123,16 @@ export default function DataOverviewPage() {
                     <span className="text-muted-foreground">Mainframe Connection</span>
                     <span className="text-emerald-400 font-semibold">Online (12ms)</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+                  <div className="h-1.5 rounded-full bg-gray-50 dark:bg-white/5 overflow-hidden">
                     <div className="h-full bg-emerald-400 rounded-full" style={{ width: "95%" }} />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs">
                     <span className="text-muted-foreground">Automation pipeline</span>
-                    <span className="text-cyan-400 font-semibold">Running</span>
+                    <span className="text-cyan-600 dark:text-cyan-400 font-semibold">Running</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+                  <div className="h-1.5 rounded-full bg-gray-50 dark:bg-white/5 overflow-hidden">
                     <div className="h-full bg-cyan-400 rounded-full" style={{ width: "88%" }} />
                   </div>
                 </div>
@@ -146,13 +141,13 @@ export default function DataOverviewPage() {
                     <span className="text-muted-foreground">Security Protocol</span>
                     <span className="text-purple-400 font-semibold">TLS 1.3 Active</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+                  <div className="h-1.5 rounded-full bg-gray-50 dark:bg-white/5 overflow-hidden">
                     <div className="h-full bg-purple-400 rounded-full" style={{ width: "100%" }} />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="pt-6 border-t border-white/5 text-xs text-muted-foreground flex items-center gap-2">
+            <div className="pt-6 border-t border-gray-200 dark:border-white/5 text-xs text-muted-foreground flex items-center gap-2">
               <CircleDot className="text-emerald-400 animate-pulse" size={12} />
               All regional ERP shards synchronized successfully.
             </div>
@@ -166,7 +161,7 @@ export default function DataOverviewPage() {
           transition={{ delay: 0.4 }}
           className="glass-card border border-white/8 rounded-2xl overflow-hidden"
         >
-          <div className="p-6 border-b border-white/5 flex items-center justify-between">
+          <div className="p-6 border-b border-gray-200 dark:border-white/5 flex items-center justify-between">
             <h3 className="font-semibold text-foreground">Global Activity Log</h3>
             <span className="text-xs text-muted-foreground">Real-time system events</span>
           </div>
@@ -174,7 +169,7 @@ export default function DataOverviewPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
+                <tr className="border-b border-gray-200 dark:border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
                   <th className="px-6 py-3">Sr. No.</th>
                   <th className="px-6 py-3">Event ID</th>
                   <th className="px-6 py-3">Module</th>
@@ -190,7 +185,7 @@ export default function DataOverviewPage() {
                     <td className="px-6 py-4 text-xs text-muted-foreground font-mono">{idx + 1}</td>
                     <td className="px-6 py-4 font-mono text-xs text-muted-foreground">{act.id}</td>
                     <td className="px-6 py-4">
-                      <span className="px-2.5 py-0.5 rounded-full text-xs font-medium border bg-white/5 border-white/10 text-foreground">
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-medium border bg-white/5 border-gray-200 dark:border-white/10 text-foreground">
                         {act.module}
                       </span>
                     </td>

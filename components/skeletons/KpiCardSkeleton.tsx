@@ -27,7 +27,7 @@ export function KpiCardSkeleton({ count = 4, className }: KpiCardSkeletonProps) 
           "border-purple-500/10 hover:border-purple-500/20"
         ];
         const lineColors = [
-          "text-cyan-400/20",
+          "text-cyan-600 dark:text-cyan-400/20",
           "text-blue-400/20",
           "text-emerald-400/20",
           "text-purple-400/20"
@@ -69,14 +69,14 @@ export function KpiCardSkeleton({ count = 4, className }: KpiCardSkeletonProps) 
               <div className="flex items-start justify-between">
                 <div className="space-y-1.5 flex-1">
                   {/* Category label skeleton */}
-                  <Skeleton className="h-2.5 w-24 bg-white/5" />
+                  <Skeleton className="h-2.5 w-24 bg-gray-50 dark:bg-white/5" />
                   {/* Title text skeleton */}
-                  <Skeleton className="h-3.5 w-16 bg-white/10" />
+                  <Skeleton className="h-3.5 w-16 bg-gray-100 dark:bg-white/10" />
                 </div>
                 {/* Glowing Icon shape placeholder */}
                 <div className="relative flex-shrink-0">
-                  <Skeleton className="h-9 w-9 rounded-xl bg-white/5 border border-white/10" />
-                  <div className="absolute inset-0 rounded-xl bg-white/5 animate-pulse" />
+                  <Skeleton className="h-9 w-9 rounded-xl bg-white/5 border border-gray-200 dark:border-white/10" />
+                  <div className="absolute inset-0 rounded-xl bg-gray-50 dark:bg-white/5 animate-pulse" />
                 </div>
               </div>
 
@@ -85,14 +85,14 @@ export function KpiCardSkeleton({ count = 4, className }: KpiCardSkeletonProps) 
                 <div className="space-y-1">
                   {/* Value skeleton */}
                   <Skeleton className="h-9 w-28 bg-white/15" />
-                  <Skeleton className="h-2.5 w-32 bg-white/5" />
+                  <Skeleton className="h-2.5 w-32 bg-gray-50 dark:bg-white/5" />
                 </div>
                 {/* Trend Badge skeleton */}
-                <Skeleton className="h-6 w-14 rounded-full bg-white/5 border border-white/5" />
+                <Skeleton className="h-6 w-14 rounded-full bg-white/5 border border-gray-200 dark:border-white/5" />
               </div>
 
               {/* Bottom: Sparkline/Mini Graph placeholder */}
-              <div className="pt-2 border-t border-white/5 flex items-center justify-between">
+              <div className="pt-2 border-t border-gray-200 dark:border-white/5 flex items-center justify-between">
                 <div className="flex-1 h-8 mr-4 relative overflow-hidden">
                   {/* Mini sparkline chart SVG */}
                   <svg className={cn("w-full h-full", lineColors[i % lineColors.length])} viewBox="0 0 100 30" preserveAspectRatio="none">
@@ -117,7 +117,7 @@ export function KpiCardSkeleton({ count = 4, className }: KpiCardSkeletonProps) 
                     i % 4 === 2 && "bg-emerald-400",
                     i % 4 === 3 && "bg-purple-400"
                   )} />
-                  <Skeleton className="h-2 w-10 bg-white/5" />
+                  <Skeleton className="h-2 w-10 bg-gray-50 dark:bg-white/5" />
                 </div>
               </div>
             </div>
