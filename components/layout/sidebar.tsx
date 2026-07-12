@@ -129,7 +129,7 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
                         "group relative",
                         isActive
                           ? "bg-cyan-50 dark:bg-cyan-400/10 text-cyan-600 dark:text-cyan-600 dark:text-cyan-400 font-medium sidebar-active"
-                          : "text-muted-foreground hover:text-foreground hover:bg-gray-100 dark:hover:bg-gray-50 dark:bg-white/5",
+                          : "text-muted-foreground hover:text-foreground hover:bg-gray-100 dark:hover:bg-white/10 dark:bg-white/5",
                         collapsed && "justify-center px-2"
                       )}
                     >

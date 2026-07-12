@@ -1,8 +1,20 @@
-import { NextResponse } from "next/server";
+const fs = require('fs');
+const path = require('path');
+
+const routesToFix = [
+  { name: 'dispatch-details', idPrefix: 'DISP' },
+  { name: 'nomination-details', idPrefix: 'NOM' },
+  { name: 'month-plan', idPrefix: 'MP' }
+];
+
+for (const route of routesToFix) {
+  const filePath = path.join(__dirname, `app/api/${route.name}/route.ts`);
+  
+  const newContent = `import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
 
-const dataFilePath = path.join(process.cwd(), "data", "nomination-details.json");
+const dataFilePath = path.join(process.cwd(), "data", "${route.name}.json");
 
 async function getData() {
   try {
@@ -36,7 +48,7 @@ export async function POST(request: Request) {
     let newRecord = { ...body };
     if (!newRecord.id) {
       const maxIdNum = data.length > 0 ? Math.max(...data.map((o: any) => parseInt((o.id || "").split('-')[1] || "1000"))) : 1000;
-      newRecord.id = `NOM-${maxIdNum + 1}`;
+      newRecord.id = \`${route.idPrefix}-\${maxIdNum + 1}\`;
     }
     
     data.push(newRecord);
@@ -80,4 +92,9 @@ export async function DELETE(request: Request) {
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete data" }, { status: 500 });
   }
+}
+`;
+
+  fs.writeFileSync(filePath, newContent, 'utf8');
+  console.log(`Refactored ${route.name}`);
 }
