@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Bell, Search, Settings, ChevronDown, Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface DashboardHeaderProps {
   title: string;
@@ -11,6 +12,7 @@ interface DashboardHeaderProps {
 }
 
 export function DashboardHeader({ title, subtitle }: DashboardHeaderProps) {
+  const router = useRouter();
   return (
     <motion.header
       id="dashboard-header"
@@ -90,16 +92,16 @@ export function DashboardHeader({ title, subtitle }: DashboardHeaderProps) {
         {/* User pill */}
         <button
           id="user-menu-btn"
+          onClick={() => router.push('/dashboard/profile')}
           className={cn(
             "flex items-center gap-2 px-3 py-1.5 rounded-xl",
             "bg-white/5 border border-white/10",
-            "hover:border-cyan-400/30 transition-all duration-200",
-            "text-sm text-foreground"
+            "hover:border-cyan-400/30 hover:bg-white/10 transition-all duration-200",
+            "text-sm text-foreground cursor-pointer"
           )}
         >
-          <div className="h-5 w-5 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600" />
+          <div className="h-5 w-5 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex-shrink-0" />
           <span className="hidden sm:block text-xs font-medium">Rajesh K.</span>
-          <ChevronDown size={12} className="text-muted-foreground" />
         </button>
       </div>
     </motion.header>

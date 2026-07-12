@@ -1,0 +1,38 @@
+[
+  {
+    "id": "ORD-1001",
+    "customer": "Shree Metal Pvt Ltd",
+    "material": "Copper Rod 8mm",
+    "quantity": "2,500 KG",
+    "value": "₹12,45,000",
+    "status": "Processing",
+    "date": "28 May 2025"
+  },
+  {
+    "id": "ORD-1003",
+    "customer": "Bhavani Enterprises",
+    "material": "Copper Pipe 15mm",
+    "quantity": "1,200 KG",
+    "value": "₹8,64,000",
+    "status": "Pending",
+    "date": "26 May 2025"
+  },
+  {
+    "id": "ORD-1004",
+    "customer": "Sharma Metals",
+    "material": "Steel Plate 10mm",
+    "quantity": "3,750 KG",
+    "value": "₹14,06,250",
+    "status": "Processing",
+    "date": "25 May 2025"
+  },
+  {
+    "id": "ORD-1005",
+    "customer": "Kiran Alloys",
+    "material": "Copper Wire 4mm",
+    "quantity": "1,800 KG",
+    "value": "₹6,48,000",
+    "status": "Cancelled",
+    "date": "24 May 2025"
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "MP-901",
+    "customerName": "Rohan Steel Corp",
+    "type": "Export",
+    "incoterm": "FOB",
+    "port": "Mundra",
+    "weightOrBars": "24.5 tons",
+    "rate": 85,
+    "poAmount": 102000,
+    "inrValue": 8466000,
+    "monthQty": 400,
+    "monthTo": "Mundra",
+    "monthWeight": 8.2
+  },
+  {
+    "id": "MP-902",
+    "customerName": "Apex Infra Developers",
+    "type": "Domestic",
+    "incoterm": "CIF",
+    "port": "Nhava Sheva",
+    "weightOrBars": "18.2 tons",
+    "rate": 92,
+    "poAmount": 78200,
+    "inrValue": 6490600,
+    "monthQty": 300,
+    "monthTo": "Nhava Sheva",
+    "monthWeight": 6.4
+  },
+  {
+    "id": "MP-903",
+    "customerName": "Global Metal Connect",
+    "type": "Export",
+    "incoterm": "EXW",
+    "port": "Kandla",
+    "weightOrBars": "32.8 tons",
+    "rate": 78,
+    "poAmount": 117000,
+    "inrValue": 9711000,
+    "monthQty": 500,
+    "monthTo": "Kandla",
+    "monthWeight": 10.9
+  }
+]
