@@ -1,13 +1,29 @@
-import { NextResponse } from "next/server";
+const fs = require('fs');
+const path = require('path');
+
+const routesToFix = [
+  { name: 'dispatch-details', idPrefix: 'DISP' },
+  { name: 'nomination-details', idPrefix: 'NOM' },
+  { name: 'month-plan', idPrefix: 'MP' },
+  { name: 'orders', idPrefix: 'ORD' },
+  { name: 'copper-details', idPrefix: 'COP' },
+  { name: 'steel-details', idPrefix: 'STL' },
+  { name: 'vendor-stock', idPrefix: 'VS' },
+];
+
+for (const route of routesToFix) {
+  const filePath = path.join(__dirname, `app/api/${route.name}/route.ts`);
+  
+  const newContent = `import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
 import os from "os";
 
 // Original seed file included in the repo
-const seedFilePath = path.join(process.cwd(), "data", "month-plan.json");
+const seedFilePath = path.join(process.cwd(), "data", "${route.name}.json");
 
 // Writable file path in Vercel's /tmp directory
-const tmpFilePath = path.join(os.tmpdir(), "month-plan.json");
+const tmpFilePath = path.join(os.tmpdir(), "${route.name}.json");
 
 async function getData() {
   try {
@@ -54,7 +70,7 @@ export async function POST(request: Request) {
     let newRecord = { ...body };
     if (!newRecord.id) {
       const maxIdNum = data.length > 0 ? Math.max(...data.map((o: any) => parseInt((o.id || "").split('-')[1] || "1000"))) : 1000;
-      newRecord.id = `MP-${maxIdNum + 1}`;
+      newRecord.id = \`${route.idPrefix}-\${maxIdNum + 1}\`;
     }
     
     data.push(newRecord);
@@ -98,4 +114,9 @@ export async function DELETE(request: Request) {
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete data" }, { status: 500 });
   }
+}
+`;
+
+  fs.writeFileSync(filePath, newContent, 'utf8');
+  console.log(`Updated ${route.name} for Vercel Serverless /tmp compatibility`);
 }

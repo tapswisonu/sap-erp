@@ -1,21 +1,40 @@
 import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
+import os from "os";
 
-const dataFilePath = path.join(process.cwd(), "data", "copper-details.json");
+// Original seed file included in the repo
+const seedFilePath = path.join(process.cwd(), "data", "copper-details.json");
+
+// Writable file path in Vercel's /tmp directory
+const tmpFilePath = path.join(os.tmpdir(), "copper-details.json");
 
 async function getData() {
   try {
-    const fileData = await fs.readFile(dataFilePath, "utf8");
+    // 1. Try to read from /tmp first (contains any user modifications)
+    const fileData = await fs.readFile(tmpFilePath, "utf8");
     return JSON.parse(fileData);
   } catch (error: any) {
-    if (error.code === "ENOENT") return [];
+    if (error.code === "ENOENT") {
+      // 2. If no /tmp file exists, read from the initial seed data
+      try {
+        const seedData = await fs.readFile(seedFilePath, "utf8");
+        const parsedData = JSON.parse(seedData);
+        // Copy seed data to /tmp for future writes
+        await fs.writeFile(tmpFilePath, JSON.stringify(parsedData, null, 2), "utf8");
+        return parsedData;
+      } catch (seedError: any) {
+        if (seedError.code === "ENOENT") return [];
+        throw seedError;
+      }
+    }
     throw error;
   }
 }
 
 async function saveData(data: any) {
-  await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2), "utf8");
+  // Always write to /tmp since process.cwd() is read-only on Vercel
+  await fs.writeFile(tmpFilePath, JSON.stringify(data, null, 2), "utf8");
 }
 
 export async function GET() {
@@ -32,8 +51,11 @@ export async function POST(request: Request) {
     const body = await request.json();
     const data = await getData();
     
-    const maxIdNum = data.length > 0 ? Math.max(...data.map((o: any) => parseInt(o.id.split('-')[1] || "1000"))) : 1000;
-    const newRecord = { ...body, id: `COP-${maxIdNum + 1}` };
+    let newRecord = { ...body };
+    if (!newRecord.id) {
+      const maxIdNum = data.length > 0 ? Math.max(...data.map((o: any) => parseInt((o.id || "").split('-')[1] || "1000"))) : 1000;
+      newRecord.id = `COP-${maxIdNum + 1}`;
+    }
     
     data.push(newRecord);
     await saveData(data);

@@ -1,49 +1,64 @@
 import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
+import os from "os";
 
-const dataFilePath = path.join(process.cwd(), "data", "vendor-stock.json");
+// Original seed file included in the repo
+const seedFilePath = path.join(process.cwd(), "data", "vendor-stock.json");
 
-// Helper to read data
-async function getVendorStockData() {
+// Writable file path in Vercel's /tmp directory
+const tmpFilePath = path.join(os.tmpdir(), "vendor-stock.json");
+
+async function getData() {
   try {
-    const fileData = await fs.readFile(dataFilePath, "utf8");
+    // 1. Try to read from /tmp first (contains any user modifications)
+    const fileData = await fs.readFile(tmpFilePath, "utf8");
     return JSON.parse(fileData);
   } catch (error: any) {
     if (error.code === "ENOENT") {
-      return [];
+      // 2. If no /tmp file exists, read from the initial seed data
+      try {
+        const seedData = await fs.readFile(seedFilePath, "utf8");
+        const parsedData = JSON.parse(seedData);
+        // Copy seed data to /tmp for future writes
+        await fs.writeFile(tmpFilePath, JSON.stringify(parsedData, null, 2), "utf8");
+        return parsedData;
+      } catch (seedError: any) {
+        if (seedError.code === "ENOENT") return [];
+        throw seedError;
+      }
     }
     throw error;
   }
 }
 
-// Helper to write data
-async function saveVendorStockData(data: any) {
-  await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2), "utf8");
+async function saveData(data: any) {
+  // Always write to /tmp since process.cwd() is read-only on Vercel
+  await fs.writeFile(tmpFilePath, JSON.stringify(data, null, 2), "utf8");
 }
 
-// GET all records
 export async function GET() {
   try {
-    const data = await getVendorStockData();
+    const data = await getData();
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json({ error: "Failed to read data" }, { status: 500 });
   }
 }
 
-// POST new record
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const data = await getVendorStockData();
+    const data = await getData();
     
-    // Generate new ID based on max existing ID
-    const maxIdNum = data.length > 0 ? Math.max(...data.map((o: any) => parseInt(o.id.split('-')[1] || "1000"))) : 1000;
-    const newRecord = { ...body, id: `VS-${maxIdNum + 1}` };
+    let newRecord = { ...body };
+    if (!newRecord.id) {
+      const maxIdNum = data.length > 0 ? Math.max(...data.map((o: any) => parseInt((o.id || "").split('-')[1] || "1000"))) : 1000;
+      newRecord.id = `VS-${maxIdNum + 1}`;
+    }
     
     data.push(newRecord);
-    await saveVendorStockData(data);
+    await saveData(data);
     
     return NextResponse.json(newRecord, { status: 201 });
   } catch (error) {
@@ -51,19 +66,16 @@ export async function POST(request: Request) {
   }
 }
 
-// PUT (update) record
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
-    const data = await getVendorStockData();
+    const data = await getData();
     
     const index = data.findIndex((item: any) => item.id === body.id);
-    if (index === -1) {
-      return NextResponse.json({ error: "Record not found" }, { status: 404 });
-    }
+    if (index === -1) return NextResponse.json({ error: "Record not found" }, { status: 404 });
     
     data[index] = { ...data[index], ...body };
-    await saveVendorStockData(data);
+    await saveData(data);
     
     return NextResponse.json(data[index]);
   } catch (error) {
@@ -71,25 +83,17 @@ export async function PUT(request: Request) {
   }
 }
 
-// DELETE record
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
+    if (!id) return NextResponse.json({ error: "Missing ID" }, { status: 400 });
     
-    if (!id) {
-      return NextResponse.json({ error: "Missing ID" }, { status: 400 });
-    }
-    
-    const data = await getVendorStockData();
+    const data = await getData();
     const filteredData = data.filter((item: any) => item.id !== id);
+    if (filteredData.length === data.length) return NextResponse.json({ error: "Record not found" }, { status: 404 });
     
-    if (filteredData.length === data.length) {
-      return NextResponse.json({ error: "Record not found" }, { status: 404 });
-    }
-    
-    await saveVendorStockData(filteredData);
-    
+    await saveData(filteredData);
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete data" }, { status: 500 });
