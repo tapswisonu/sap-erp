@@ -1,0 +1,47 @@
+[
+  {
+    "id": "NOM-1001",
+    "customerName": "Rohan Steel Corp",
+    "type": "Export",
+    "incoterm": "FOB",
+    "port": "Mundra",
+    "weight": 24.5,
+    "poNumber": "PO-2026-8801",
+    "barsOrContainer": "Container A",
+    "qty": 1200,
+    "rate": 85,
+    "poAmount": 102000,
+    "inrValue": 8466000,
+    "status": "Approved"
+  },
+  {
+    "id": "NOM-1002",
+    "customerName": "Apex Infra Developers",
+    "type": "Domestic",
+    "incoterm": "CIF",
+    "port": "Nhava Sheva",
+    "weight": 18.2,
+    "poNumber": "PO-2026-8802",
+    "barsOrContainer": "120 Bars",
+    "qty": 850,
+    "rate": 92,
+    "poAmount": 78200,
+    "inrValue": 6490600,
+    "status": "Pending"
+  },
+  {
+    "id": "NOM-1003",
+    "customerName": "Global Metal Connect",
+    "type": "Export",
+    "incoterm": "EXW",
+    "port": "Kandla",
+    "weight": 32.8,
+    "poNumber": "PO-2026-8803",
+    "barsOrContainer": "Container B",
+    "qty": 1500,
+    "rate": 78,
+    "poAmount": 117000,
+    "inrValue": 9711000,
+    "status": "Approved"
+  }
+]

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
@@ -21,6 +21,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Factory,
+  LogOut,
 } from "lucide-react";
 
 const navItems = [
@@ -58,6 +59,8 @@ const navItems = [
 ];
 
 function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: boolean, pathname: string, setCollapsed: (val: boolean) => void }) {
+  const router = useRouter();
+
   return (
     <>
       {/* Logo */}
@@ -167,37 +170,33 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
 
       {/* Bottom user section */}
       <div className="border-t border-white/8 p-3 flex-shrink-0">
-        <div
+        <button
+          onClick={(e) => { 
+            e.stopPropagation(); 
+            sessionStorage.removeItem('isLoggedIn');
+            router.push('/login'); 
+          }}
           className={cn(
-            "flex items-center gap-3 rounded-xl p-2",
-            "hover:bg-white/5 transition-colors cursor-pointer",
-            collapsed && "justify-center"
+            "flex w-full items-center gap-3 rounded-xl p-2.5",
+            "text-muted-foreground hover:text-red-400 hover:bg-red-500/10 dark:hover:bg-red-400/10 transition-colors",
+            collapsed ? "justify-center" : "justify-start px-4"
           )}
+          title="Logout"
         >
-          <div className="relative flex-shrink-0">
-            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-              <span className="text-xs font-bold text-white">RK</span>
-            </div>
-            <div className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-background status-online" />
-          </div>
+          <LogOut size={18} className="flex-shrink-0" />
           <AnimatePresence>
             {!collapsed && (
-              <motion.div
+              <motion.span
                 initial={{ opacity: 0, width: 0 }}
                 animate={{ opacity: 1, width: "auto" }}
                 exit={{ opacity: 0, width: 0 }}
-                className="flex-1 overflow-hidden min-w-0"
+                className="text-sm font-medium overflow-hidden whitespace-nowrap"
               >
-                <p className="text-sm font-medium text-foreground whitespace-nowrap">
-                  Rajesh Kumar
-                </p>
-                <p className="text-xs text-muted-foreground whitespace-nowrap">
-                  Admin
-                </p>
-              </motion.div>
+                Logout
+              </motion.span>
             )}
           </AnimatePresence>
-        </div>
+        </button>
       </div>
 
       {/* Collapse toggle (Desktop only) */}
@@ -220,7 +219,7 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
 }
 
 export function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 

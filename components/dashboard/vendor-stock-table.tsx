@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Edit2, Trash2, X, RefreshCw, Loader2 } from "lucide-react";
+import { Plus, X, RefreshCw, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/components/ui/toast";
+import { TableActions } from "@/components/ui/table-actions";
 
 export function VendorStockTable() {
   const [data, setData] = useState<any[]>([]);
@@ -12,12 +14,20 @@ export function VendorStockTable() {
   
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingRecord, setEditingRecord] = useState<any | null>(null);
+  const [isViewOpen, setIsViewOpen] = useState(false);
+  const [isConfirmEditOpen, setIsConfirmEditOpen] = useState(false);
+  const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+
+  const [activeRecord, setActiveRecord] = useState<any | null>(null);
+  const [recordToDelete, setRecordToDelete] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+
   const [formData, setFormData] = useState({
     customerName: "", steelSize: "", copperSize: "", 
     steelOpenStock: "", copperOpenQty: "", steelQty: "", copperQty: ""
   });
-  const [isSaving, setIsSaving] = useState(false);
+
+  const { toast } = useToast();
 
   const fetchData = async (showRefresh = false) => {
     if (showRefresh) setIsRefreshing(true);
@@ -27,6 +37,7 @@ export function VendorStockTable() {
       setData(result);
     } catch (error) {
       console.error("Failed to fetch data", error);
+      toast({ title: "Error", message: "Failed to fetch vendor stock.", type: "error" });
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);
@@ -37,17 +48,17 @@ export function VendorStockTable() {
     fetchData();
   }, []);
 
-  const handleDelete = async (id: string) => {
-    try {
-      await fetch(`/api/vendor-stock?id=${id}`, { method: 'DELETE' });
-      setData(data.filter(item => item.id !== id));
-    } catch (error) {
-      console.error("Failed to delete", error);
-    }
+  const handleAdd = () => {
+    setActiveRecord(null);
+    setFormData({
+      customerName: "", steelSize: "", copperSize: "", 
+      steelOpenStock: "", copperOpenQty: "", steelQty: "", copperQty: ""
+    });
+    setIsModalOpen(true);
   };
 
   const handleEdit = (record: any) => {
-    setEditingRecord(record);
+    setActiveRecord(record);
     setFormData({
       customerName: record.customerName,
       steelSize: record.steelSize,
@@ -60,17 +71,43 @@ export function VendorStockTable() {
     setIsModalOpen(true);
   };
 
-  const handleAdd = () => {
-    setEditingRecord(null);
-    setFormData({
-      customerName: "", steelSize: "", copperSize: "", 
-      steelOpenStock: "", copperOpenQty: "", steelQty: "", copperQty: ""
-    });
-    setIsModalOpen(true);
+  const handleView = (record: any) => {
+    setActiveRecord(record);
+    setIsViewOpen(true);
   };
 
-  const handleSave = async (e: React.FormEvent) => {
+  const confirmDelete = (id: string) => {
+    setRecordToDelete(id);
+    setIsConfirmDeleteOpen(true);
+  };
+
+  const executeDelete = async () => {
+    if (!recordToDelete) return;
+    setIsSaving(true);
+    try {
+      await fetch(`/api/vendor-stock?id=${recordToDelete}`, { method: 'DELETE' });
+      setData(data.filter(item => item.id !== recordToDelete));
+      toast({ title: "Record Deleted", message: "The vendor stock record was removed.", type: "success" });
+    } catch (error) {
+      console.error("Failed to delete", error);
+      toast({ title: "Delete Failed", message: "An error occurred while deleting.", type: "error" });
+    } finally {
+      setIsSaving(false);
+      setIsConfirmDeleteOpen(false);
+      setRecordToDelete(null);
+    }
+  };
+
+  const onFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (activeRecord) {
+      setIsConfirmEditOpen(true);
+    } else {
+      executeSave();
+    }
+  };
+
+  const executeSave = async () => {
     setIsSaving(true);
     
     // Parse numeric fields
@@ -83,14 +120,15 @@ export function VendorStockTable() {
     };
     
     try {
-      if (editingRecord) {
+      if (activeRecord) {
         const res = await fetch('/api/vendor-stock', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...payload, id: editingRecord.id })
+          body: JSON.stringify({ ...payload, id: activeRecord.id })
         });
         const updated = await res.json();
-        setData(data.map(item => item.id === editingRecord.id ? updated : item));
+        setData(data.map(item => item.id === activeRecord.id ? updated : item));
+        toast({ title: "Record Updated", message: "Vendor stock record saved successfully.", type: "success" });
       } else {
         const res = await fetch('/api/vendor-stock', {
           method: 'POST',
@@ -99,10 +137,13 @@ export function VendorStockTable() {
         });
         const created = await res.json();
         setData([created, ...data]);
+        toast({ title: "Record Created", message: "New vendor stock record created.", type: "success" });
       }
       setIsModalOpen(false);
+      setIsConfirmEditOpen(false);
     } catch (error) {
       console.error("Failed to save", error);
+      toast({ title: "Save Failed", message: "There was an error saving the record.", type: "error" });
     } finally {
       setIsSaving(false);
     }
@@ -110,24 +151,24 @@ export function VendorStockTable() {
 
   return (
     <>
-      <div className="glass-card border border-gray-200 dark:border-white/8 rounded-2xl overflow-hidden bg-white dark:bg-background shadow-sm relative z-10">
+      <div className="glass-card border border-gray-200 dark:border-white/10 rounded-2xl overflow-hidden bg-white dark:bg-[#0a0a0a] shadow-sm relative z-10">
         {/* Header */}
         <div className="p-5 md:p-6 border-b border-gray-100 dark:border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h3 className="text-base font-bold text-gray-900 dark:text-white tracking-tight">Vendor Stock Inventory Ledger</h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Active steel and copper logs by manufacturing partner</p>
+            <h3 className="text-base font-bold text-foreground tracking-tight">Vendor Stock Inventory Ledger</h3>
+            <p className="text-xs text-muted-foreground mt-1">Active steel and copper logs by manufacturing partner</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
             <button 
               onClick={() => fetchData(true)}
-              className="p-2.5 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+              className="w-full sm:w-auto flex items-center justify-center p-2.5 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-white/10 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors shadow-sm"
               title="Refresh Data"
             >
               <RefreshCw size={16} className={cn(isRefreshing && "animate-spin")} />
             </button>
             <button 
               onClick={handleAdd}
-              className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium bg-blue-600 dark:bg-blue-500 text-white rounded-xl hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors shadow-sm"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium bg-blue-600 dark:bg-blue-500 text-white rounded-xl hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors shadow-sm"
             >
               <Plus size={16} />
               Add Record
@@ -136,7 +177,7 @@ export function VendorStockTable() {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto min-h-[300px]">
+        <div className="overflow-x-auto min-h-[400px]">
           {isLoading ? (
             <div className="flex flex-col items-center justify-center h-64 text-gray-400">
               <Loader2 size={32} className="animate-spin mb-4 text-blue-500" />
@@ -144,10 +185,10 @@ export function VendorStockTable() {
             </div>
           ) : (
             <table className="w-full text-left border-collapse min-w-[1000px]">
-              <thead>
-                <tr className="border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.01]">
-                  {["Customer Name", "Steel Size", "Copper Size", "Steel Open Stock", "Copper Open Qty", "Steel Qty", "Copper Qty", "Actions"].map((col) => (
-                    <th key={col} className="px-5 py-4 text-xs font-semibold text-gray-500 dark:text-gray-400 tracking-wide uppercase">
+              <thead className="sticky top-0 z-20 bg-gray-50/95 dark:bg-[#0a0a0a]/95 backdrop-blur-md border-b border-gray-200 dark:border-white/10 shadow-sm">
+                <tr>
+                  {["Customer Name", "Steel Size", "Steel Open Stock", "Copper Open Qty", "Steel Qty", "Copper Qty", "Actions"].map((col, i) => (
+                    <th key={col} className={cn("px-5 py-4 text-xs font-semibold text-muted-foreground tracking-wide uppercase", i === 6 && "text-right")}>
                       {col}
                     </th>
                   ))}
@@ -155,7 +196,7 @@ export function VendorStockTable() {
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-white/5 text-sm">
                 <AnimatePresence>
-                  {data.map((record, idx) => (
+                  {data.map((record) => (
                     <motion.tr
                       layout
                       initial={{ opacity: 0, y: -10 }}
@@ -163,28 +204,20 @@ export function VendorStockTable() {
                       exit={{ opacity: 0, x: -20 }}
                       transition={{ duration: 0.2 }}
                       key={record.id}
-                      className="hover:bg-gray-50/50 dark:hover:bg-white/[0.02] transition-colors group"
+                      className="h-16 group hover:bg-gray-50/50 dark:hover:bg-white/[0.02] even:bg-gray-50/30 dark:even:bg-white/[0.01] transition-colors duration-200"
                     >
-                      <td className="px-5 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">{record.customerName}</td>
-                      <td className="px-5 py-4 text-gray-600 dark:text-gray-300 whitespace-nowrap">{record.steelSize}</td>
-                      <td className="px-5 py-4 text-gray-600 dark:text-gray-300 whitespace-nowrap">{record.copperSize}</td>
-                      <td className="px-5 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">{record.steelOpenStock} MT</td>
+                      <td className="px-5 py-4 font-semibold text-foreground whitespace-nowrap">{record.customerName}</td>
+                      <td className="px-5 py-4 text-muted-foreground whitespace-nowrap">{record.steelSize}</td>
+                      <td className="px-5 py-4 font-medium text-foreground whitespace-nowrap">{record.steelOpenStock} MT</td>
                       <td className="px-5 py-4 font-medium text-amber-500 whitespace-nowrap">{record.copperOpenQty} MT</td>
                       <td className="px-5 py-4 font-medium text-cyan-500 whitespace-nowrap">{record.steelQty} MT</td>
-                      <td className="px-5 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">{record.copperQty} MT</td>
-                      <td className="px-5 py-4">
-                        <div className="flex items-center gap-2 transition-opacity">
-                          <button 
-                            onClick={() => handleEdit(record)}
-                            className="p-1.5 rounded-lg text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-400/10 border border-blue-200 dark:border-blue-400/20 transition-colors" title="Edit">
-                            <Edit2 size={14} />
-                          </button>
-                          <button 
-                            onClick={() => handleDelete(record.id)}
-                            className="p-1.5 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-400/10 border border-red-200 dark:border-red-400/20 transition-colors" title="Delete">
-                            <Trash2 size={14} />
-                          </button>
-                        </div>
+                      <td className="px-5 py-4 font-medium text-foreground whitespace-nowrap">{record.copperQty} MT</td>
+                      <td className="px-5 py-4 text-right">
+                        <TableActions 
+                          onView={() => handleView(record)}
+                          onEdit={() => handleEdit(record)}
+                          onDelete={() => confirmDelete(record.id)}
+                        />
                       </td>
                     </motion.tr>
                   ))}
@@ -192,7 +225,7 @@ export function VendorStockTable() {
                 
                 {data.length === 0 && !isLoading && (
                   <tr>
-                    <td colSpan={8} className="px-5 py-8 text-center text-gray-500 dark:text-muted-foreground text-sm">
+                    <td colSpan={8} className="px-5 py-12 text-center text-muted-foreground text-sm">
                       No inventory records found. Click "Add Record" to create one.
                     </td>
                   </tr>
@@ -203,7 +236,7 @@ export function VendorStockTable() {
         </div>
       </div>
 
-      {/* CRUD Modal Overlay */}
+      {/* CRUD Edit / Add Modal */}
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
@@ -214,64 +247,185 @@ export function VendorStockTable() {
               transition={{ duration: 0.2 }}
               className="w-full max-w-lg bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden"
             >
-              <div className="p-5 border-b border-gray-100 dark:border-white/5 flex items-center justify-between">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                  {editingRecord ? "Edit Inventory Record" : "Add Inventory Record"}
+              <div className="p-5 border-b border-gray-100 dark:border-white/5 flex items-center justify-between sticky top-0 bg-white dark:bg-[#0a0a0a] z-10">
+                <h3 className="text-lg font-bold text-foreground">
+                  {activeRecord ? "Edit Inventory Record" : "Add Inventory Record"}
                 </h3>
                 <button 
                   onClick={() => setIsModalOpen(false)}
-                  className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors"
+                  className="p-1.5 text-muted-foreground hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors"
                 >
                   <X size={16} />
                 </button>
               </div>
-              <form onSubmit={handleSave} className="p-5 space-y-4">
+              <form onSubmit={onFormSubmit} className="p-5 space-y-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">Customer Name</label>
-                  <input required value={formData.customerName} onChange={e => setFormData({...formData, customerName: e.target.value})} type="text" placeholder="e.g. Acme Corp" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-gray-900 dark:text-white placeholder:text-gray-400" />
+                  <label className="text-xs font-semibold text-muted-foreground">Customer Name</label>
+                  <input required value={formData.customerName} onChange={e => setFormData({...formData, customerName: e.target.value})} type="text" placeholder="e.g. Acme Corp" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-foreground placeholder:text-gray-400" />
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">Steel Size</label>
-                    <input required value={formData.steelSize} onChange={e => setFormData({...formData, steelSize: e.target.value})} type="text" placeholder="e.g. 240mm" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-gray-900 dark:text-white placeholder:text-gray-400" />
+                    <label className="text-xs font-semibold text-muted-foreground">Steel Size</label>
+                    <input required value={formData.steelSize} onChange={e => setFormData({...formData, steelSize: e.target.value})} type="text" placeholder="e.g. 240mm" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-foreground placeholder:text-gray-400" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">Copper Size</label>
-                    <input required value={formData.copperSize} onChange={e => setFormData({...formData, copperSize: e.target.value})} type="text" placeholder="e.g. 4.5mm" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-gray-900 dark:text-white placeholder:text-gray-400" />
+                    <label className="text-xs font-semibold text-muted-foreground">Copper Size</label>
+                    <input required value={formData.copperSize} onChange={e => setFormData({...formData, copperSize: e.target.value})} type="text" placeholder="e.g. 4.5mm" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-foreground placeholder:text-gray-400" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">Steel Open Stock (MT)</label>
-                    <input required value={formData.steelOpenStock} onChange={e => setFormData({...formData, steelOpenStock: e.target.value})} type="number" step="0.01" placeholder="0" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-gray-900 dark:text-white placeholder:text-gray-400" />
+                    <label className="text-xs font-semibold text-muted-foreground">Steel Open Stock (MT)</label>
+                    <input required value={formData.steelOpenStock} onChange={e => setFormData({...formData, steelOpenStock: e.target.value})} type="number" step="0.01" placeholder="0" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-foreground placeholder:text-gray-400" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">Copper Open Qty (MT)</label>
-                    <input required value={formData.copperOpenQty} onChange={e => setFormData({...formData, copperOpenQty: e.target.value})} type="number" step="0.01" placeholder="0" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-gray-900 dark:text-white placeholder:text-gray-400" />
+                    <label className="text-xs font-semibold text-muted-foreground">Copper Open Qty (MT)</label>
+                    <input required value={formData.copperOpenQty} onChange={e => setFormData({...formData, copperOpenQty: e.target.value})} type="number" step="0.01" placeholder="0" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-foreground placeholder:text-gray-400" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">Steel Quantity (MT)</label>
-                    <input required value={formData.steelQty} onChange={e => setFormData({...formData, steelQty: e.target.value})} type="number" step="0.01" placeholder="0" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-gray-900 dark:text-white placeholder:text-gray-400" />
+                    <label className="text-xs font-semibold text-muted-foreground">Steel Quantity (MT)</label>
+                    <input required value={formData.steelQty} onChange={e => setFormData({...formData, steelQty: e.target.value})} type="number" step="0.01" placeholder="0" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-foreground placeholder:text-gray-400" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">Copper Quantity (MT)</label>
-                    <input required value={formData.copperQty} onChange={e => setFormData({...formData, copperQty: e.target.value})} type="number" step="0.01" placeholder="0" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-gray-900 dark:text-white placeholder:text-gray-400" />
+                    <label className="text-xs font-semibold text-muted-foreground">Copper Quantity (MT)</label>
+                    <input required value={formData.copperQty} onChange={e => setFormData({...formData, copperQty: e.target.value})} type="number" step="0.01" placeholder="0" className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-foreground placeholder:text-gray-400" />
                   </div>
                 </div>
 
-                <div className="pt-4 mt-2 border-t border-gray-100 dark:border-white/5 flex justify-end gap-2">
-                  <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-muted-foreground hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-colors">Cancel</button>
+                <div className="pt-4 mt-2 border-t border-gray-100 dark:border-white/5 flex justify-end gap-2 sticky bottom-0 bg-white dark:bg-[#0a0a0a] pb-2">
+                  <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-colors">Cancel</button>
                   <button type="submit" disabled={isSaving} className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 rounded-xl transition-colors shadow-sm disabled:opacity-70">
                     {isSaving && <Loader2 size={14} className="animate-spin" />}
-                    {editingRecord ? "Save Changes" : "Create Record"}
+                    {activeRecord ? "Save Changes" : "Create Record"}
                   </button>
                 </div>
               </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Confirm Edit Modal */}
+      <AnimatePresence>
+        {isConfirmEditOpen && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="w-full max-w-sm bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl p-6"
+            >
+              <h3 className="text-lg font-bold text-foreground mb-2">Confirm Update</h3>
+              <p className="text-sm text-muted-foreground mb-6">Are you sure you want to update this record?</p>
+              <div className="flex justify-end gap-2">
+                <button onClick={() => setIsConfirmEditOpen(false)} className="px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-colors">Cancel</button>
+                <button onClick={executeSave} disabled={isSaving} className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 rounded-xl transition-colors shadow-sm disabled:opacity-70">
+                  {isSaving && <Loader2 size={14} className="animate-spin" />}
+                  Update
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Confirm Delete Modal */}
+      <AnimatePresence>
+        {isConfirmDeleteOpen && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="w-full max-w-sm bg-white dark:bg-[#0a0a0a] border border-red-200 dark:border-red-900/50 rounded-2xl shadow-2xl p-6"
+            >
+              <h3 className="text-lg font-bold text-foreground mb-2">Delete Record</h3>
+              <p className="text-sm text-muted-foreground mb-6">Are you sure you want to delete this record? This action cannot be undone.</p>
+              <div className="flex justify-end gap-2">
+                <button onClick={() => setIsConfirmDeleteOpen(false)} className="px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-colors">Cancel</button>
+                <button onClick={executeDelete} disabled={isSaving} className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-red-600 text-white hover:bg-red-700 rounded-xl transition-colors shadow-sm disabled:opacity-70">
+                  {isSaving && <Loader2 size={14} className="animate-spin" />}
+                  Delete
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* View Drawer */}
+      <AnimatePresence>
+        {isViewOpen && activeRecord && (
+          <div className="fixed inset-0 z-50 flex justify-end bg-black/40 backdrop-blur-sm">
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="w-full max-w-md h-full bg-white dark:bg-[#0a0a0a] border-l border-gray-200 dark:border-white/10 shadow-2xl flex flex-col"
+            >
+              <div className="p-6 border-b border-gray-100 dark:border-white/5 flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg font-bold text-foreground">Vendor Stock Details</h2>
+                  <p className="text-sm text-muted-foreground">{activeRecord.customerName}</p>
+                </div>
+                <button onClick={() => setIsViewOpen(false)} className="p-2 bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 rounded-full transition-colors">
+                  <X size={16} className="text-muted-foreground" />
+                </button>
+              </div>
+              <div className="p-6 overflow-y-auto flex-1 space-y-6">
+                <div>
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Customer</label>
+                  <p className="text-base font-medium text-foreground mt-1">{activeRecord.customerName}</p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Steel Size</label>
+                    <p className="text-base font-medium text-foreground mt-1">{activeRecord.steelSize}</p>
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Copper Size</label>
+                    <p className="text-base font-medium text-foreground mt-1">{activeRecord.copperSize}</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 bg-gray-50 dark:bg-white/5 p-4 rounded-xl border border-gray-200 dark:border-white/10">
+                  <div>
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Steel Open Stock</label>
+                    <p className="text-base font-bold text-foreground mt-1">{activeRecord.steelOpenStock} MT</p>
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-amber-600 dark:text-amber-500 uppercase tracking-wider">Copper Open Qty</label>
+                    <p className="text-base font-bold text-amber-600 dark:text-amber-500 mt-1">{activeRecord.copperOpenQty} MT</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 bg-blue-50/50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/30">
+                  <div>
+                    <label className="text-xs font-semibold text-cyan-700 dark:text-cyan-400 uppercase tracking-wider">Steel Quantity</label>
+                    <p className="text-base font-bold text-cyan-700 dark:text-cyan-400 mt-1">{activeRecord.steelQty} MT</p>
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-foreground uppercase tracking-wider">Copper Quantity</label>
+                    <p className="text-base font-bold text-foreground mt-1">{activeRecord.copperQty} MT</p>
+                  </div>
+                </div>
+
+              </div>
+              <div className="p-6 border-t border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.01]">
+                <button 
+                  onClick={() => { setIsViewOpen(false); handleEdit(activeRecord); }}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors shadow-sm"
+                >
+                  Edit Record
+                </button>
+              </div>
             </motion.div>
           </div>
         )}

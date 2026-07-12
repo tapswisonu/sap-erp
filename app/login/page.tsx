@@ -5,12 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff, Lock, User, Loader2 } from "lucide-react";
 
-// ── Allowed users ────────────────────────────────────────────────────
-const USERS = [
-  { username: "admin@test.com", password: "test@123" },
-  { username: "aman@test.com",  password: "test@123" },
-];
-// ─────────────────────────────────────────────────────────────────────
+
 
 export default function LoginPage() {
   const router = useRouter();
@@ -85,13 +80,22 @@ export default function LoginPage() {
     setLoading(true);
     await new Promise((res) => setTimeout(res, 800));
 
-    const match = USERS.find(
-      (u) => u.username === userId.trim() && u.password === password
-    );
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: userId, password }),
+      });
+      const data = await res.json();
 
-    if (!match) {
+      if (!res.ok || !data.success) {
+        setLoading(false);
+        setError(data.message || "Invalid User ID or Password.");
+        return;
+      }
+    } catch (err) {
       setLoading(false);
-      setError("Invalid User ID or Password.");
+      setError("An error occurred during login.");
       return;
     }
 
@@ -102,7 +106,7 @@ export default function LoginPage() {
     // ──────────────────────────────────────────────────────────────────
 
     // Extract display name (e.g. "Admin" or "Aman")
-    const displayName = match.username.split("@")[0];
+    const displayName = userId.trim().split("@")[0];
     const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
     setUserName(formattedName);
     setIsSuccess(true);

@@ -51,6 +51,8 @@ export const viewport: Viewport = {
   viewportFit: "cover", // handles iPhone notch / safe areas
 };
 
+import { ToastProvider } from "@/components/ui/toast";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -65,7 +67,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ToastProvider>
+            {children}
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>
