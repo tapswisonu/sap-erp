@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X, Loader2 } from "lucide-react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient , keepPreviousData } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -16,13 +16,13 @@ import { ColumnDef } from "@tanstack/react-table";
 // --- Schema ---
 const vendorSchema = z.object({
   id: z.string().optional(),
-  customerName: z.string().min(1, "Customer Name is required"),
-  steelSize: z.string().min(1, "Steel Size is required"),
-  copperSize: z.string().min(1, "Copper Size is required"),
-  steelOpenStock: z.string().min(1, "Steel Open Stock is required"),
-  copperOpenQty: z.string().min(1, "Copper Open Qty is required"),
-  steelQty: z.string().min(1, "Steel Qty is required"),
-  copperQty: z.string().min(1, "Copper Qty is required"),
+  customerName: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Customer Name is required"),
+  steelSize: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Steel Size is required"),
+  copperSize: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Copper Size is required"),
+  steelOpenStock: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Steel Open Stock is required"),
+  copperOpenQty: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Copper Open Qty is required"),
+  steelQty: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Steel Qty is required"),
+  copperQty: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Copper Qty is required"),
 });
 type VendorFormValues = z.infer<typeof vendorSchema>;
 
@@ -52,7 +52,8 @@ export function VendorStockTable() {
       const res = await fetch('/api/vendor-stock');
       if (!res.ok) throw new Error("Failed to fetch vendor stock");
       return res.json();
-    }
+    },
+    placeholderData: keepPreviousData
   });
 
   const saveMutation = useMutation({

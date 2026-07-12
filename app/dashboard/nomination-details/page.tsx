@@ -13,7 +13,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip as RechartsTooltip, ResponsiveContainer, Legend,
 } from "recharts";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient , keepPreviousData } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -29,16 +29,16 @@ const statusClasses: Record<string, string> = {
 
 const nominationSchema = z.object({
   id: z.string().optional(),
-  customerName: z.string().min(1, "Customer Name is required"),
-  type: z.string().min(1, "Type is required"),
-  poNumber: z.string().min(1, "PO Number is required"),
+  customerName: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Customer Name is required"),
+  type: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Type is required"),
+  poNumber: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "PO Number is required"),
   weight: z.coerce.number().min(0),
   inrValue: z.coerce.number().min(0),
-  status: z.string().min(1, "Status is required"),
-  incoterm: z.string().min(1, "Incoterm is required"),
-  port: z.string().min(1, "Port is required"),
+  status: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Status is required"),
+  incoterm: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Incoterm is required"),
+  port: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Port is required"),
   qty: z.coerce.number().min(0),
-  barsOrContainer: z.string().min(1, "Bars / Container is required"),
+  barsOrContainer: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Bars / Container is required"),
   rate: z.coerce.number().min(0),
   poAmount: z.coerce.number().min(0)
 });
@@ -70,7 +70,8 @@ export default function NominationDetailsPage() {
       const res = await fetch('/api/nomination-details');
       if (!res.ok) throw new Error("Failed to fetch nomination details");
       return res.json();
-    }
+    },
+    placeholderData: keepPreviousData
   });
 
   const saveMutation = useMutation({

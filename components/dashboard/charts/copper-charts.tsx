@@ -48,7 +48,7 @@ export default function CopperCharts() {
             <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
             <XAxis dataKey="date" stroke="var(--chart-axis)" fontSize={11} />
             <YAxis stroke="var(--chart-axis)" fontSize={11} domain={[9400, 9700]} />
-            <Tooltip {...tt} />
+            <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} {...tt} />
             <Area type="monotone" dataKey="price" stroke="#10b981" fill="url(#gPrice)" strokeWidth={2.5} name="Price ($/T)" />
           </AreaChart>
         </ResponsiveContainer>

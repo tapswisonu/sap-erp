@@ -75,7 +75,7 @@ export function SalesDonutChart() {
               />
             ))}
           </Pie>
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} content={<CustomTooltip />} />
         </PieChart>
       </ResponsiveContainer>
 

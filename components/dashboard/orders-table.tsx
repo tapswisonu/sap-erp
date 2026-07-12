@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X, Loader2 } from "lucide-react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient , keepPreviousData } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -17,12 +17,12 @@ import { ColumnDef } from "@tanstack/react-table";
 // --- Schema ---
 const orderSchema = z.object({
   id: z.string().optional(),
-  customer: z.string().min(1, "Customer is required"),
-  material: z.string().min(1, "Material is required"),
-  quantity: z.string().min(1, "Quantity is required"),
-  value: z.string().min(1, "Value is required"),
+  customer: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Customer is required"),
+  material: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Material is required"),
+  quantity: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Quantity is required"),
+  value: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Value is required"),
   status: z.string(),
-  date: z.string().min(1, "Date is required"),
+  date: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Date is required"),
 });
 type OrderFormValues = z.infer<typeof orderSchema>;
 
@@ -51,7 +51,8 @@ export function OrdersTable() {
       const res = await fetch('/api/orders');
       if (!res.ok) throw new Error("Failed to fetch orders");
       return res.json();
-    }
+    },
+    placeholderData: keepPreviousData
   });
 
   const saveMutation = useMutation({

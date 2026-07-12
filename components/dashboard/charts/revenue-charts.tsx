@@ -65,7 +65,7 @@ export default function RevenueCharts() {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
                 <XAxis dataKey="month" stroke="var(--chart-axis)" fontSize={11} />
                 <YAxis stroke="var(--chart-axis)" fontSize={11} />
-                <Tooltip {...tt} />
+                <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} {...tt} />
                 <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "10px" }} />
                 <Area type="monotone" dataKey="revenue" stroke="#22d3ee" fill="url(#gR)" strokeWidth={2} name="Revenue" />
                 <Area type="monotone" dataKey="expenses" stroke="#f59e0b" fill="url(#gE)" strokeWidth={1.5} name="Expenses" />
@@ -89,7 +89,7 @@ export default function RevenueCharts() {
                 <Pie data={revenueByCategory} cx="50%" cy="50%" innerRadius={45} outerRadius={65} paddingAngle={3} dataKey="value">
                   {revenueByCategory.map((e, i) => <Cell key={i} fill={e.color} />)}
                 </Pie>
-                <Tooltip contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }} />
+                <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -123,7 +123,7 @@ export default function RevenueCharts() {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
                 <XAxis dataKey="q" stroke="var(--chart-axis)" fontSize={10} />
                 <YAxis stroke="var(--chart-axis)" fontSize={11} />
-                <Tooltip {...tt} />
+                <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} {...tt} />
                 <Legend wrapperStyle={{ fontSize: "11px" }} />
                 <Bar dataKey="revenue" fill="#22d3ee" name="Revenue" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="target" fill="rgba(255,255,255,0.1)" name="Target" radius={[4, 4, 0, 0]} />

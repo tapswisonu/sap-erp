@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X, Loader2 } from "lucide-react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient , keepPreviousData } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -17,15 +17,15 @@ import { ColumnDef } from "@tanstack/react-table";
 // --- Schema ---
 const copperSchema = z.object({
   id: z.string().optional(),
-  customerName: z.string().min(1, "Customer Name is required"),
-  steelSize: z.string().min(1, "Steel Size is required"),
-  copperSize: z.string().min(1, "Copper Size is required"),
-  lme: z.string().min(1, "LME Price is required"),
-  copperQty: z.string().min(1, "Copper Qty is required"),
-  copperVendor: z.string().min(1, "Vendor is required"),
-  transporter: z.string().min(1, "Transporter is required"),
+  customerName: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Customer Name is required"),
+  steelSize: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Steel Size is required"),
+  copperSize: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Copper Size is required"),
+  lme: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "LME Price is required"),
+  copperQty: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Copper Qty is required"),
+  copperVendor: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Vendor is required"),
+  transporter: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Transporter is required"),
   bookingStatus: z.string(),
-  deliveryDate: z.string().min(1, "Delivery Date is required"),
+  deliveryDate: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Delivery Date is required"),
   actualDeliveryStatus: z.string(),
 });
 type CopperFormValues = z.infer<typeof copperSchema>;
@@ -57,7 +57,8 @@ export function CopperDetailsTable() {
       const res = await fetch('/api/copper-details');
       if (!res.ok) throw new Error("Failed to fetch copper records");
       return res.json();
-    }
+    },
+    placeholderData: keepPreviousData
   });
 
   const saveMutation = useMutation({

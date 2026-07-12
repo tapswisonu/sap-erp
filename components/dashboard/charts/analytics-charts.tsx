@@ -83,7 +83,7 @@ export default function AnalyticsCharts() {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
                 <XAxis dataKey="month" stroke="var(--chart-axis)" fontSize={11} />
                 <YAxis stroke="var(--chart-axis)" fontSize={11} />
-                <Tooltip {...tooltipStyle} />
+                <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} {...tooltipStyle} />
                 <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "10px" }} />
                 <Area type="monotone" dataKey="revenue" stroke="#22d3ee" fill="url(#gRev)" name="Revenue" strokeWidth={2} />
                 <Area type="monotone" dataKey="expenses" stroke="#f59e0b" fill="url(#gExp)" name="Expenses" strokeWidth={1.5} />
@@ -110,7 +110,7 @@ export default function AnalyticsCharts() {
                     <Cell key={index} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }} />
+                <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -144,7 +144,7 @@ export default function AnalyticsCharts() {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
                 <XAxis dataKey="line" stroke="var(--chart-axis)" fontSize={11} />
                 <YAxis stroke="var(--chart-axis)" fontSize={11} />
-                <Tooltip {...tooltipStyle} />
+                <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} {...tooltipStyle} />
                 <Legend wrapperStyle={{ fontSize: "11px" }} />
                 <Bar dataKey="output" fill="#22d3ee" name="Actual Output" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="target" fill="rgba(255,255,255,0.12)" name="Target" radius={[4, 4, 0, 0]} />

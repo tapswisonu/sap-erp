@@ -120,7 +120,7 @@ export function RevenueChart() {
             tickLine={false}
             tickFormatter={(v) => `${v}L`}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} content={<CustomTooltip />} />
           <Area
             type="monotone"
             dataKey="revenue"

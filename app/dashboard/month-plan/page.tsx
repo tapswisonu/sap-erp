@@ -13,7 +13,7 @@ import {
   XAxis, YAxis, CartesianGrid,
   Tooltip as RechartsTooltip, ResponsiveContainer, ComposedChart, Line, Bar,
 } from "recharts";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient , keepPreviousData } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -23,12 +23,12 @@ import { ColumnDef } from "@tanstack/react-table";
 
 const monthPlanSchema = z.object({
   id: z.string().optional(),
-  customerName: z.string().min(1, "Customer Name is required"),
-  type: z.string().min(1, "Type is required"),
-  incoterm: z.string().min(1, "Incoterm is required"),
-  port: z.string().min(1, "Port is required"),
-  weightOrBars: z.string().min(1, "Weight / Bars is required"),
-  monthTo: z.string().min(1, "Destination is required"),
+  customerName: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Customer Name is required"),
+  type: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Type is required"),
+  incoterm: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Incoterm is required"),
+  port: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Port is required"),
+  weightOrBars: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Weight / Bars is required"),
+  monthTo: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Destination is required"),
   monthQty: z.coerce.number().min(0),
   monthWeight: z.coerce.number().min(0),
   rate: z.coerce.number().min(0),
@@ -62,7 +62,8 @@ export default function MonthPlanPage() {
       const res = await fetch('/api/month-plan');
       if (!res.ok) throw new Error("Failed to fetch month plan details");
       return res.json();
-    }
+    },
+    placeholderData: keepPreviousData
   });
 
   const saveMutation = useMutation({

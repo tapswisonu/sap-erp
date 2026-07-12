@@ -190,7 +190,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <tr
                   key={row.id}
-                  className="h-16 group hover:bg-gray-50/50 dark:hover:bg-white/[0.02] even:bg-gray-50/30 dark:even:bg-white/[0.01] transition-colors duration-200"
+                  className="h-16 group hover:bg-gray-50/50 dark:hover:bg-white/[0.02] even:bg-gray-50/30 dark:even:bg-white/[0.01] transition-all duration-200 active:scale-[0.99] origin-center"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className="px-5 py-4 whitespace-nowrap">
@@ -201,10 +201,16 @@ export function DataTable<TData, TValue>({
               ))
             ) : (
               <tr>
-                <td colSpan={columns.length} className="h-64 text-center">
-                  <div className="flex flex-col items-center justify-center text-muted-foreground">
-                    <Search className="h-8 w-8 mb-4 opacity-20" />
-                    <p className="text-sm">No results found.</p>
+                <td colSpan={columns.length} className="h-[400px]">
+                  <div className="flex flex-col items-center justify-center text-center h-full w-full max-w-md mx-auto">
+                    <div className="w-24 h-24 mb-6 rounded-full bg-gray-50 dark:bg-white/5 flex items-center justify-center border border-gray-100 dark:border-white/10 shadow-sm relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-blue-500/10 animate-pulse" />
+                      <Search className="h-10 w-10 text-cyan-500/60" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">No records found</h3>
+                    <p className="text-sm text-muted-foreground">
+                      We couldn't find any data matching your current filters. Try adjusting your search or adding a new record.
+                    </p>
                   </div>
                 </td>
               </tr>

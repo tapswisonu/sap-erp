@@ -35,7 +35,7 @@ export default function PurchaseCharts() {
             <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
             <XAxis dataKey="month" stroke="var(--chart-axis)" fontSize={11} />
             <YAxis stroke="var(--chart-axis)" fontSize={11} />
-            <Tooltip {...tt} />
+            <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} {...tt} />
             <Legend wrapperStyle={{ fontSize: "11px" }} />
             <Bar dataKey="raised" fill="#22d3ee" name="Raised" radius={[3, 3, 0, 0]} />
             <Bar dataKey="approved" fill="#10b981" name="Approved" radius={[3, 3, 0, 0]} />

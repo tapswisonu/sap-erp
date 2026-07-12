@@ -2,10 +2,12 @@
 
 import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { KpiCard } from "@/components/dashboard/kpi-card";
-import { OrdersOverviewChart } from "@/components/dashboard/orders-overview-chart";
-import { ProductionChart } from "@/components/dashboard/production-chart";
-import { RevenueChart } from "@/components/dashboard/revenue-chart";
-import { SalesDonutChart } from "@/components/dashboard/sales-donut-chart";
+import dynamic from 'next/dynamic';
+
+const OrdersOverviewChart = dynamic(() => import("@/components/dashboard/orders-overview-chart").then(m => m.OrdersOverviewChart), { ssr: false, loading: () => <div className="h-[300px] bg-gray-50/50 dark:bg-white/5 animate-pulse rounded-2xl w-full" /> });
+const ProductionChart = dynamic(() => import("@/components/dashboard/production-chart").then(m => m.ProductionChart), { ssr: false, loading: () => <div className="h-[300px] bg-gray-50/50 dark:bg-white/5 animate-pulse rounded-2xl w-full" /> });
+const RevenueChart = dynamic(() => import("@/components/dashboard/revenue-chart").then(m => m.RevenueChart), { ssr: false, loading: () => <div className="h-[300px] bg-gray-50/50 dark:bg-white/5 animate-pulse rounded-2xl w-full" /> });
+const SalesDonutChart = dynamic(() => import("@/components/dashboard/sales-donut-chart").then(m => m.SalesDonutChart), { ssr: false, loading: () => <div className="h-[300px] bg-gray-50/50 dark:bg-white/5 animate-pulse rounded-2xl w-full" /> });
 
 import { kpiCards } from "@/lib/data";
 

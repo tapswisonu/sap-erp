@@ -2,7 +2,8 @@ import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-export function exportToCSV(data: any[], filename: string) {
+export async function exportToCSV(data: any[], filename: string) {
+  const XLSX = await import("xlsx");
   const worksheet = XLSX.utils.json_to_sheet(data);
   const csvOutput = XLSX.utils.sheet_to_csv(worksheet);
   
@@ -18,7 +19,7 @@ export function exportToCSV(data: any[], filename: string) {
   document.body.removeChild(link);
 }
 
-export function exportToExcel(data: any[], filename: string) {
+export async function exportToExcel(data: any[], filename: string) {
   const worksheet = XLSX.utils.json_to_sheet(data);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
@@ -26,7 +27,9 @@ export function exportToExcel(data: any[], filename: string) {
   XLSX.writeFile(workbook, `${filename}.xlsx`);
 }
 
-export function exportToPDF(data: any[], filename: string, columns: { header: string, dataKey: string }[]) {
+export async function exportToPDF(data: any[], filename: string, columns: { header: string, dataKey: string }[]) {
+  const jsPDF = (await import("jspdf")).default;
+  const autoTable = (await import("jspdf-autotable")).default;
   const doc = new jsPDF();
   
   // Create table body

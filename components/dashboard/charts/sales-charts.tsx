@@ -60,7 +60,7 @@ export default function SalesCharts() {
               <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
               <XAxis dataKey="month" stroke="var(--chart-axis)" fontSize={11} />
               <YAxis stroke="var(--chart-axis)" fontSize={11} />
-              <Tooltip {...tt} />
+              <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} {...tt} />
               <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "10px" }} />
               <Area type="monotone" dataKey="domestic" stroke="#22d3ee" fill="url(#gDom)" strokeWidth={2} name="Domestic" />
               <Area type="monotone" dataKey="export" stroke="#10b981" fill="url(#gExp)" strokeWidth={2} name="Export" />
@@ -83,7 +83,7 @@ export default function SalesCharts() {
               <Pie data={salesBreakdown} cx="50%" cy="50%" innerRadius={48} outerRadius={68} paddingAngle={3} dataKey="value">
                 {salesBreakdown.map((e, i) => <Cell key={i} fill={e.color} />)}
               </Pie>
-              <Tooltip contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }} />
+              <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }} />
             </PieChart>
           </ResponsiveContainer>
         </div>

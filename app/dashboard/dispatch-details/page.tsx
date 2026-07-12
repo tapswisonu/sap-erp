@@ -13,7 +13,7 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid,
   Tooltip as RechartsTooltip, ResponsiveContainer,
 } from "recharts";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient , keepPreviousData } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -29,16 +29,16 @@ const statusClasses: Record<string, string> = {
 
 const dispatchSchema = z.object({
   id: z.string().optional(),
-  date: z.string().min(1, "Date is required"),
-  vendorName: z.string().min(1, "Vendor Name is required"),
-  to: z.string().min(1, "Destination is required"),
-  type: z.string().min(1, "Type is required"),
-  sectionSize: z.string().min(1, "Section Size is required"),
-  customerName: z.string().min(1, "Customer Name is required"),
+  date: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Date is required"),
+  vendorName: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Vendor Name is required"),
+  to: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Destination is required"),
+  type: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Type is required"),
+  sectionSize: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Section Size is required"),
+  customerName: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Customer Name is required"),
   noOfBars: z.coerce.number().min(0),
-  invoiceNumber: z.string().min(1, "Invoice Number is required"),
+  invoiceNumber: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Invoice Number is required"),
   weight: z.coerce.number().min(0),
-  status: z.string().min(1, "Status is required"),
+  status: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Status is required"),
 });
 type DispatchFormValues = z.infer<typeof dispatchSchema>;
 
@@ -69,7 +69,8 @@ export default function DispatchDetailsPage() {
       const res = await fetch('/api/dispatch-details');
       if (!res.ok) throw new Error("Failed to fetch dispatch data");
       return res.json();
-    }
+    },
+    placeholderData: keepPreviousData
   });
 
   const saveMutation = useMutation({

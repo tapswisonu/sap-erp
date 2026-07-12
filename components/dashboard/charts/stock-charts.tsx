@@ -39,7 +39,7 @@ export default function StockCharts() {
             <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
             <XAxis dataKey="category" stroke="var(--chart-axis)" fontSize={10} />
             <YAxis stroke="var(--chart-axis)" fontSize={11} />
-            <Tooltip {...tt} />
+            <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} {...tt} />
             <Legend wrapperStyle={{ fontSize: "11px" }} />
             <Bar dataKey="received" fill="#10b981" name="Received" radius={[3, 3, 0, 0]} />
             <Bar dataKey="consumed" fill="#f59e0b" name="Consumed" radius={[3, 3, 0, 0]} />

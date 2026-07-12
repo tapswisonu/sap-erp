@@ -90,7 +90,7 @@ export function ProductionChart() {
             axisLine={false}
             tickLine={false}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip wrapperStyle={{ zIndex: 100, pointerEvents: 'none', maxWidth: '90vw' }} content={<CustomTooltip />} />
           <ReferenceLine
             y={400}
             stroke="rgba(139,92,246,0.4)"

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X, Loader2 } from "lucide-react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient , keepPreviousData } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -24,16 +24,16 @@ const statusColors: Record<string, string> = {
 // --- Schema ---
 const steelSchema = z.object({
   id: z.string().optional(),
-  customerName: z.string().min(1, "Customer Name is required"),
-  billetSize: z.string().min(1, "Billet Size is required"),
-  billetWeight: z.string().min(1, "Billet Weight is required"),
-  billetQty: z.string().min(1, "Billet Qty is required"),
-  steelSize: z.string().min(1, "Steel Size is required"),
-  steelWeight: z.string().min(1, "Steel Weight is required"),
-  steelQty: z.string().min(1, "Steel Qty is required"),
-  rollingDate: z.string().min(1, "Rolling Date is required"),
-  cuttingDate: z.string().min(1, "Cutting Date is required"),
-  dispatchDate: z.string().min(1, "Dispatch Date is required"),
+  customerName: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Customer Name is required"),
+  billetSize: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Billet Size is required"),
+  billetWeight: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Billet Weight is required"),
+  billetQty: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Billet Qty is required"),
+  steelSize: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Steel Size is required"),
+  steelWeight: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Steel Weight is required"),
+  steelQty: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Steel Qty is required"),
+  rollingDate: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Rolling Date is required"),
+  cuttingDate: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Cutting Date is required"),
+  dispatchDate: z.string().trim().regex(/^[^<>{}$]*$/, "Invalid characters").min(1, "Dispatch Date is required"),
   actualDispatchDate: z.string().optional(),
   status: z.string(),
 });
@@ -66,7 +66,8 @@ export function SteelDetailsTable() {
       const res = await fetch('/api/steel-details');
       if (!res.ok) throw new Error("Failed to fetch steel records");
       return res.json();
-    }
+    },
+    placeholderData: keepPreviousData
   });
 
   const saveMutation = useMutation({
