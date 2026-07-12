@@ -45,14 +45,14 @@ const topVendors = [
 
 const statusMap: Record<string, string> = {
   Delivered: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20",
-  Approved: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
+  Approved: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
   "In Transit": "text-blue-400 bg-blue-400/10 border-blue-400/20",
   Pending: "text-amber-400 bg-amber-400/10 border-amber-400/20",
   Overdue: "text-red-400 bg-red-400/10 border-red-400/20",
 };
 
 const colorMap: Record<string, string> = {
-  cyan: "text-cyan-400 bg-cyan-400/10",
+  cyan: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10",
   emerald: "text-emerald-400 bg-emerald-400/10",
   amber: "text-amber-400 bg-amber-400/10",
   red: "text-red-400 bg-red-400/10",
@@ -95,8 +95,8 @@ export default function PurchasePage() {
             transition={{ delay: 0.3 }}
             className="glass-card border border-white/8 rounded-2xl overflow-hidden"
           >
-            <div className="px-5 py-4 border-b border-white/5 flex items-center gap-2 bg-white/[0.01]">
-              <div className="h-7 w-7 rounded-lg bg-cyan-400/10 text-cyan-400 flex items-center justify-center">
+            <div className="px-5 py-4 border-b border-gray-200 dark:border-white/5 flex items-center gap-2 bg-white/[0.01]">
+              <div className="h-7 w-7 rounded-lg bg-cyan-400/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
                 <Building2 size={13} />
               </div>
               <h3 className="text-sm font-semibold text-foreground">Top Vendors</h3>
@@ -110,7 +110,7 @@ export default function PurchasePage() {
                       <p className="text-[10px] text-muted-foreground mt-0.5">{v.category} · {v.orders} orders</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs font-bold text-cyan-400 font-mono">{v.spend}</p>
+                      <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400 font-mono">{v.spend}</p>
                       <p className="text-[10px] text-emerald-400 mt-0.5">{v.onTime}% on-time</p>
                     </div>
                   </div>
@@ -122,7 +122,7 @@ export default function PurchasePage() {
 
         {/* PO Table */}
         <section className="glass-card border border-white/8 rounded-2xl overflow-hidden">
-          <div className="px-5 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.01]">
+          <div className="px-5 py-4 border-b border-gray-200 dark:border-white/5 flex items-center justify-between bg-white/[0.01]">
             <div className="flex items-center gap-2">
               <div className="h-7 w-7 rounded-lg bg-blue-400/10 text-blue-400 flex items-center justify-center">
                 <FileText size={13} />
@@ -134,7 +134,7 @@ export default function PurchasePage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[900px]">
               <thead>
-                <tr className="border-b border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
+                <tr className="border-b border-gray-200 dark:border-white/5 text-xs font-semibold text-muted-foreground uppercase bg-white/[0.01]">
                   <th className="px-5 py-3 w-16 text-center">Sr. No.</th>
                   <th className="px-5 py-3">PO Number</th>
                   <th className="px-5 py-3">Vendor</th>
@@ -160,7 +160,7 @@ export default function PurchasePage() {
                     <td className="px-5 py-4 font-semibold text-foreground">{po.vendor}</td>
                     <td className="px-5 py-4 text-muted-foreground">{po.item}</td>
                     <td className="px-5 py-4">
-                      <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-xs text-foreground">{po.category}</span>
+                      <span className="px-2 py-0.5 rounded bg-white/5 border border-gray-200 dark:border-white/10 text-xs text-foreground">{po.category}</span>
                     </td>
                     <td className="px-5 py-4 font-mono text-sm">{po.qty}</td>
                     <td className="px-5 py-4 text-right font-mono font-bold text-foreground">{po.value}</td>

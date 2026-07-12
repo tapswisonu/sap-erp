@@ -97,7 +97,7 @@ const features = [
 ];
 
 const colorMap: Record<string, string> = {
-  cyan: "text-cyan-400 bg-cyan-400/10",
+  cyan: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10",
   blue: "text-blue-400 bg-blue-400/10",
   emerald: "text-emerald-400 bg-emerald-400/10",
   amber: "text-amber-400 bg-amber-400/10",

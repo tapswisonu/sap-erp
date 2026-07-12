@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useStore } from "@/store/use-store";
 import {
   LayoutDashboard,
   Database,
@@ -64,7 +65,7 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
   return (
     <>
       {/* Logo */}
-      <div className="flex h-16 items-center px-4 border-b border-white/8 flex-shrink-0">
+      <div className="flex h-16 items-center px-4 border-b border-gray-200 dark:border-white/8 flex-shrink-0">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/20">
             <Factory size={18} className="text-white" />
@@ -127,8 +128,8 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
                         "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-200",
                         "group relative",
                         isActive
-                          ? "bg-cyan-400/10 text-cyan-400 font-medium sidebar-active"
-                          : "text-muted-foreground hover:text-foreground hover:bg-white/5",
+                          ? "bg-cyan-50 dark:bg-cyan-400/10 text-cyan-600 dark:text-cyan-600 dark:text-cyan-400 font-medium sidebar-active"
+                          : "text-muted-foreground hover:text-foreground hover:bg-gray-100 dark:hover:bg-gray-50 dark:bg-white/5",
                         collapsed && "justify-center px-2"
                       )}
                     >
@@ -136,7 +137,7 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
                         size={18}
                         className={cn(
                           "flex-shrink-0 transition-colors",
-                          isActive ? "text-cyan-400" : "group-hover:text-foreground"
+                          isActive ? "text-cyan-600 dark:text-cyan-600 dark:text-cyan-400" : "group-hover:text-foreground"
                         )}
                       />
                       <AnimatePresence>
@@ -155,7 +156,7 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
 
                       {/* Tooltip for collapsed state */}
                       {collapsed && (
-                        <div className="absolute left-full ml-3 px-2.5 py-1.5 rounded-lg bg-slate-800 border border-white/10 text-xs text-foreground whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-50 shadow-xl">
+                        <div className="absolute left-full ml-3 px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-white/10 text-xs text-foreground whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-50 shadow-xl">
                           {item.label}
                         </div>
                       )}
@@ -169,7 +170,7 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
       </nav>
 
       {/* Bottom user section */}
-      <div className="border-t border-white/8 p-3 flex-shrink-0">
+      <div className="border-t border-gray-200 dark:border-white/8 p-3 flex-shrink-0">
         <button
           onClick={(e) => { 
             e.stopPropagation(); 
@@ -178,7 +179,7 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
           }}
           className={cn(
             "flex w-full items-center gap-3 rounded-xl p-2.5",
-            "text-muted-foreground hover:text-red-400 hover:bg-red-500/10 dark:hover:bg-red-400/10 transition-colors",
+            "text-muted-foreground hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors",
             collapsed ? "justify-center" : "justify-start px-4"
           )}
           title="Logout"
@@ -206,8 +207,8 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
         className={cn(
           "hidden md:flex absolute -right-3.5 top-20 z-10",
           "h-7 w-7 items-center justify-center rounded-full",
-          "bg-slate-800 border border-white/10",
-          "text-muted-foreground hover:text-foreground hover:border-cyan-400/30",
+          "bg-white dark:bg-slate-800 border border-gray-200 dark:border-white/10",
+          "text-muted-foreground hover:text-foreground hover:border-cyan-500 dark:hover:border-cyan-400/30",
           "transition-all duration-200 shadow-lg"
         )}
         aria-label="Toggle sidebar"
@@ -219,9 +220,15 @@ function SidebarContent({ collapsed, pathname, setCollapsed }: { collapsed: bool
 }
 
 export function Sidebar() {
-  const [collapsed, setCollapsed] = useState(true);
+  const collapsed = useStore((state) => state.sidebarCollapsed);
+  const setCollapsed = useStore((state) => state.setSidebarCollapsed);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     const handleToggle = () => setMobileOpen((prev) => !prev);
@@ -234,6 +241,12 @@ export function Sidebar() {
     setMobileOpen(false);
   }, [pathname]);
 
+  if (!isClient) {
+    return (
+      <aside className="hidden md:flex flex-col h-screen flex-shrink-0 w-[72px] glass-card border-r border-gray-200 dark:border-white/8 bg-background" />
+    );
+  }
+
   return (
     <>
       {/* Desktop Sidebar */}
@@ -243,7 +256,7 @@ export function Sidebar() {
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className={cn(
           "relative hidden md:flex flex-col h-screen flex-shrink-0",
-          "glass-card border-r border-white/8",
+          "glass-card border-r border-gray-200 dark:border-white/8 bg-white dark:bg-background",
           "overflow-visible" // Make overflow visible so the toggle button isn't clipped
         )}
       >
@@ -259,14 +272,14 @@ export function Sidebar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
-              className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
             />
             <motion.aside
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-              className="fixed top-0 left-0 z-50 flex flex-col h-screen w-[260px] glass-card border-r border-white/8 bg-background md:hidden"
+              className="fixed top-0 left-0 z-50 flex flex-col h-screen w-[260px] glass-card border-r border-gray-200 dark:border-white/8 bg-background md:hidden"
             >
               <SidebarContent collapsed={false} pathname={pathname} setCollapsed={setCollapsed} />
             </motion.aside>

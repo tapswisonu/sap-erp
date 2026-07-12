@@ -32,7 +32,7 @@ export function ChartSkeleton({ type = "generic", className }: ChartSkeletonProp
       initial="hidden"
       animate="show"
       className={cn(
-        "glass-card border border-white/5 rounded-2xl p-5 flex flex-col justify-between h-[340px] relative overflow-hidden",
+        "glass-card border border-gray-200 dark:border-white/5 rounded-2xl p-5 flex flex-col justify-between h-[340px] relative overflow-hidden",
         className
       )}
       style={{
@@ -47,20 +47,20 @@ export function ChartSkeleton({ type = "generic", className }: ChartSkeletonProp
         <div className="flex items-center gap-3">
           {/* Icon placeholder */}
           <div className="relative">
-            <Skeleton className="h-9 w-9 rounded-xl bg-white/5 border border-white/10" />
+            <Skeleton className="h-9 w-9 rounded-xl bg-white/5 border border-gray-200 dark:border-white/10" />
             <span className="absolute inset-0 rounded-xl bg-cyan-400/5 animate-pulse" />
           </div>
           <div className="space-y-1.5">
             {/* Title */}
-            <Skeleton className="h-4 w-36 bg-white/10" />
+            <Skeleton className="h-4 w-36 bg-gray-100 dark:bg-white/10" />
             {/* Subtitle */}
-            <Skeleton className="h-2.5 w-48 bg-white/5" />
+            <Skeleton className="h-2.5 w-48 bg-gray-50 dark:bg-white/5" />
           </div>
         </div>
         {/* Legend/Actions placeholder */}
         <div className="flex gap-2">
-          <Skeleton className="h-5 w-14 rounded-lg bg-white/5 border border-white/10" />
-          <Skeleton className="h-5 w-14 rounded-lg bg-white/5 border border-white/10" />
+          <Skeleton className="h-5 w-14 rounded-lg bg-white/5 border border-gray-200 dark:border-white/10" />
+          <Skeleton className="h-5 w-14 rounded-lg bg-white/5 border border-gray-200 dark:border-white/10" />
         </div>
       </div>
 
@@ -102,7 +102,7 @@ export function ChartSkeleton({ type = "generic", className }: ChartSkeletonProp
                       )} />
                     </div>
                   </motion.div>
-                  <Skeleton className="h-2 w-8 bg-white/5" />
+                  <Skeleton className="h-2 w-8 bg-gray-50 dark:bg-white/5" />
                 </div>
               );
             })}
@@ -113,15 +113,15 @@ export function ChartSkeleton({ type = "generic", className }: ChartSkeletonProp
           <div className="relative w-full h-full flex flex-col justify-between pt-6">
             {/* Horizontal Grid lines */}
             <div className="absolute inset-0 flex flex-col justify-between py-2 pointer-events-none opacity-40">
-              <div className="border-t border-white/5 w-full" />
-              <div className="border-t border-white/5 w-full" />
-              <div className="border-t border-white/5 w-full" />
-              <div className="border-t border-white/5 w-full" />
+              <div className="border-t border-gray-200 dark:border-white/5 w-full" />
+              <div className="border-t border-gray-200 dark:border-white/5 w-full" />
+              <div className="border-t border-gray-200 dark:border-white/5 w-full" />
+              <div className="border-t border-gray-200 dark:border-white/5 w-full" />
             </div>
 
             {/* Shimmer Area Representation */}
             <div className="relative flex-1 w-full overflow-hidden flex items-end">
-              <svg className="w-full h-[85%] opacity-20 text-cyan-400" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <svg className="w-full h-[85%] opacity-20 text-cyan-600 dark:text-cyan-400" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="areaGlowCyan" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.4" />
@@ -161,9 +161,9 @@ export function ChartSkeleton({ type = "generic", className }: ChartSkeletonProp
             </div>
 
             {/* X-axis ticks */}
-            <div className="flex justify-between px-2 pt-3.5 border-t border-white/5">
+            <div className="flex justify-between px-2 pt-3.5 border-t border-gray-200 dark:border-white/5">
               {Array.from({ length: 6 }).map((_, idx) => (
-                <Skeleton key={idx} className="h-2 w-12 bg-white/5" />
+                <Skeleton key={idx} className="h-2 w-12 bg-gray-50 dark:bg-white/5" />
               ))}
             </div>
           </div>
@@ -176,8 +176,8 @@ export function ChartSkeleton({ type = "generic", className }: ChartSkeletonProp
               {/* Outer pulsing ring */}
               <div className="absolute inset-0 rounded-full border border-cyan-500/10 animate-[pulse_3s_infinite]" />
               {/* Spinning glass ring */}
-              <div className="absolute h-[120px] w-[120px] rounded-full border-[10px] border-white/5 before:absolute before:inset-[-10px] before:rounded-full before:border-[10px] before:border-transparent before:border-t-cyan-400/20 before:border-r-blue-400/10 before:animate-[spin_6s_linear_infinite]" />
-              <div className="absolute h-16 w-16 rounded-full bg-white/[0.02] border border-white/5 flex flex-col items-center justify-center text-center">
+              <div className="absolute h-[120px] w-[120px] rounded-full border-[10px] border-gray-200 dark:border-white/5 before:absolute before:inset-[-10px] before:rounded-full before:border-[10px] before:border-transparent before:border-t-cyan-400/20 before:border-r-blue-400/10 before:animate-[spin_6s_linear_infinite]" />
+              <div className="absolute h-16 w-16 rounded-full bg-white/[0.02] border border-gray-200 dark:border-white/5 flex flex-col items-center justify-center text-center">
                 <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-ping" />
                 <span className="text-[9px] font-mono text-muted-foreground mt-1">SYNC</span>
               </div>
@@ -192,12 +192,12 @@ export function ChartSkeleton({ type = "generic", className }: ChartSkeletonProp
                     <div className="flex items-center justify-between text-xs">
                       <div className="flex items-center gap-2">
                         <span className={cn("h-2 w-2 rounded-full", badgeColors[idx % 4])} />
-                        <Skeleton className="h-3 w-16 bg-white/10" />
+                        <Skeleton className="h-3 w-16 bg-gray-100 dark:bg-white/10" />
                       </div>
-                      <Skeleton className="h-3 w-8 bg-white/10 font-mono" />
+                      <Skeleton className="h-3 w-8 bg-gray-100 dark:bg-white/10 font-mono" />
                     </div>
                     {/* Tiny status progress shimmer bar */}
-                    <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden relative">
+                    <div className="h-1 w-full bg-gray-50 dark:bg-white/5 rounded-full overflow-hidden relative">
                       <Skeleton className="absolute left-0 top-0 bottom-0 bg-white/15 w-[60%]" />
                     </div>
                   </div>
@@ -209,14 +209,14 @@ export function ChartSkeleton({ type = "generic", className }: ChartSkeletonProp
 
         {type === "generic" && (
           <div className="w-full h-full flex flex-col justify-between py-2 pt-6">
-            <div className="relative w-full h-[75%] rounded-xl overflow-hidden bg-white/2 border border-white/5">
+            <div className="relative w-full h-[75%] rounded-xl overflow-hidden bg-white/2 border border-gray-200 dark:border-white/5">
               <Skeleton className="w-full h-full bg-transparent" />
               <div className="absolute inset-0 bg-[linear-gradient(rgba(34,211,238,0.01)_1px,transparent_1px)] bg-[size:20px_20px] opacity-40" />
             </div>
             <div className="flex justify-between px-2 pt-3">
-              <Skeleton className="h-2.5 w-16 bg-white/5" />
-              <Skeleton className="h-2.5 w-16 bg-white/5" />
-              <Skeleton className="h-2.5 w-16 bg-white/5" />
+              <Skeleton className="h-2.5 w-16 bg-gray-50 dark:bg-white/5" />
+              <Skeleton className="h-2.5 w-16 bg-gray-50 dark:bg-white/5" />
+              <Skeleton className="h-2.5 w-16 bg-gray-50 dark:bg-white/5" />
             </div>
           </div>
         )}

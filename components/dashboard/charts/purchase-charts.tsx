@@ -32,9 +32,9 @@ export default function PurchaseCharts() {
       <div className="h-[230px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={poTrend} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-            <XAxis dataKey="month" stroke="rgba(255,255,255,0.4)" fontSize={11} />
-            <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
+            <XAxis dataKey="month" stroke="var(--chart-axis)" fontSize={11} />
+            <YAxis stroke="var(--chart-axis)" fontSize={11} />
             <Tooltip {...tt} />
             <Legend wrapperStyle={{ fontSize: "11px" }} />
             <Bar dataKey="raised" fill="#22d3ee" name="Raised" radius={[3, 3, 0, 0]} />

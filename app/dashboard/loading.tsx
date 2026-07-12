@@ -35,17 +35,17 @@ export default function DashboardLoading() {
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent z-50 animate-[pulse_2s_infinite]" />
 
       {/* Loading Header */}
-      <div className="px-6 py-5 border-b border-white/5 flex items-center justify-between flex-shrink-0 bg-white/[0.01] relative z-10">
+      <div className="px-6 py-5 border-b border-gray-200 dark:border-white/5 flex items-center justify-between flex-shrink-0 bg-white/[0.01] relative z-10">
         <div className="space-y-2">
           {/* Header Title Loading */}
-          <Skeleton className="h-6 w-56 bg-white/10" />
+          <Skeleton className="h-6 w-56 bg-gray-100 dark:bg-white/10" />
           {/* Header Subtitle Loading */}
-          <Skeleton className="h-3 w-80 bg-white/5" />
+          <Skeleton className="h-3 w-80 bg-gray-50 dark:bg-white/5" />
         </div>
         
         {/* Dynamic Status Synchronizer Indicator */}
         <div className="flex items-center gap-3">
-          <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-cyan-400/5 border border-cyan-400/10 text-cyan-400 text-xs font-mono">
+          <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-cyan-400/5 border border-cyan-400/10 text-cyan-600 dark:text-cyan-400 text-xs font-mono">
             <Cpu size={12} className="animate-spin" style={{ animationDuration: "3s" }} />
             <AnimatePresence mode="wait">
               <motion.span
@@ -61,8 +61,8 @@ export default function DashboardLoading() {
           </div>
           
           {/* Header Action Button skeletons */}
-          <Skeleton className="h-9 w-20 bg-white/5 rounded-xl" />
-          <Skeleton className="h-9 w-28 bg-white/10 rounded-xl" />
+          <Skeleton className="h-9 w-20 bg-gray-50 dark:bg-white/5 rounded-xl" />
+          <Skeleton className="h-9 w-28 bg-gray-100 dark:bg-white/10 rounded-xl" />
         </div>
       </div>
 
@@ -84,7 +84,7 @@ export default function DashboardLoading() {
           />
 
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-xl bg-cyan-400/10 text-cyan-400 flex items-center justify-center border border-cyan-400/20">
+            <div className="h-9 w-9 rounded-xl bg-cyan-400/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center border border-cyan-400/20">
               <Sparkles size={16} className="animate-pulse" />
             </div>
             <div className="space-y-1">
@@ -96,7 +96,7 @@ export default function DashboardLoading() {
             </div>
           </div>
           <div className="flex gap-2">
-            <Skeleton className="h-7 w-24 bg-white/5 rounded-lg border border-white/10" />
+            <Skeleton className="h-7 w-24 bg-gray-50 dark:bg-white/5 rounded-lg border border-gray-200 dark:border-white/10" />
           </div>
         </motion.div>
 

@@ -65,12 +65,12 @@ export default function CopperDetailsPage() {
                       <stop offset="95%" stopColor="#06b6d4" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                  <XAxis dataKey="month" stroke="rgba(255,255,255,0.4)" fontSize={11} />
-                  <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
+                  <XAxis dataKey="month" stroke="var(--chart-axis)" fontSize={11} />
+                  <YAxis stroke="var(--chart-axis)" fontSize={11} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px" }}
-                    labelStyle={{ color: "#94a3b8", fontSize: "12px" }}
+                    contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }}
+                    labelStyle={{ color: "var(--tooltip-label)", fontSize: "12px", marginBottom: "4px" }}
                   />
                   <Area type="monotone" dataKey="stock" stroke="#f59e0b" fillOpacity={1} fill="url(#colorStock)" name="Total Stock (kg)" />
                   <Area type="monotone" dataKey="consumed" stroke="#06b6d4" fillOpacity={1} fill="url(#colorConsumed)" name="Consumed (kg)" />
@@ -84,13 +84,13 @@ export default function CopperDetailsPage() {
             <h3 className="text-sm font-semibold text-foreground mb-4">Vendor Performance Ratings</h3>
             <div className="space-y-4">
               {copperSuppliers.map((sup, idx) => (
-                <div key={sup.name} className="flex items-center justify-between border-b border-white/5 pb-3 last:border-b-0 last:pb-0">
+                <div key={sup.name} className="flex items-center justify-between border-b border-gray-200 dark:border-white/5 pb-3 last:border-b-0 last:pb-0">
                   <div>
                     <p className="text-xs font-semibold text-foreground">{sup.name}</p>
                     <p className="text-[10px] text-muted-foreground">{sup.supplied} kg supplied • {sup.pending} kg pending</p>
                   </div>
                   <div className="text-right">
-                    <span className="text-xs font-mono font-bold text-cyan-400">{sup.rating} ★</span>
+                    <span className="text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400">{sup.rating} ★</span>
                     <p className={cn(
                       "text-[9px] uppercase tracking-wider font-semibold mt-0.5",
                       sup.status === "active" ? "text-emerald-400" : "text-amber-400"

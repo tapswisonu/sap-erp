@@ -96,7 +96,7 @@ export function TelemetryDeck() {
         <div className="absolute -top-12 -right-12 h-24 w-24 rounded-full bg-cyan-400/5 blur-xl pointer-events-none" />
 
         <div>
-          <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-3">
+          <div className="flex items-center justify-between mb-4 border-b border-gray-200 dark:border-white/5 pb-3">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className={cn("animate-ping absolute inline-flex h-full w-full rounded-full opacity-75", isPlaying ? "bg-cyan-400" : "bg-zinc-500")} />
@@ -136,7 +136,7 @@ export function TelemetryDeck() {
                   <span
                     className={cn(
                       "font-bold px-1.5 py-0.2 rounded text-[9px] flex-shrink-0",
-                      log.type === "INFO" && "bg-cyan-400/10 text-cyan-400 border border-cyan-400/20",
+                      log.type === "INFO" && "bg-cyan-400/10 text-cyan-600 dark:text-cyan-400 border border-cyan-400/20",
                       log.type === "WARN" && "bg-red-400/10 text-red-400 border border-red-400/20 animate-pulse",
                       log.type === "SUCCESS" && "bg-emerald-400/10 text-emerald-400 border border-emerald-400/20",
                       log.type === "AI" && "bg-purple-400/10 text-purple-400 border border-purple-400/20"
@@ -151,7 +151,7 @@ export function TelemetryDeck() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between pt-3 border-t border-white/5 text-[10px] text-muted-foreground font-mono mt-3">
+        <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-white/5 text-[10px] text-muted-foreground font-mono mt-3">
           <span>Active Connection: ws://mundra-erp-edge.local:9001</span>
           <span>Logs Cache: 100/100</span>
         </div>
@@ -163,7 +163,7 @@ export function TelemetryDeck() {
         <div className="absolute -bottom-12 -right-12 h-24 w-24 rounded-full bg-purple-400/5 blur-xl pointer-events-none" />
 
         <div>
-          <div className="flex items-center gap-2 mb-4 border-b border-white/5 pb-3">
+          <div className="flex items-center gap-2 mb-4 border-b border-gray-200 dark:border-white/5 pb-3">
             <Cpu size={15} className="text-purple-400" />
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-mono">Cyber Controls</h3>
           </div>
@@ -173,7 +173,7 @@ export function TelemetryDeck() {
             <div>
               <div className="flex justify-between text-xs font-semibold text-foreground mb-1.5">
                 <span>Line 1 Target Yield</span>
-                <span className="text-cyan-400 font-mono">{conveyorSpeed}% Capacity</span>
+                <span className="text-cyan-600 dark:text-cyan-400 font-mono">{conveyorSpeed}% Capacity</span>
               </div>
               <input
                 type="range"
@@ -181,7 +181,7 @@ export function TelemetryDeck() {
                 max="120"
                 value={conveyorSpeed}
                 onChange={(e) => setConveyorSpeed(Number(e.target.value))}
-                className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+                className="w-full h-1 bg-gray-100 dark:bg-white/10 rounded-lg appearance-none cursor-pointer accent-cyan-400"
               />
               <div className="flex justify-between text-[9px] text-muted-foreground mt-1 font-mono">
                 <span>50% (Eco)</span>
@@ -199,7 +199,7 @@ export function TelemetryDeck() {
                   "relative overflow-hidden w-full flex items-center justify-center gap-2 border rounded-xl py-2.5 text-xs font-bold transition-all",
                   autoOptimizing
                     ? "bg-purple-500/15 border-purple-500/30 text-purple-400 cursor-not-allowed"
-                    : "bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-cyan-500/10 border-white/10 hover:border-purple-400/30 text-foreground"
+                    : "bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-cyan-500/10 border-gray-200 dark:border-white/10 hover:border-purple-400/30 text-foreground"
                 )}
               >
                 {autoOptimizing && (

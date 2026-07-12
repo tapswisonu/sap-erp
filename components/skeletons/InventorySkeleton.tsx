@@ -41,15 +41,15 @@ export function InventorySkeleton({ count = 2, className }: InventorySkeletonPro
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-2.5">
                 <div className="relative">
-                  <Skeleton className="h-8 w-8 rounded-lg bg-white/5 border border-white/10" />
-                  <span className="absolute inset-0 rounded-lg bg-white/5 animate-pulse" />
+                  <Skeleton className="h-8 w-8 rounded-lg bg-white/5 border border-gray-200 dark:border-white/10" />
+                  <span className="absolute inset-0 rounded-lg bg-gray-50 dark:bg-white/5 animate-pulse" />
                 </div>
                 <div className="space-y-1">
                   <h4 className="text-xs font-semibold text-foreground tracking-wide">{textLabel}</h4>
-                  <Skeleton className="h-2.5 w-20 bg-white/5" />
+                  <Skeleton className="h-2.5 w-20 bg-gray-50 dark:bg-white/5" />
                 </div>
               </div>
-              <Skeleton className="h-5 w-16 rounded bg-white/5 border border-white/10" />
+              <Skeleton className="h-5 w-16 rounded bg-white/5 border border-gray-200 dark:border-white/10" />
             </div>
 
             {/* Capacity bars with progress shimmer bars */}
@@ -57,16 +57,16 @@ export function InventorySkeleton({ count = 2, className }: InventorySkeletonPro
               {Array.from({ length: 3 }).map((_, barIdx) => (
                 <div key={barIdx} className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <Skeleton className="h-3 w-28 bg-white/10" />
+                    <Skeleton className="h-3 w-28 bg-gray-100 dark:bg-white/10" />
                     <div className="flex items-center gap-1.5 font-mono">
-                      <Skeleton className="h-3 w-10 bg-white/10" />
+                      <Skeleton className="h-3 w-10 bg-gray-100 dark:bg-white/10" />
                       <span className="text-muted-foreground/40">/</span>
-                      <Skeleton className="h-3 w-10 bg-white/5" />
+                      <Skeleton className="h-3 w-10 bg-gray-50 dark:bg-white/5" />
                     </div>
                   </div>
                   
                   {/* Capacity Bar Placeholder */}
-                  <div className="h-2.5 w-full bg-white/5 border border-white/5 rounded-full overflow-hidden relative">
+                  <div className="h-2.5 w-full bg-white/5 border border-gray-200 dark:border-white/5 rounded-full overflow-hidden relative">
                     {/* Shimmer Progress fill */}
                     <div 
                       className={cn("absolute left-0 top-0 bottom-0 rounded-full", barColor)}
@@ -84,12 +84,12 @@ export function InventorySkeleton({ count = 2, className }: InventorySkeletonPro
             </div>
 
             {/* Bottom details panel */}
-            <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[10px] text-muted-foreground">
+            <div className="mt-6 pt-4 border-t border-gray-200 dark:border-white/5 flex items-center justify-between text-[10px] text-muted-foreground">
               <div className="flex items-center gap-1">
                 <span className={cn("h-1.5 w-1.5 rounded-full animate-ping", idx === 0 ? "bg-blue-400" : "bg-cyan-400")} />
-                <Skeleton className="h-3 w-24 bg-white/5" />
+                <Skeleton className="h-3 w-24 bg-gray-50 dark:bg-white/5" />
               </div>
-              <Skeleton className="h-3 w-16 bg-white/5" />
+              <Skeleton className="h-3 w-16 bg-gray-50 dark:bg-white/5" />
             </div>
           </motion.div>
         );

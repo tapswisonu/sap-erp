@@ -52,6 +52,8 @@ export const viewport: Viewport = {
 };
 
 import { ToastProvider } from "@/components/ui/toast";
+import { QueryProvider } from "@/components/providers/query-provider";
+import { Toaster } from "sonner";
 
 export default function RootLayout({
   children,
@@ -67,9 +69,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ToastProvider>
-            {children}
-          </ToastProvider>
+          <QueryProvider>
+            <ToastProvider>
+              {children}
+            </ToastProvider>
+            <Toaster richColors position="top-right" theme="system" />
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

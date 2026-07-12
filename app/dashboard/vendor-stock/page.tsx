@@ -65,12 +65,12 @@ export default function VendorStockPage() {
                       <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                  <XAxis dataKey="month" stroke="rgba(255,255,255,0.4)" fontSize={11} axisLine={false} tickLine={false} />
-                  <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} axisLine={false} tickLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
+                  <XAxis dataKey="month" stroke="var(--chart-axis)" fontSize={11} axisLine={false} tickLine={false} />
+                  <YAxis stroke="var(--chart-axis)" fontSize={11} axisLine={false} tickLine={false} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: "rgba(15, 23, 42, 0.8)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", backdropFilter: "blur(12px)" }}
-                    labelStyle={{ color: "#94a3b8", fontSize: "12px" }}
+                    contentStyle={{ backgroundColor: "var(--tooltip-bg)", border: "1px solid var(--tooltip-border)", borderRadius: "12px", color: "var(--tooltip-text)" }}
+                    labelStyle={{ color: "var(--tooltip-label)", fontSize: "12px", marginBottom: "4px" }}
                   />
                   <Area type="monotone" dataKey="onTime" stroke="#22d3ee" strokeWidth={3} fillOpacity={1} fill="url(#colorOnTime)" name="On Time" />
                   <Area type="monotone" dataKey="delayed" stroke="#f59e0b" strokeWidth={3} fillOpacity={1} fill="url(#colorDelayed)" name="Delayed" />
@@ -102,9 +102,9 @@ export default function VendorStockPage() {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-white/5">
+            <div className="pt-4 border-t border-gray-200 dark:border-white/5">
               <p className="text-xs font-semibold text-foreground mb-2">Warehouse Capacity Status</p>
-              <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-gray-50 dark:bg-white/5 rounded-full h-1.5 overflow-hidden">
                 <div className="bg-cyan-400 h-full" style={{ width: "68%" }} />
               </div>
               <div className="flex justify-between items-center text-[10px] text-muted-foreground mt-1">

@@ -100,7 +100,7 @@ export function StockAlerts() {
               </div>
 
               {/* Stock bar */}
-              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+              <div className="h-1.5 rounded-full bg-gray-100 dark:bg-white/10 overflow-hidden">
                 <div
                   className={cn("h-full rounded-full transition-all duration-500", conf.bar)}
                   style={{ width: `${Math.min(pct, 100)}%` }}

@@ -31,12 +31,12 @@ const stockSummary = [
 const statusConfig = {
   low: { label: "Low Stock", cls: "text-amber-400 bg-amber-400/10 border-amber-400/20", bar: "bg-amber-400", icon: AlertTriangle },
   optimal: { label: "Optimal", cls: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20", bar: "bg-emerald-400", icon: CheckCircle },
-  high: { label: "High", cls: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20", bar: "bg-cyan-400", icon: TrendingDown },
+  high: { label: "High", cls: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10 border-cyan-400/20", bar: "bg-cyan-400", icon: TrendingDown },
   critical: { label: "Critical", cls: "text-red-400 bg-red-400/10 border-red-400/20", bar: "bg-red-400", icon: AlertTriangle },
 };
 
 const colorMap: Record<string, string> = {
-  cyan: "text-cyan-400 bg-cyan-400/10",
+  cyan: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10",
   blue: "text-blue-400 bg-blue-400/10",
   red: "text-red-400 bg-red-400/10",
   emerald: "text-emerald-400 bg-emerald-400/10",
@@ -74,7 +74,7 @@ export default function StockPage() {
             transition={{ delay: 0.22 }}
             className="glass-card border border-white/8 rounded-2xl overflow-hidden lg:col-span-2"
           >
-            <div className="px-5 py-4 border-b border-white/5 flex items-center gap-2">
+            <div className="px-5 py-4 border-b border-gray-200 dark:border-white/5 flex items-center gap-2">
               <div className="h-7 w-7 rounded-lg bg-blue-400/10 text-blue-400 flex items-center justify-center">
                 <Archive size={13} />
               </div>
@@ -95,7 +95,7 @@ export default function StockPage() {
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
-                        <span className="text-[10px] font-mono text-cyan-400 font-bold bg-cyan-400/10 border border-cyan-400/20 px-2 py-0.5 rounded-md">
+                        <span className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 font-bold bg-cyan-400/10 border border-cyan-400/20 px-2 py-0.5 rounded-md">
                           #{idx + 1}
                         </span>
                         <div>
@@ -112,7 +112,7 @@ export default function StockPage() {
                         <span className="text-xs font-bold text-foreground font-mono w-10 text-right">{pct}%</span>
                       </div>
                     </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-gray-50 dark:bg-white/5 rounded-full overflow-hidden">
                       <motion.div
                         className={cn("h-full rounded-full", conf.bar)}
                         initial={{ width: 0 }}
@@ -133,7 +133,7 @@ export default function StockPage() {
             transition={{ delay: 0.3 }}
             className="glass-card border border-white/8 rounded-2xl overflow-hidden"
           >
-            <div className="px-5 py-4 border-b border-white/5 flex items-center gap-2">
+            <div className="px-5 py-4 border-b border-gray-200 dark:border-white/5 flex items-center gap-2">
               <div className="h-7 w-7 rounded-lg bg-red-400/10 text-red-400 flex items-center justify-center">
                 <AlertTriangle size={13} />
               </div>
@@ -170,7 +170,7 @@ export default function StockPage() {
               ))}
               {/* Reorder action */}
               <div className="px-5 py-4">
-                <button className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 text-xs font-semibold hover:bg-cyan-400/20 transition-all">
+                <button className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/20 text-cyan-600 dark:text-cyan-400 text-xs font-semibold hover:bg-cyan-400/20 transition-all">
                   <RefreshCw size={12} /> Generate Reorder List
                 </button>
               </div>

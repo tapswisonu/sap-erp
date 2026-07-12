@@ -45,9 +45,9 @@ export default function CopperCharts() {
                 <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-            <XAxis dataKey="date" stroke="rgba(255,255,255,0.4)" fontSize={11} />
-            <YAxis stroke="rgba(255,255,255,0.4)" fontSize={11} domain={[9400, 9700]} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
+            <XAxis dataKey="date" stroke="var(--chart-axis)" fontSize={11} />
+            <YAxis stroke="var(--chart-axis)" fontSize={11} domain={[9400, 9700]} />
             <Tooltip {...tt} />
             <Area type="monotone" dataKey="price" stroke="#10b981" fill="url(#gPrice)" strokeWidth={2.5} name="Price ($/T)" />
           </AreaChart>

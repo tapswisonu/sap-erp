@@ -23,7 +23,7 @@ export function WorkflowSkeleton({ className }: WorkflowSkeletonProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.15 }}
       className={cn(
-        "glass-card border border-white/5 rounded-2xl p-6 relative overflow-hidden",
+        "glass-card border border-gray-200 dark:border-white/5 rounded-2xl p-6 relative overflow-hidden",
         className
       )}
       style={{
@@ -31,9 +31,9 @@ export function WorkflowSkeleton({ className }: WorkflowSkeletonProps) {
       }}
     >
       {/* Top Banner details */}
-      <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
+      <div className="flex items-center justify-between mb-6 border-b border-gray-200 dark:border-white/5 pb-4">
         <div className="flex items-center gap-2.5">
-          <div className="relative h-8 w-8 rounded-lg bg-cyan-400/10 text-cyan-400 flex items-center justify-center border border-cyan-400/20">
+          <div className="relative h-8 w-8 rounded-lg bg-cyan-400/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center border border-cyan-400/20">
             <Zap size={14} className="animate-pulse" />
           </div>
           <div>
@@ -41,7 +41,7 @@ export function WorkflowSkeleton({ className }: WorkflowSkeletonProps) {
             <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mt-0.5">Active data pipelines syncing...</p>
           </div>
         </div>
-        <Skeleton className="h-5 w-24 bg-white/5 rounded-full border border-white/5" />
+        <Skeleton className="h-5 w-24 bg-gray-50 dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/5" />
       </div>
 
       {/* Main flow line grid */}
@@ -51,7 +51,7 @@ export function WorkflowSkeleton({ className }: WorkflowSkeletonProps) {
 
         {nodes.map((node, index) => {
           const glows = {
-            cyan: "shadow-cyan-500/10 border-cyan-400/25 text-cyan-400 bg-cyan-400/5",
+            cyan: "shadow-cyan-500/10 border-cyan-400/25 text-cyan-600 dark:text-cyan-400 bg-cyan-400/5",
             blue: "shadow-blue-500/10 border-blue-400/25 text-blue-400 bg-blue-400/5",
             purple: "shadow-purple-500/10 border-purple-400/25 text-purple-400 bg-purple-400/5",
             emerald: "shadow-emerald-500/10 border-emerald-400/25 text-emerald-400 bg-emerald-400/5",
@@ -78,7 +78,7 @@ export function WorkflowSkeleton({ className }: WorkflowSkeletonProps) {
 
                 <div className="flex items-center gap-3">
                   {/* Round blinking node dot */}
-                  <div className="relative h-6 w-6 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 border border-white/10">
+                  <div className="relative h-6 w-6 rounded-full bg-gray-50 dark:bg-white/5 flex items-center justify-center flex-shrink-0 border border-gray-200 dark:border-white/10">
                     <span className={cn(
                       "h-2 w-2 rounded-full",
                       node.color === "cyan" && "bg-cyan-400",
@@ -96,13 +96,13 @@ export function WorkflowSkeleton({ className }: WorkflowSkeletonProps) {
                   </div>
                   <div className="space-y-1">
                     <p className="text-xs font-semibold text-foreground">{node.label}</p>
-                    <Skeleton className="h-2 w-16 bg-white/5" />
+                    <Skeleton className="h-2 w-16 bg-gray-50 dark:bg-white/5" />
                   </div>
                 </div>
 
                 <div className="flex flex-col items-end gap-1.5">
-                  <Skeleton className="h-3 w-8 bg-white/10 font-mono" />
-                  <Skeleton className="h-2 w-12 bg-white/5" />
+                  <Skeleton className="h-3 w-8 bg-gray-100 dark:bg-white/10 font-mono" />
+                  <Skeleton className="h-2 w-12 bg-gray-50 dark:bg-white/5" />
                 </div>
               </motion.div>
 
@@ -133,7 +133,7 @@ export function WorkflowSkeleton({ className }: WorkflowSkeletonProps) {
       </div>
 
       {/* Synchronizing telemetry text log area */}
-      <div className="mt-5 p-3 rounded-lg bg-white/[0.015] border border-white/5 font-mono text-[10px] text-muted-foreground/75 flex items-center justify-between">
+      <div className="mt-5 p-3 rounded-lg bg-white/[0.015] border border-gray-200 dark:border-white/5 font-mono text-[10px] text-muted-foreground/75 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
           <span className="animate-[pulse_1.5s_infinite]">SYNCING DATABASE INSTANCES [NODE-MUNDRA-A]</span>

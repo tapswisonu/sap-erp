@@ -12,7 +12,7 @@ export function TableActions({ onView, onEdit, onDelete }: TableActionsProps) {
     <div className="flex items-center justify-end gap-1">
       <button 
         onClick={(e) => { e.stopPropagation(); onView(); }}
-        className="p-1.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/10 transition-colors" 
+        className="p-1.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-100 dark:bg-white/10 transition-colors" 
         title="View Details"
       >
         <Eye size={16} />

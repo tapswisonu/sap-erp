@@ -21,7 +21,7 @@ const CustomTooltip = ({
   if (active && payload && payload.length) {
     const item = payload[0];
     return (
-      <div className="glass-card border border-white/10 rounded-xl p-3 shadow-xl text-sm">
+      <div className="glass-card border border-gray-200 dark:border-white/10 rounded-xl p-3 shadow-xl text-sm">
         <div className="flex items-center gap-2">
           <div
             className="h-2.5 w-2.5 rounded-full"
@@ -70,7 +70,7 @@ export function SalesDonutChart() {
               <Cell
                 key={`cell-${index}`}
                 fill={entry.color}
-                stroke="rgba(255,255,255,0.05)"
+                stroke="var(--chart-grid)"
                 strokeWidth={2}
               />
             ))}

@@ -26,7 +26,7 @@ const typeColors = {
   alert: "text-amber-400 bg-amber-400/10",
   sales: "text-emerald-400 bg-emerald-400/10",
   production: "text-purple-400 bg-purple-400/10",
-  system: "text-cyan-400 bg-cyan-400/10",
+  system: "text-cyan-600 dark:text-cyan-400 bg-cyan-400/10",
   report: "text-slate-400 bg-slate-400/10",
 };
 
